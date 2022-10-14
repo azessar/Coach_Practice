@@ -1,4 +1,4 @@
-import { newUser } from "../types/user";
+import { existingUser, newUser } from "../types/user";
 
 export const authActionTypes = {
   SIGNUP: "SIGNUP",
@@ -8,11 +8,17 @@ export const authActionTypes = {
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
   LOGIN_ERROR: "LOGIN_ERROR",
   LOGIN: "LOGIN",
+  OPEN_AUTH_MODAL: "OPEN_AUTH_MODAL",
+  CLOSE_AUTH_MODAL: "CLOSE_AUTH_MODAL",
 };
 
 export const authActions = {
   signup: (user: newUser) => ({
     type: authActionTypes.SIGNUP,
+    user,
+  }),
+  login: (user: existingUser) => ({
+    type: authActionTypes.LOGIN,
     user,
   }),
   leaveSignup: () => ({
@@ -21,5 +27,11 @@ export const authActions = {
   signupError: (error: any) => ({
     type: authActionTypes.SIGNUP_ERROR,
     error,
+  }),
+  openAuthModal: () => ({
+    type: authActionTypes.OPEN_AUTH_MODAL,
+  }),
+  closeAuthModal: () => ({
+    type: authActionTypes.CLOSE_AUTH_MODAL,
   }),
 };

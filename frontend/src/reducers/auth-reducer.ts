@@ -5,10 +5,21 @@ const initialState = {
   isSignupSuccess: false,
   currentUser: null,
   loading: false,
+  authModalOpen: false,
 };
 
 const authReducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case "OPEN_AUTH_MODAL":
+      return {
+        ...state,
+        authModalOpen: true,
+      };
+    case "CLOSE_AUTH_MODAL":
+      return {
+        ...state,
+        authModalOpen: false,
+      };
     case "SIGNUP":
       return {
         ...state,

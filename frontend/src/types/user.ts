@@ -6,3 +6,8 @@ export interface newUser {
   password: string;
   confirmPassword: string;
 }
+
+export interface existingUser {
+  email: string;
+  password: string;
+}

@@ -1,55 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { colors } from "./theme-styles";
 import Modal from "@mui/material/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "./actions/auth-actions";
+import { TextField } from "@mui/material";
+import NavBar from "./components/nav-bar";
 
 function App() {
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const authModalOpen = useSelector(
+    (state: any) => state.authReducer.authModalOpen
+  );
+  const handleOpen = () => {
+    dispatch(authActions.openAuthModal());
+  };
+  const handleClose = () => {
+    dispatch(authActions.closeAuthModal());
+  };
+
+  const handleLogin = () => {
+    dispatch(authActions.login({ email, password }));
+  };
+
   return (
     <div className="App">
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" style={{ background: colors.primaryNavy }}>
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              CoachCorner
-            </Typography>
-            <Button color="inherit" onClick={() => handleOpen()}>
-              Login
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
+      <NavBar />
       <Modal
-        open={open}
+        open={authModalOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            fontWeight={"700"}
+            style={{ color: colors.primaryNavy }}
+          >
+            Welcome back, coach!
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <Box marginTop={"10px"} display="flex" flexDirection={"column"}>
+            <Box>
+              <TextField
+                label="E-mail"
+                required
+                fullWidth
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              ></TextField>
+            </Box>
+            <Box marginTop={"10px"}>
+              <TextField
+                type="password"
+                label="Password"
+                required
+                fullWidth
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></TextField>
+            </Box>
+            <Box marginTop={"10px"}>
+              <Button
+                onClick={() => handleLogin()}
+                disabled={email.length === 0 || password.length === 0}
+                variant="contained"
+                style={{
+                  background:
+                    email.length === 0 || password.length === 0
+                      ? colors.disabledGray
+                      : colors.primaryNavy,
+                  color:
+                    email.length === 0 || password.length === 0
+                      ? colors.black
+                      : colors.white,
+                }}
+              >
+                Login
+              </Button>
+            </Box>
+          </Box>
         </Box>
       </Modal>
     </div>
