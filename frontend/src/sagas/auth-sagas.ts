@@ -23,10 +23,18 @@ export const signupAPI = (user: newUser) => {
 };
 
 export const loginAPI = (user: existingUser) => {
-  return axios.post(`${API_URL}/api/auth/login`, {
-    email: user.email,
-    password: user.password,
-  });
+  return axios.post(
+    `${API_URL}/api/auth/login`,
+    {
+      email: user.email,
+      password: user.password,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 };
 
 function* signup(action: any): any {
