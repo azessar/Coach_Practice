@@ -4,4 +4,5 @@ export const colors = {
   disabledGray: "gray",
   white: "white",
   black: "black",
+  red: "red",
 };

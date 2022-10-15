@@ -76,7 +76,7 @@ function* login(action: any): any {
     console.log(err.response.headers);
     yield put({
       type: LOGIN_ERROR,
-      signupMessage: err.response.data.message,
+      authMessage: err.response.data.message,
     });
   }
 }

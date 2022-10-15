@@ -44,7 +44,7 @@ const authReducer = (state = initialState, action: any) => {
     case "LOGIN_ERROR":
       return {
         ...state,
-        authMessage: action.loginMessage,
+        authMessage: action.authMessage,
         isError: true,
         loading: false,
       };
@@ -56,6 +56,7 @@ const authReducer = (state = initialState, action: any) => {
         isSignupSuccess: true,
         currentUser: action.currentUser,
         loading: false,
+        authModalOpen: false,
       };
     case "LOGIN_SUCCESS":
       return {
@@ -65,6 +66,7 @@ const authReducer = (state = initialState, action: any) => {
         isLoginSuccess: true,
         currentUser: action.currentUser,
         loading: false,
+        authModalOpen: false,
       };
     case "LEAVE_SIGNUP":
       return {
