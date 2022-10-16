@@ -10,6 +10,8 @@ export const authActionTypes = {
   LOGIN: "LOGIN",
   OPEN_AUTH_MODAL: "OPEN_AUTH_MODAL",
   CLOSE_AUTH_MODAL: "CLOSE_AUTH_MODAL",
+  OPEN_HELLO_MENU: "OPEN_HELLO_MENU",
+  CLOSE_HELLO_MENU: "CLOSE_HELLO_MENU",
 };
 
 export const authActions = {
@@ -33,5 +35,12 @@ export const authActions = {
   }),
   closeAuthModal: () => ({
     type: authActionTypes.CLOSE_AUTH_MODAL,
+  }),
+  openHelloMenu: (e: any) => ({
+    type: authActionTypes.OPEN_HELLO_MENU,
+    e,
+  }),
+  closeHelloMenu: () => ({
+    type: authActionTypes.CLOSE_HELLO_MENU,
   }),
 };

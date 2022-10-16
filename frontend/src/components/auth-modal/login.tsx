@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import "../App.css";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { colors } from "../theme-styles";
+import { colors } from "../../theme-styles";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../actions/auth-actions";
+import { authActions } from "../../actions/auth-actions";
 import { TextField } from "@mui/material";
 
-function AuthModal() {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -25,6 +24,12 @@ function AuthModal() {
   const { authMessage, isError } = useSelector(
     (state: any) => state.authReducer
   );
+
+  const handleEnter = (e: any) => {
+    if (e.keyCode == 13) {
+      handleLogin();
+    }
+  };
 
   return (
     <Modal
@@ -62,6 +67,7 @@ function AuthModal() {
               fullWidth
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => handleEnter(e)}
             ></TextField>
           </Box>
           <Box marginTop={"10px"}>
@@ -72,6 +78,7 @@ function AuthModal() {
               fullWidth
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => handleEnter(e)}
             ></TextField>
           </Box>
           <Box marginTop={"10px"}>
@@ -111,4 +118,4 @@ const style = {
   p: 4,
 };
 
-export default AuthModal;
+export default Login;

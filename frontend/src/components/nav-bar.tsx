@@ -13,8 +13,11 @@ import { authActions } from "../actions/auth-actions";
 
 function NavBar() {
   const dispatch = useDispatch();
-  const handleOpen = () => {
-    dispatch(authActions.openAuthModal());
+  const { currentUser } = useSelector((state: any) => state.authReducer);
+  const handleOpen = (e: any) => {
+    currentUser
+      ? dispatch(authActions.openHelloMenu(e))
+      : dispatch(authActions.openAuthModal());
   };
 
   return (
@@ -24,17 +27,22 @@ function NavBar() {
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            style={{ color: colors.secondaryLightBlue }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            sx={{ flexGrow: 1 }}
+            style={{ color: colors.secondaryLightBlue }}
+          >
             CoachCorner
           </Typography>
-          <Button color="inherit" onClick={() => handleOpen()}>
-            Login
+          <Button color="inherit" onClick={(e) => handleOpen(e)}>
+            <Typography style={{ color: colors.secondaryLightBlue }}>
+              {!currentUser ? "Login" : `Hello, Coach ${currentUser.firstName}`}
+            </Typography>
           </Button>
         </Toolbar>
       </AppBar>

@@ -6,6 +6,8 @@ const initialState = {
   currentUser: null,
   loading: false,
   authModalOpen: false,
+  helloMenuOpen: false,
+  helloMenuAnchor: null,
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -19,6 +21,18 @@ const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         authModalOpen: false,
+      };
+    case "OPEN_HELLO_MENU":
+      return {
+        ...state,
+        helloMenuOpen: true,
+        helloMenuAnchor: action.e.currentTarget,
+      };
+    case "CLOSE_HELLO_MENU":
+      return {
+        ...state,
+        helloMenuOpen: false,
+        helloMenuAnchor: null,
       };
     case "SIGNUP":
       return {
