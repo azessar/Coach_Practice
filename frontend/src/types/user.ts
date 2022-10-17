@@ -2,7 +2,7 @@ export interface newUser {
   firstName: string;
   lastName: string;
   email: string;
-  zip: string;
+  zipCode: string;
   password: string;
   confirmPassword: string;
 }

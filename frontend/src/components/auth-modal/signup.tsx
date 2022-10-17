@@ -10,12 +10,25 @@ import { TextField } from "@mui/material";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    dispatch(authActions.login({ email, password }));
-    setEmail("");
+  const handleSignup = () => {
+    dispatch(
+      authActions.signup({
+        firstName,
+        lastName,
+        zipCode,
+        email,
+        password,
+        confirmPassword,
+      })
+    );
     setPassword("");
+    setConfirmPassword("");
   };
 
   const { authMessage, isError } = useSelector(
@@ -24,7 +37,7 @@ function Signup() {
 
   const handleEnter = (e: any) => {
     if (e.keyCode == 13) {
-      handleLogin();
+      handleSignup();
     }
   };
 
@@ -33,6 +46,14 @@ function Signup() {
     setEmail("");
     setPassword("");
   };
+
+  const disabledSubmit =
+    firstName.length === 0 ||
+    lastName.length === 0 ||
+    email.length === 0 ||
+    zipCode.length === 0 ||
+    password.length === 0 ||
+    confirmPassword.length === 0;
 
   return (
     <Box sx={boxStyle}>
@@ -43,7 +64,7 @@ function Signup() {
         fontWeight={"700"}
         style={{ color: colors.primaryNavy }}
       >
-        Welcome to the team, coach!
+        Signup as a coach!
       </Typography>
       {isError && (
         <Typography
@@ -57,13 +78,43 @@ function Signup() {
       )}
 
       <Box marginTop={"10px"} display="flex" flexDirection={"column"}>
-        <Box>
+        <Box marginTop={"10px"}>
+          <TextField
+            label="First name"
+            required
+            fullWidth
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            onKeyDown={(e) => handleEnter(e)}
+          ></TextField>
+        </Box>
+        <Box marginTop={"10px"}>
+          <TextField
+            label="Last name"
+            required
+            fullWidth
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            onKeyDown={(e) => handleEnter(e)}
+          ></TextField>
+        </Box>
+        <Box marginTop={"10px"}>
           <TextField
             label="E-mail"
             required
             fullWidth
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => handleEnter(e)}
+          ></TextField>
+        </Box>
+        <Box marginTop={"10px"}>
+          <TextField
+            label="Zip code"
+            required
+            fullWidth
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
             onKeyDown={(e) => handleEnter(e)}
           ></TextField>
         </Box>
@@ -79,24 +130,31 @@ function Signup() {
           ></TextField>
         </Box>
         <Box marginTop={"10px"}>
+          <TextField
+            type="password"
+            label="Confirm password"
+            required
+            fullWidth
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            onKeyDown={(e) => handleEnter(e)}
+          ></TextField>
+        </Box>
+        <Box marginTop={"10px"}>
           <Box sx={typographyStyles} onClick={handleSwitchToLogin}>
             Or log back in here!
           </Box>
         </Box>
         <Box marginTop={"10px"}>
           <Button
-            onClick={() => handleLogin()}
-            disabled={email.length === 0 || password.length === 0}
+            onClick={() => handleSignup()}
+            disabled={disabledSubmit}
             variant="contained"
             style={{
-              background:
-                email.length === 0 || password.length === 0
-                  ? colors.disabledGray
-                  : colors.primaryNavy,
-              color:
-                email.length === 0 || password.length === 0
-                  ? colors.black
-                  : colors.white,
+              background: disabledSubmit
+                ? colors.disabledGray
+                : colors.primaryNavy,
+              color: disabledSubmit ? colors.black : colors.white,
             }}
           >
             Login

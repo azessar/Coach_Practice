@@ -13,12 +13,12 @@ const LOGIN_ERROR = authActionTypes.LOGIN_ERROR;
 
 export const signupAPI = (user: newUser) => {
   return axios.post(`${API_URL}/api/auth/signup`, {
-    first_name: user.firstName,
-    last_name: user.lastName,
+    firstName: user.firstName,
+    lastName: user.lastName,
     email: user.email,
-    zip: user.zip,
+    zipCode: user.zipCode,
     password: user.password,
-    confirm_password: user.confirmPassword,
+    confirmPassword: user.confirmPassword,
   });
 };
 
