@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../actions/auth-actions";
 import { TextField } from "@mui/material";
 
-function Login() {
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -28,8 +28,8 @@ function Login() {
     }
   };
 
-  const handleSwitchToSignup = () => {
-    dispatch(authActions.switchToSignup());
+  const handleSwitchToLogin = () => {
+    dispatch(authActions.switchToLogin());
     setEmail("");
     setPassword("");
   };
@@ -43,7 +43,7 @@ function Login() {
         fontWeight={"700"}
         style={{ color: colors.primaryNavy }}
       >
-        Welcome back, coach!
+        Welcome to the team, coach!
       </Typography>
       {isError && (
         <Typography
@@ -79,8 +79,8 @@ function Login() {
           ></TextField>
         </Box>
         <Box marginTop={"10px"}>
-          <Box sx={typographyStyles} onClick={handleSwitchToSignup}>
-            Or create a new account here!
+          <Box sx={typographyStyles} onClick={handleSwitchToLogin}>
+            Or log back in here!
           </Box>
         </Box>
         <Box marginTop={"10px"}>
@@ -128,4 +128,4 @@ const typographyStyles = {
   },
 };
 
-export default Login;
+export default Signup;

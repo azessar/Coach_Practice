@@ -8,6 +8,7 @@ const initialState = {
   authModalOpen: false,
   helloMenuOpen: false,
   helloMenuAnchor: null,
+  loginMode: true,
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -87,6 +88,16 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         authMessage: "",
         isError: false,
+      };
+    case "SWITCH_TO_SIGNUP":
+      return {
+        ...state,
+        loginMode: false,
+      };
+    case "SWITCH_TO_LOGIN":
+      return {
+        ...state,
+        loginMode: true,
       };
     case "LOGOUT":
       return initialState;

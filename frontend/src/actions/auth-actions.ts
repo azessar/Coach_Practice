@@ -13,6 +13,8 @@ export const authActionTypes = {
   OPEN_HELLO_MENU: "OPEN_HELLO_MENU",
   CLOSE_HELLO_MENU: "CLOSE_HELLO_MENU",
   LOGOUT: "LOGOUT",
+  SWITCH_TO_SIGNUP: "SWITCH_TO_SIGNUP",
+  SWITCH_TO_LOGIN: "SWITCH_TO_LOGIN",
 };
 
 export const authActions = {
@@ -46,5 +48,11 @@ export const authActions = {
   }),
   logout: () => ({
     type: authActionTypes.LOGOUT,
+  }),
+  switchToSignup: () => ({
+    type: authActionTypes.SWITCH_TO_SIGNUP,
+  }),
+  switchToLogin: () => ({
+    type: authActionTypes.SWITCH_TO_LOGIN,
   }),
 };
