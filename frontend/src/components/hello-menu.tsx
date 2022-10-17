@@ -12,6 +12,10 @@ function HelloMenu() {
     dispatch(authActions.closeHelloMenu());
   };
 
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+  };
+
   const { helloMenuOpen, helloMenuAnchor } = useSelector(
     (state: any) => state.authReducer
   );
@@ -19,7 +23,7 @@ function HelloMenu() {
     <Menu open={helloMenuOpen} onClose={handleClose} anchorEl={helloMenuAnchor}>
       <MenuItem onClick={handleClose}>Profile</MenuItem>
       <MenuItem onClick={handleClose}>My account</MenuItem>
-      <MenuItem onClick={handleClose}>Logout</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 }

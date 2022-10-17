@@ -88,6 +88,8 @@ const authReducer = (state = initialState, action: any) => {
         authMessage: "",
         isError: false,
       };
+    case "LOGOUT":
+      return initialState;
     default:
       return state;
   }
