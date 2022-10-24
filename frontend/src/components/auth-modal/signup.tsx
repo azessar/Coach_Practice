@@ -36,7 +36,7 @@ function Signup() {
   );
 
   const handleEnter = (e: any) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode == 13 && !disabledSubmit) {
       handleSignup();
     }
   };
@@ -114,7 +114,8 @@ function Signup() {
             required
             fullWidth
             value={zipCode}
-            onChange={(e) => setZipCode(e.target.value)}
+            type="number"
+            onChange={(e) => setZipCode(String(e.target.value))}
             onKeyDown={(e) => handleEnter(e)}
           ></TextField>
         </Box>
