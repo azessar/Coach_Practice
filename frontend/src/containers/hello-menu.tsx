@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../actions/auth-actions";
 import { MenuItem } from "@mui/material";
 import Menu from "@mui/material/Menu";
+import { Link, useNavigate } from "react-router-dom";
 
 function HelloMenu() {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const handleClose = () => {
     dispatch(authActions.closeHelloMenu());
@@ -14,6 +16,7 @@ function HelloMenu() {
 
   const handleLogout = () => {
     dispatch(authActions.logout());
+    navigate("");
   };
 
   const { helloMenuOpen, helloMenuAnchor } = useSelector(
@@ -21,7 +24,14 @@ function HelloMenu() {
   );
   return (
     <Menu open={helloMenuOpen} onClose={handleClose} anchorEl={helloMenuAnchor}>
-      <MenuItem onClick={handleClose}>Profile</MenuItem>
+      <MenuItem>
+        <Link
+          to="/profile"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          Profile
+        </Link>
+      </MenuItem>
       <MenuItem onClick={handleClose}>My account</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
