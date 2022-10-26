@@ -1,36 +1,75 @@
 const db = require("../models");
 const ROLES = db.ROLES;
 const User = db.user;
-checkDuplicateUsernameOrEmail = (req, res, next) => {
+
+const checkDuplicateUsernameOrEmail = (req, res, next) => {
   // Username
   User.findOne({
     where: {
-      username: req.body.username,
+      email: req.body.email,
     },
   }).then((user) => {
     if (user) {
       res.status(400).send({
-        message: "Failed! Username is already in use!",
+        message: "Email is already in use!",
       });
       return;
     }
-    // Email
-    User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    }).then((user) => {
-      if (user) {
-        res.status(400).send({
-          message: "Failed! Email is already in use!",
-        });
-        return;
-      }
-      next();
-    });
+    next();
   });
 };
-checkRolesExisted = (req, res, next) => {
+
+const checkNoBlanks = (req, res, next) => {
+  const { firstName, lastName, email, password, confirmPassword, zipCode } =
+    req.body;
+  const data = [firstName, lastName, email, password, confirmPassword, zipCode];
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].length === 0) {
+      res.status(400).send({
+        message: "All fields must be filled!",
+      });
+      return;
+    }
+  }
+  next();
+};
+
+const checkValidEmail = (req, res, next) => {
+  const { email } = req.body;
+  var validRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  if (!email.match(validRegex)) {
+    res.status(400).send({
+      message: "Please enter a valid email!",
+    });
+    return;
+  }
+  next();
+};
+
+const checkPasswordLength = (req, res, next) => {
+  const { password } = req.body;
+  if (password.length < 7) {
+    res.status(400).send({
+      message: "Password must be at least 7 characters!",
+    });
+    return;
+  }
+  next();
+};
+
+const checkConfirmPassword = (req, res, next) => {
+  const { password, confirmPassword } = req.body;
+  if (password != confirmPassword) {
+    res.status(400).send({
+      message: "Password and Confirm Password must match!",
+    });
+    return;
+  }
+  next();
+};
+
+const checkRolesExisted = (req, res, next) => {
   if (req.body.roles) {
     for (let i = 0; i < req.body.roles.length; i++) {
       if (!ROLES.includes(req.body.roles[i])) {
@@ -44,8 +83,13 @@ checkRolesExisted = (req, res, next) => {
 
   next();
 };
+
 const verifySignUp = {
   checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail,
+  checkNoBlanks: checkNoBlanks,
+  checkValidEmail: checkValidEmail,
+  checkPasswordLength: checkPasswordLength,
+  checkConfirmPassword: checkConfirmPassword,
   checkRolesExisted: checkRolesExisted,
 };
 module.exports = verifySignUp;

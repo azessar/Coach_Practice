@@ -12,9 +12,13 @@ module.exports = function (app) {
     "/api/auth/signup",
     [
       verifySignUp.checkDuplicateUsernameOrEmail,
+      verifySignUp.checkNoBlanks,
+      verifySignUp.checkPasswordLength,
+      verifySignUp.checkValidEmail,
+      verifySignUp.checkConfirmPassword,
       verifySignUp.checkRolesExisted,
     ],
     controller.signup
   );
-  app.post("/api/auth/signin", controller.signin);
+  app.post("/api/auth/login", controller.login);
 };

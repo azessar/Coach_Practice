@@ -15,11 +15,11 @@ function App() {
     <div className="App">
       <Router>
         <NavBar />
-        {loading && (
+        {/* {loading && (
           <Box position="absolute" top="50%" left="50%" zIndex={10000}>
             <CircularProgress />
           </Box>
-        )}
+        )} */}
         <AuthModal />
         <HelloMenu />
         <Routes>
