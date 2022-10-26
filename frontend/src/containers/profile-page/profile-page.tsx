@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { colors } from "../../theme-styles";
 import { Box } from "@mui/system";
 import { userActions } from "../../actions/user-actions";
 import { Typography } from "@mui/material";
+import Text from "../../components/text";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -27,7 +28,10 @@ function ProfilePage() {
         border="1px solid black"
       ></Box>
       <Box marginLeft={"auto"} marginRight="auto" marginTop="20px">
-        <Typography>{userProfile?.firstName}</Typography>
+        <Text
+          fontWeight="700"
+          words={`${userProfile?.firstName.toUpperCase()} ${userProfile?.lastName.toUpperCase()}`}
+        />
       </Box>
     </Box>
   );
