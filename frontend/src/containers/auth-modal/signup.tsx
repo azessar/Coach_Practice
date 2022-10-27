@@ -31,9 +31,7 @@ function Signup() {
     setConfirmPassword("");
   };
 
-  const { authMessage, isError } = useSelector(
-    (state: any) => state.authReducer
-  );
+  const { authMessage, isError } = useSelector((state: any) => state.uiReducer);
 
   const handleEnter = (e: any) => {
     if (e.keyCode == 13 && !disabledSubmit) {

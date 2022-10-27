@@ -20,7 +20,7 @@ function HelloMenu() {
   };
 
   const { helloMenuOpen, helloMenuAnchor } = useSelector(
-    (state: any) => state.authReducer
+    (state: any) => state.uiReducer
   );
   return (
     <Menu open={helloMenuOpen} onClose={handleClose} anchorEl={helloMenuAnchor}>

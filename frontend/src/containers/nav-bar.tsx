@@ -56,11 +56,6 @@ function NavBar() {
             </Box>
 
             <Button color="inherit" onClick={(e) => handleOpen(e)}>
-              {/* <Typography style={{ color: colors.secondaryLightBlue }}>
-                {!currentUser
-                  ? "Login"
-                  : `Hello, Coach ${currentUser.firstName}`}
-              </Typography> */}
               {!currentUser ? (
                 <Typography style={{ color: colors.secondaryLightBlue }}>
                   LOGIN

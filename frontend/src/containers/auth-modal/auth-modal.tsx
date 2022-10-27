@@ -7,8 +7,9 @@ import { authActions } from "../../actions/auth-actions";
 
 function AuthModal() {
   const dispatch = useDispatch();
-  const { authModalOpen } = useSelector((state: any) => state.authReducer);
-  const { loginMode } = useSelector((state: any) => state.authReducer);
+  const { authModalOpen, loginMode } = useSelector(
+    (state: any) => state.uiReducer
+  );
   const handleClose = () => {
     dispatch(authActions.closeAuthModal());
   };

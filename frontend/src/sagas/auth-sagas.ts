@@ -7,8 +7,10 @@ import { API_URL } from "../constants";
 const SIGNUP = authActionTypes.SIGNUP;
 const SIGNUP_ERROR = authActionTypes.SIGNUP_ERROR;
 const SIGNUP_SUCCESS = authActionTypes.SIGNUP_SUCCESS;
+const UI_SIGNUP_SUCCESS = authActionTypes.UI_SIGNUP_SUCCESS;
 const LOGIN = authActionTypes.LOGIN;
 const LOGIN_SUCCESS = authActionTypes.LOGIN_SUCCESS;
+const UI_LOGIN_SUCCESS = authActionTypes.UI_LOGIN_SUCCESS;
 const LOGIN_ERROR = authActionTypes.LOGIN_ERROR;
 
 export const signupAPI = (user: newUser) => {
@@ -44,8 +46,14 @@ function* signup(action: any): any {
       console.log(response);
       yield put({
         type: SIGNUP_SUCCESS,
-        signupMessage: response.data.message,
         currentUser: response.data,
+      });
+      yield put({
+        type: UI_SIGNUP_SUCCESS,
+        isError: false,
+        isSignupSuccess: true,
+        loading: false,
+        authModalOpen: false,
       });
     }
   } catch (err: any) {
@@ -66,8 +74,15 @@ function* login(action: any): any {
       console.log(response);
       yield put({
         type: LOGIN_SUCCESS,
-        signupMessage: response.data.message,
         currentUser: response.data,
+      });
+      yield put({
+        type: UI_LOGIN_SUCCESS,
+        authMessage: action.loginMessage,
+        isError: false,
+        isLoginSuccess: true,
+        loading: false,
+        authModalOpen: false,
       });
     }
   } catch (err: any) {
