@@ -30,7 +30,6 @@ function* getUserProfile(action: any): any {
       action.accessToken
     );
     if (response) {
-      console.log(response);
       yield put({
         type: GET_USER_PROFILE_SUCCESS,
         responseMessage: response.data.message,

@@ -5,4 +5,5 @@ export const colors = {
   white: "white",
   black: "black",
   red: "red",
+  tertiarySilver: "#e7e6e6",
 };

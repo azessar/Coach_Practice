@@ -11,6 +11,7 @@ import { colors } from "../theme-styles";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../actions/auth-actions";
 import { Link } from "react-router-dom";
+import Text from "../components/text";
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -50,7 +51,12 @@ function NavBar() {
                     color: colors.secondaryLightBlue,
                   }}
                 >
-                  CoachCorner
+                  <Text
+                    words="CoachCorner"
+                    color={colors.secondaryLightBlue}
+                    fontSize="1.2em"
+                  />
+                  {/* CoachCorner */}
                 </Link>
               </Typography>
             </Box>
@@ -62,14 +68,16 @@ function NavBar() {
                 </Typography>
               ) : (
                 <Box>
-                  <Typography style={{ color: colors.secondaryLightBlue }}>
-                    HELLO,
-                  </Typography>
-                  <Typography
-                    style={{ color: colors.secondaryLightBlue, fontSize: 12 }}
-                  >
-                    Coach {currentUser.firstName}
-                  </Typography>
+                  <Text
+                    words="HELLO,"
+                    color={colors.secondaryLightBlue}
+                    fontSize="1.2em"
+                  />
+                  <Text
+                    words={`COACH ${currentUser.firstName}`}
+                    color={colors.secondaryLightBlue}
+                    fontSize="0.9em"
+                  />
                 </Box>
               )}
             </Button>

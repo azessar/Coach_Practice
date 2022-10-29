@@ -5,6 +5,8 @@ import { authActions } from "../actions/auth-actions";
 import { MenuItem } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import { Link, useNavigate } from "react-router-dom";
+import { colors } from "../theme-styles";
+import Text from "../components/text";
 
 function HelloMenu() {
   const dispatch = useDispatch();
@@ -19,21 +21,33 @@ function HelloMenu() {
     navigate("");
   };
 
+  const handleClick = (route: string) => {
+    navigate(route);
+    handleClose();
+  };
+
   const { helloMenuOpen, helloMenuAnchor } = useSelector(
     (state: any) => state.uiReducer
   );
   return (
     <Menu open={helloMenuOpen} onClose={handleClose} anchorEl={helloMenuAnchor}>
-      <MenuItem>
+      {/* <MenuItem>
         <Link
           to="/profile"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          Profile
+          <Text words="PROFILE" fontSize="16px" />
         </Link>
+      </MenuItem> */}
+      <MenuItem onClick={() => handleClick("/profile")}>
+        <Text words="PROFILE" fontSize="16px" />
       </MenuItem>
-      <MenuItem onClick={handleClose}>My account</MenuItem>
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Text words="MY ACCOUNT" fontSize="16px" />
+      </MenuItem>
+      <MenuItem onClick={handleLogout}>
+        <Text words="LOGOUT" fontSize="16px" />
+      </MenuItem>
     </Menu>
   );
 }

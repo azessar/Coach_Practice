@@ -70,20 +70,13 @@ exports.login = (req, res) => {
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400, // 24 hours
       });
-      var authorities = [];
-      user.getRoles().then((roles) => {
-        for (let i = 0; i < roles.length; i++) {
-          authorities.push("ROLE_" + roles[i].name.toUpperCase());
-        }
-        res.status(200).send({
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          roles: authorities,
-          lastName: user.lastName,
-          zipCode: user.zipCode,
-          accessToken: token,
-        });
+      res.status(200).send({
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        zipCode: user.zipCode,
+        accessToken: token,
       });
     })
     .catch((err) => {
