@@ -38,6 +38,33 @@ async function initial() {
       blurb:
         "asdf asdf asdf asdfsdklfhasdlhkj fasdkljh flkasdjhf lkasdjhf aklsdjfh lkasdjfhlk sdjfhlksdjhflkadjsfh klasdhklajdshf lksdflkasdjhf lkasdjhf laksdjhf laksdjfh lkasdjhf lkasdjhf lkasdfhlk dhslfkajhds fadsfjh aklsdjhf lkasjdhf lkjasdhfl kadhsflkadhslkasdhf lk adjshflk",
       sports: ["Basketball", "Tennis", "Pickleball"],
+      experience: [
+        {
+          startDate: "Sun Oct 01 2011 18:10:13 GMT-0400",
+          endDate: "Sun Oct 01 2012 18:10:13 GMT-0400",
+          organization: "Deerfield High School",
+          role: "Point Guard",
+          sport: "Basketball",
+          summary: "Got buckets and put the team on my back",
+        },
+        {
+          startDate: "Sun Feb 01 2012 18:10:13 GMT-0400",
+          endDate: "Sun Oct 01 2012 18:10:13 GMT-0400",
+          organization: "Whatever Middle School",
+          role: "Head Coach",
+          sport: "Baseball",
+          summary: "Coached a bunch of kids to the ship",
+        },
+        {
+          startDate: "Sun Oct 01 2020 18:10:13 GMT-0400",
+          endDate: "Sun Feb 01 2021 18:10:13 GMT-0400",
+          organization: "Something High School",
+          role: "Head Coach",
+          sport: "Basketball",
+          summary:
+            "Dominated asdf asdf asdf adlkfjhasd lkjfh adslkfh adklsfhladksj flaksdjhf laksdjhf lkjadshf lasdkhf laskdjhf aklsdhf",
+        },
+      ],
     },
   ]);
 }

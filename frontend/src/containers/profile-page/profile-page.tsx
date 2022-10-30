@@ -5,12 +5,26 @@ import { Box } from "@mui/system";
 import { userActions } from "../../actions/user-actions";
 import Text from "../../components/text";
 import BigText from "../../components/big-text";
+import { existingUser } from "../../types/user";
 
 function ProfilePage() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
-  const { userProfile } = useSelector((state: any) => state.userReducer);
-  const { twitter, instagram, firstName, lastName, email, blurb } = userProfile;
+  const userProfile: existingUser = useSelector(
+    (state: any) => state.userReducer.userProfile
+  );
+  const { twitter, instagram, firstName, lastName, email, blurb, experience } =
+    userProfile
+      ? userProfile
+      : {
+          twitter: "",
+          instagram: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          blurb: "",
+          experience: [],
+        };
 
   useEffect(() => {
     dispatch(
@@ -21,14 +35,12 @@ function ProfilePage() {
   return (
     <>
       <Box
-        bgcolor={colors.tertiarySilver}
+        bgcolor={colors.white}
         width="60%"
         margin="auto"
         padding="20px"
         marginTop={"20px"}
         borderRadius="10px"
-        border={`1px solid ${colors.primaryNavy}`}
-        boxShadow={`2px 2px 2px ${colors.disabledGray}`}
       >
         <Box
           marginLeft={"auto"}
@@ -37,7 +49,7 @@ function ProfilePage() {
           height="200px"
           width="200px"
           borderRadius={"50%"}
-          border={`5px solid ${colors.white}`}
+          border={`5px solid ${colors.secondaryLightBlue}`}
         ></Box>
         <Box marginLeft={"auto"} marginRight="auto" marginTop="20px">
           <Text fontSize="14px" color={colors.primaryNavy} words={`Coach`} />
@@ -46,20 +58,18 @@ function ProfilePage() {
           <Text
             fontWeight="700"
             color={colors.primaryNavy}
-            words={`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}
+            words={`${firstName?.toUpperCase()} ${lastName?.toUpperCase()}`}
           />
         </Box>
       </Box>
 
       <Box
-        bgcolor={colors.tertiarySilver}
+        bgcolor={colors.white}
         width="60%"
         margin="auto"
         padding="20px"
         marginTop={"20px"}
         borderRadius="10px"
-        border={`1px solid ${colors.primaryNavy}`}
-        boxShadow={`2px 2px 2px ${colors.disabledGray}`}
       >
         <Box
           marginLeft={"auto"}
@@ -93,7 +103,7 @@ function ProfilePage() {
               </Box>
               <Box marginLeft={"5px"}>
                 <a
-                  href={`http://www.instagram.com/${twitter.slice(1)}`}
+                  href={`http://www.instagram.com/${twitter?.slice(1)}`}
                   target="_blank"
                 >
                   <Text
@@ -124,14 +134,12 @@ function ProfilePage() {
       </Box>
 
       <Box
-        bgcolor={colors.tertiarySilver}
+        bgcolor={colors.white}
         width="60%"
         margin="auto"
         padding="20px"
         marginTop={"20px"}
         borderRadius="10px"
-        border={`1px solid ${colors.primaryNavy}`}
-        boxShadow={`2px 2px 2px ${colors.disabledGray}`}
       >
         <Box>
           <BigText
@@ -151,14 +159,12 @@ function ProfilePage() {
       </Box>
 
       <Box
-        bgcolor={colors.tertiarySilver}
+        bgcolor={colors.white}
         width="60%"
         margin="auto"
         padding="20px"
         marginTop={"20px"}
         borderRadius="10px"
-        border={`1px solid ${colors.primaryNavy}`}
-        boxShadow={`2px 2px 2px ${colors.disabledGray}`}
       >
         <Box>
           <BigText
@@ -169,11 +175,42 @@ function ProfilePage() {
           />
         </Box>
         <Box marginTop={"20px"}>
-          <BigText
-            fontSize="14px"
-            color={colors.primaryNavy}
-            words={`${blurb}`}
-          />
+          {experience &&
+            experience.map((job, i) => (
+              <Box
+                padding="20px"
+                borderTop={i != 0 ? `1px solid ${colors.primaryNavy}` : "none"}
+                display="flex"
+              >
+                <Box width="10%">
+                  <Box
+                    bgcolor={colors.primaryNavy}
+                    width="50px"
+                    height="50px"
+                    borderRadius={"10px"}
+                  ></Box>
+                </Box>
+                <Box>
+                  <Box>
+                    <BigText
+                      fontSize="16px"
+                      fontWeight="700"
+                      words={`${job.role}`}
+                    />
+                  </Box>
+                  <Box marginTop={"5px"}>
+                    <BigText words={`${job.organization}`} fontSize="14px" />
+                  </Box>
+                  <Box marginTop={"5px"} display="flex">
+                    <BigText words={`${job.startDate} to `} fontSize="14px" />
+                    <BigText words={`${job.endDate}`} fontSize="14px" />
+                  </Box>
+                </Box>
+                {/* <Text words={`${job.startDate}`} />
+                <Text words={`${job.endDate}`} />
+                <Text words={`${job.summary}`} /> */}
+              </Box>
+            ))}
         </Box>
       </Box>
     </>

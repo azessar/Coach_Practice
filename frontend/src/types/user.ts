@@ -10,4 +10,21 @@ export interface newUser {
 export interface existingUser {
   email: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
+  zipCode?: string;
+  twitter?: string;
+  instagram?: string;
+  blurb?: string;
+  sports?: string[];
+  experience?: job[];
+}
+
+export interface job {
+  startDate: Date;
+  endDate: Date;
+  sport: string;
+  organization: string;
+  summary?: string;
+  role: string;
 }
