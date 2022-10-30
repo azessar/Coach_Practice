@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../actions/auth-actions";
 import { MenuItem } from "@mui/material";
 import Menu from "@mui/material/Menu";
-import { Link, useNavigate } from "react-router-dom";
-import { colors } from "../theme-styles";
+import { useNavigate } from "react-router-dom";
 import Text from "../components/text";
 
 function HelloMenu() {
@@ -31,14 +30,6 @@ function HelloMenu() {
   );
   return (
     <Menu open={helloMenuOpen} onClose={handleClose} anchorEl={helloMenuAnchor}>
-      {/* <MenuItem>
-        <Link
-          to="/profile"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <Text words="PROFILE" fontSize="16px" />
-        </Link>
-      </MenuItem> */}
       <MenuItem onClick={() => handleClick("/profile")}>
         <Text words="PROFILE" fontSize="16px" />
       </MenuItem>

@@ -30,7 +30,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.TEXT,
     },
     sports: {
-      type: Sequelize.JSON,
+      type: Sequelize.JSON, //array of strings
+    },
+    experience: {
+      type: Sequelize.JSON, //array of objects consisting of start year, end year, organization, role, optional summary
     },
   });
   return User;
