@@ -39,7 +39,7 @@ function ProfilePage() {
         width="60%"
         margin="auto"
         padding="20px"
-        marginTop={"20px"}
+        marginTop={"80px"}
         borderRadius="10px"
       >
         <Box

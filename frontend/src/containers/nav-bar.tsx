@@ -24,7 +24,7 @@ function NavBar() {
 
   return (
     <Box>
-      <AppBar position="static" style={{ background: colors.primaryNavy }}>
+      <AppBar position="fixed" style={{ background: colors.primaryNavy }}>
         <Toolbar>
           <Box display="flex" justifyContent="space-between" width="100%">
             <IconButton
