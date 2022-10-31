@@ -21,8 +21,8 @@ export interface existingUser {
 }
 
 export interface job {
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | string;
+  endDate: Date | string;
   sport: string;
   organization: string;
   summary?: string;
