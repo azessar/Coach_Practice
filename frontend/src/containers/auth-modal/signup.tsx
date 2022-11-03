@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { colors } from "../../theme-styles";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../actions/auth-actions";
-import { TextField } from "@mui/material";
+import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { coachableSports } from "../../constants/sports";
+import Text from "../../components/text";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,8 @@ function Signup() {
   const [zipCode, setZipCode] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [firstSport, setFirstSport] = useState("");
+
   const dispatch = useDispatch();
 
   const handleSignup = () => {
@@ -25,6 +28,7 @@ function Signup() {
         email,
         password,
         confirmPassword,
+        sports: [firstSport],
       })
     );
     setPassword("");
@@ -51,28 +55,18 @@ function Signup() {
     email.length === 0 ||
     zipCode.length === 0 ||
     password.length === 0 ||
-    confirmPassword.length === 0;
+    confirmPassword.length === 0 ||
+    firstSport.length === 0;
 
   return (
     <Box sx={boxStyle}>
-      <Typography
-        id="modal-modal-title"
-        variant="h6"
-        component="h2"
-        fontWeight={"700"}
-        style={{ color: colors.primaryNavy }}
-      >
-        Signup as a coach!
-      </Typography>
+      <Text
+        color={colors.primaryNavy}
+        words="SIGNUP AS A COACH"
+        fontSize="1.2em"
+      />
       {isError && (
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          style={{ color: colors.red, fontSize: "12px" }}
-        >
-          {authMessage}
-        </Typography>
+        <Text color={colors.red} words={authMessage} fontSize=".8em" />
       )}
 
       <Box marginTop={"10px"} display="flex" flexDirection={"column"}>
@@ -117,6 +111,7 @@ function Signup() {
             onKeyDown={(e) => handleEnter(e)}
           ></TextField>
         </Box>
+
         <Box marginTop={"10px"}>
           <TextField
             type="password"
@@ -139,9 +134,33 @@ function Signup() {
             onKeyDown={(e) => handleEnter(e)}
           ></TextField>
         </Box>
+
+        <Box marginTop={"10px"}>
+          <InputLabel id="demo-simple-select-label">
+            Sport (select one for now)
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={firstSport}
+            fullWidth
+            onChange={(e) => setFirstSport(e.target.value)}
+          >
+            {Object.values(coachableSports).map((sport, i) => (
+              <MenuItem value={Object.keys(coachableSports)[i]}>
+                {sport}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+
         <Box marginTop={"10px"}>
           <Box sx={typographyStyles} onClick={handleSwitchToLogin}>
-            Or log back in here!
+            <Text
+              color={colors.primaryNavy}
+              words="OR LOG BACK IN HERE"
+              fontSize=".8em"
+            />
           </Box>
         </Box>
         <Box marginTop={"10px"}>
@@ -156,7 +175,7 @@ function Signup() {
               color: disabledSubmit ? colors.black : colors.white,
             }}
           >
-            Login
+            Signup
           </Button>
         </Box>
       </Box>
@@ -174,6 +193,7 @@ const boxStyle = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  minWidth: "500px",
 };
 
 const typographyStyles = {

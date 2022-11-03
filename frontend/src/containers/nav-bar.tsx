@@ -51,21 +51,20 @@ function NavBar() {
                     color: colors.secondaryLightBlue,
                   }}
                 >
-                  <Text
-                    words="CoachCorner"
-                    color={colors.secondaryLightBlue}
-                    fontSize="1.2em"
-                  />
-                  {/* CoachCorner */}
+                  <Box marginTop={"8px"}>
+                    <img src={`coach_corner_head.png`} width="50"></img>
+                  </Box>
                 </Link>
               </Typography>
             </Box>
 
             <Button color="inherit" onClick={(e) => handleOpen(e)}>
               {!currentUser ? (
-                <Typography style={{ color: colors.secondaryLightBlue }}>
-                  LOGIN
-                </Typography>
+                <Text
+                  color={colors.secondaryLightBlue}
+                  words="LOGIN"
+                  fontSize="1.2em"
+                />
               ) : (
                 <Box>
                   <Text

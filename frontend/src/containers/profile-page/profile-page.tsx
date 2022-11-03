@@ -14,18 +14,27 @@ function ProfilePage() {
   const userProfile: existingUser = useSelector(
     (state: any) => state.userReducer.userProfile
   );
-  const { twitter, instagram, firstName, lastName, email, blurb, experience } =
-    userProfile
-      ? userProfile
-      : {
-          twitter: "",
-          instagram: "",
-          firstName: "",
-          lastName: "",
-          email: "",
-          blurb: "",
-          experience: [],
-        };
+  const {
+    twitter,
+    instagram,
+    firstName,
+    lastName,
+    email,
+    blurb,
+    experience,
+    sports,
+  } = userProfile
+    ? userProfile
+    : {
+        twitter: "",
+        instagram: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        blurb: "",
+        experience: [],
+        sports: [],
+      };
 
   useEffect(() => {
     dispatch(
@@ -65,7 +74,7 @@ function ProfilePage() {
   return (
     <>
       <Box
-        bgcolor={colors.white}
+        bgcolor={colors.primaryNavy}
         width="60%"
         margin="auto"
         padding="20px"
@@ -81,15 +90,60 @@ function ProfilePage() {
           borderRadius={"50%"}
           border={`5px solid ${colors.secondaryLightBlue}`}
         ></Box>
-        <Box marginLeft={"auto"} marginRight="auto" marginTop="20px">
-          <Text fontSize="14px" color={colors.primaryNavy} words={`Coach`} />
-        </Box>
-        <Box marginLeft={"auto"} marginRight="auto" marginTop="10px">
-          <Text
-            fontWeight="700"
-            color={colors.primaryNavy}
-            words={`${firstName?.toUpperCase()} ${lastName?.toUpperCase()}`}
-          />
+        <Box display="flex" justifyContent={"space-evenly"}>
+          <Box width="33%">
+            <Box marginLeft={"auto"} marginRight="auto" marginTop="20px">
+              <Text
+                fontSize="14px"
+                color={colors.secondaryLightBlue}
+                words={`${userProfile?.zipCode}`}
+              />
+            </Box>
+          </Box>
+          <Box width="33%">
+            <Box marginLeft={"auto"} marginRight="auto" marginTop="20px">
+              <Text
+                fontSize="14px"
+                color={colors.secondaryLightBlue}
+                words={`Coach`}
+              />
+            </Box>
+            <Box marginLeft={"auto"} marginRight="auto" marginTop="10px">
+              <Text
+                fontWeight="700"
+                color={colors.secondaryLightBlue}
+                words={`${firstName?.toUpperCase()} ${lastName?.toUpperCase()}`}
+              />
+            </Box>
+          </Box>
+          <Box width="33%" display="flex" justifyContent={"space-around"}>
+            <Box marginTop="10px">
+              {sports &&
+                sports.length > 0 &&
+                sports?.map((sport, i) => (
+                  <Box display="flex" marginTop={"5px"}>
+                    <Box>
+                      <img
+                        src={`${sport
+                          ?.toString()
+                          .toLowerCase()}-removebg-preview.png`}
+                        width="20"
+                      ></img>
+                    </Box>
+                    <Box marginLeft={"10px"}>
+                      <BigText
+                        words={
+                          sport.toString().charAt(0).toUpperCase() +
+                          sport.toString().slice(1)
+                        }
+                        fontSize="16px"
+                        color={colors.secondaryLightBlue}
+                      />
+                    </Box>
+                  </Box>
+                ))}
+            </Box>
+          </Box>
         </Box>
       </Box>
 
@@ -101,6 +155,14 @@ function ProfilePage() {
         marginTop={"20px"}
         borderRadius="10px"
       >
+        <Box>
+          <BigText
+            fontSize="14px"
+            color={colors.primaryNavy}
+            words={`Contact`}
+            fontWeight="700"
+          />
+        </Box>
         <Box
           marginLeft={"auto"}
           marginRight="auto"
@@ -211,18 +273,21 @@ function ProfilePage() {
             experience.map((job, i) => (
               <Box
                 padding="20px"
-                borderTop={i != 0 ? `1px solid ${colors.primaryNavy}` : "none"}
+                borderTop={
+                  i != 0 ? `1px solid ${colors.secondaryLightBlue}` : "none"
+                }
                 display="flex"
               >
-                <Box width="10%">
-                  <Box
-                    bgcolor={colors.primaryNavy}
-                    width="50px"
-                    height="50px"
-                    borderRadius={"10px"}
-                  ></Box>
+                <Box width="20%">
+                  <img
+                    src={`${job.sport
+                      ?.toString()
+                      .toLowerCase()}-removebg-preview.png`}
+                    width="90"
+                  ></img>
                 </Box>
-                <Box>
+
+                <Box width="90%">
                   <Box>
                     <BigText
                       fontSize="16px"

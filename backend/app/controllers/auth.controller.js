@@ -12,36 +12,22 @@ exports.signup = (req, res) => {
     lastName: req.body.lastName,
     zipCode: req.body.zipCode,
     email: req.body.email,
+    sports: req.body.sports,
     password: bcrypt.hashSync(req.body.password, 8),
   })
     .then((user) => {
-      if (req.body.roles) {
-        Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles,
-            },
-          },
-        }).then((roles) => {
-          user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
-          });
-        });
-      } else {
-        // user role = 1
-        var token = jwt.sign({ id: user.id }, config.secret, {
-          expiresIn: 86400, // 24 hours
-        });
-        user.setRoles([1]).then(() => {
-          res.status(200).send({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            zipCode: user.zipCode,
-            email: user.email,
-            accessToken: token,
-          });
-        });
-      }
+      // user role = 1
+      var token = jwt.sign({ id: user.id }, config.secret, {
+        expiresIn: 86400, // 24 hours
+      });
+      res.status(200).send({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        zipCode: user.zipCode,
+        email: user.email,
+        sports: user.sports,
+        accessToken: token,
+      });
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });

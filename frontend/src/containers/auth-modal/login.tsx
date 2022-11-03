@@ -6,6 +6,7 @@ import { colors } from "../../theme-styles";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../actions/auth-actions";
 import { TextField } from "@mui/material";
+import Text from "../../components/text";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -34,24 +35,13 @@ function Login() {
 
   return (
     <Box sx={boxStyle}>
-      <Typography
-        id="modal-modal-title"
-        variant="h6"
-        component="h2"
-        fontWeight={"700"}
-        style={{ color: colors.primaryNavy }}
-      >
-        Welcome back, coach!
-      </Typography>
+      <Text
+        color={colors.primaryNavy}
+        words="WELCOME BACK, COACH"
+        fontSize="1.2em"
+      />
       {isError && (
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          style={{ color: colors.red, fontSize: "12px" }}
-        >
-          {authMessage}
-        </Typography>
+        <Text color={colors.red} words={authMessage} fontSize=".8em" />
       )}
 
       <Box marginTop={"10px"} display="flex" flexDirection={"column"}>
@@ -78,7 +68,11 @@ function Login() {
         </Box>
         <Box marginTop={"10px"}>
           <Box sx={typographyStyles} onClick={handleSwitchToSignup}>
-            Or create a new account here!
+            <Text
+              color={colors.primaryNavy}
+              words="OR CREATE A NEW ACCOUNT HERE"
+              fontSize=".8em"
+            />
           </Box>
         </Box>
         <Box marginTop={"10px"}>

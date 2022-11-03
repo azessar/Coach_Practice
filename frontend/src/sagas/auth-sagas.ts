@@ -21,6 +21,7 @@ export const signupAPI = (user: newUser) => {
     zipCode: user.zipCode,
     password: user.password,
     confirmPassword: user.confirmPassword,
+    sports: [user.sports],
   });
 };
 

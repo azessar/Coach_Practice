@@ -5,6 +5,7 @@ export interface newUser {
   zipCode: string;
   password: string;
   confirmPassword: string;
+  sports: string[];
 }
 
 export interface existingUser {
