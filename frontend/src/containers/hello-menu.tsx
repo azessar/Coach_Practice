@@ -30,6 +30,9 @@ function HelloMenu() {
   );
   return (
     <Menu open={helloMenuOpen} onClose={handleClose} anchorEl={helloMenuAnchor}>
+      <MenuItem onClick={() => handleClick("/home")}>
+        <Text words="HOME" fontSize="16px" />
+      </MenuItem>
       <MenuItem onClick={() => handleClick("/profile")}>
         <Text words="PROFILE" fontSize="16px" />
       </MenuItem>

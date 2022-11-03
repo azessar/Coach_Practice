@@ -41,6 +41,7 @@ export const authActions = {
   closeAuthModal: () => ({
     type: authActionTypes.CLOSE_AUTH_MODAL,
   }),
+
   openHelloMenu: (e: any) => ({
     type: authActionTypes.OPEN_HELLO_MENU,
     e,

@@ -6,9 +6,12 @@ import { userActions } from "../../actions/user-actions";
 import Text from "../../components/text";
 import BigText from "../../components/big-text";
 import { existingUser } from "../../types/user";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@mui/material";
+import EditProfileModal from "./edit-profile-modal";
 
 function ProfilePage() {
-  const a = new Date();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const userProfile: existingUser = useSelector(
@@ -73,6 +76,7 @@ function ProfilePage() {
 
   return (
     <>
+      <EditProfileModal />
       <Box
         bgcolor={colors.primaryNavy}
         width="60%"
@@ -155,13 +159,23 @@ function ProfilePage() {
         marginTop={"20px"}
         borderRadius="10px"
       >
-        <Box>
-          <BigText
-            fontSize="14px"
-            color={colors.primaryNavy}
-            words={`Contact`}
-            fontWeight="700"
-          />
+        <Box display="flex" justifyContent={"space-between"}>
+          <Box>
+            <BigText
+              fontSize="14px"
+              color={colors.primaryNavy}
+              words={`Contact`}
+              fontWeight="700"
+            />
+          </Box>
+
+          <Box>
+            <Button
+              onClick={() => dispatch(userActions.openEditProfileModal())}
+            >
+              <FontAwesomeIcon icon={faPenToSquare} />
+            </Button>
+          </Box>
         </Box>
         <Box
           marginLeft={"auto"}
@@ -233,13 +247,23 @@ function ProfilePage() {
         marginTop={"20px"}
         borderRadius="10px"
       >
-        <Box>
-          <BigText
-            fontSize="14px"
-            color={colors.primaryNavy}
-            words={`About`}
-            fontWeight="700"
-          />
+        <Box display="flex" justifyContent={"space-between"}>
+          <Box>
+            <BigText
+              fontSize="14px"
+              color={colors.primaryNavy}
+              words={`About`}
+              fontWeight="700"
+            />
+          </Box>
+
+          <Box>
+            <Button
+              onClick={() => dispatch(userActions.openEditProfileModal())}
+            >
+              <FontAwesomeIcon icon={faPenToSquare} />
+            </Button>{" "}
+          </Box>
         </Box>
         <Box marginTop={"20px"}>
           <BigText
@@ -259,13 +283,24 @@ function ProfilePage() {
         marginBottom={"20px"}
         borderRadius="10px"
       >
-        <Box>
-          <BigText
-            fontSize="14px"
-            color={colors.primaryNavy}
-            words={`Experience`}
-            fontWeight="700"
-          />
+        <Box display="flex" justifyContent={"space-between"}>
+          <Box>
+            {" "}
+            <BigText
+              fontSize="14px"
+              color={colors.primaryNavy}
+              words={`Experience`}
+              fontWeight="700"
+            />
+          </Box>
+
+          <Box>
+            <Button
+              onClick={() => dispatch(userActions.openEditProfileModal())}
+            >
+              <FontAwesomeIcon icon={faPenToSquare} />
+            </Button>
+          </Box>
         </Box>
         <Box marginTop={"20px"}>
           {experience &&
@@ -287,7 +322,7 @@ function ProfilePage() {
                   ></img>
                 </Box>
 
-                <Box width="90%">
+                <Box width="90%" marginLeft={"20px"}>
                   <Box>
                     <BigText
                       fontSize="16px"

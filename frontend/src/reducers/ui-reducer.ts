@@ -3,6 +3,7 @@ const initialState = {
   responseMessage: null,
   authMessage: "",
   authModalOpen: false,
+  editProfileModalOpen: false,
   helloMenuOpen: false,
   helloMenuAnchor: null,
   loginMode: true,
@@ -96,6 +97,17 @@ const uiReducer = (state = initialState, action: any) => {
         helloMenuOpen: false,
         helloMenuAnchor: null,
       };
+    case "OPEN_EDIT_PROFILE_MODAL":
+      return {
+        ...state,
+        editProfileModalOpen: true,
+      };
+    case "CLOSE_EDIT_PROFILE_MODAL":
+      return {
+        ...state,
+        editProfileModalOpen: false,
+      };
+
     default:
       return state;
   }
