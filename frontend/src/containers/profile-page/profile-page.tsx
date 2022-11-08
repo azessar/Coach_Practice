@@ -9,11 +9,14 @@ import { existingUser } from "../../types/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
-import EditProfileModal from "./edit-profile-modal";
+import EditBlurbModal from "./edit-blurb-modal";
+import EditExperienceModal from "./edit-experience-modal";
 
 function ProfilePage() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
+  const { loading } = useSelector((state: any) => state.uiReducer);
+
   const userProfile: existingUser = useSelector(
     (state: any) => state.userReducer.userProfile
   );
@@ -43,7 +46,7 @@ function ProfilePage() {
     dispatch(
       userActions.getUserProfile(currentUser.email, currentUser.accessToken)
     );
-  }, [currentUser]);
+  }, [currentUser, loading]);
 
   function yearsAndMonths(startDate: Date, endDate: Date) {
     //returns array of years and then months
@@ -76,7 +79,8 @@ function ProfilePage() {
 
   return (
     <>
-      <EditProfileModal />
+      <EditBlurbModal />
+      <EditExperienceModal />
       <Box
         bgcolor={colors.primaryNavy}
         width="60%"
@@ -293,14 +297,6 @@ function ProfilePage() {
               fontWeight="700"
             />
           </Box>
-
-          <Box>
-            <Button
-              onClick={() => dispatch(userActions.openEditProfileModal())}
-            >
-              <FontAwesomeIcon icon={faPenToSquare} />
-            </Button>
-          </Box>
         </Box>
         <Box marginTop={"20px"}>
           {experience &&
@@ -323,12 +319,23 @@ function ProfilePage() {
                 </Box>
 
                 <Box width="90%" marginLeft={"20px"}>
-                  <Box>
-                    <BigText
-                      fontSize="16px"
-                      fontWeight="700"
-                      words={`${job.role}`}
-                    />
+                  <Box display="flex" justifyContent={"space-between"}>
+                    <Box>
+                      <BigText
+                        fontSize="16px"
+                        fontWeight="700"
+                        words={`${job.role}`}
+                      />
+                    </Box>
+                    <Box>
+                      <Button
+                        onClick={() =>
+                          dispatch(userActions.openEditExperienceModal())
+                        }
+                      >
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box marginTop={"5px"}>
                     <BigText words={`${job.organization}`} fontSize="14px" />

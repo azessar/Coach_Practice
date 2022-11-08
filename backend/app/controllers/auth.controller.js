@@ -18,7 +18,7 @@ exports.signup = (req, res) => {
     .then((user) => {
       // user role = 1
       var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
+        expiresIn: 8640000, // 2400 hours
       });
       res.status(200).send({
         firstName: user.firstName,
@@ -54,7 +54,7 @@ exports.login = (req, res) => {
         });
       }
       var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
+        expiresIn: 8640000, // 2400 hours
       });
       res.status(200).send({
         id: user.id,

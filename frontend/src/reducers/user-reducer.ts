@@ -1,6 +1,5 @@
 const initialState = {
   userProfile: null,
-  loading: false,
   responseMessage: null,
 };
 
@@ -16,6 +15,7 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         responseMessage: action.responseMessage,
       };
+
     case "LOGOUT":
       return initialState;
     default:

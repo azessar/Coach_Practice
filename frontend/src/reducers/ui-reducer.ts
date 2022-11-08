@@ -4,6 +4,7 @@ const initialState = {
   authMessage: "",
   authModalOpen: false,
   editProfileModalOpen: false,
+  editExperienceModalOpen: false,
   helloMenuOpen: false,
   helloMenuAnchor: null,
   loginMode: true,
@@ -107,7 +108,32 @@ const uiReducer = (state = initialState, action: any) => {
         ...state,
         editProfileModalOpen: false,
       };
+    case "OPEN_EDIT_EXPERIENCE_MODAL":
+      return {
+        ...state,
+        editExperienceModalOpen: true,
+      };
+    case "CLOSE_EDIT_EXPERIENCE_MODAL":
+      return {
+        ...state,
+        editExperienceModalOpen: false,
+      };
 
+    case "EDIT_PROFILE_BLURB":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "EDIT_PROFILE_BLURB_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "EDIT_PROFILE_BLURB_ERROR":
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

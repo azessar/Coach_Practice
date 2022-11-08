@@ -30,31 +30,14 @@ exports.getUserProfile = (req, res) => {
     });
 };
 
-// exports.editProfile = (req, res) => {
-//   // Save User to Database
-//   User.create({
-//     firstName: req.body.firstName,
-//     lastName: req.body.lastName,
-//     zipCode: req.body.zipCode,
-//     email: req.body.email,
-//     sports: req.body.sports,
-//     password: bcrypt.hashSync(req.body.password, 8),
-//   })
-//     .then((user) => {
-//       // user role = 1
-//       var token = jwt.sign({ id: user.id }, config.secret, {
-//         expiresIn: 86400, // 24 hours
-//       });
-//       res.status(200).send({
-//         firstName: user.firstName,
-//         lastName: user.lastName,
-//         zipCode: user.zipCode,
-//         email: user.email,
-//         sports: user.sports,
-//         accessToken: token,
-//       });
-//     })
-//     .catch((err) => {
-//       res.status(500).send({ message: err.message });
-//     });
-// };
+exports.editProfileBlurb = (req, res) => {
+  User.update({ blurb: req.body.blurb }, { where: { email: req.body.email } })
+    .then(() => {
+      res.status(200).send({
+        message: "About section updated successfully.",
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+};

@@ -25,4 +25,9 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getUserProfile
   );
+  app.put(
+    "/api/user-profile-blurb",
+    [authJwt.verifyToken],
+    controller.editProfileBlurb
+  );
 };
