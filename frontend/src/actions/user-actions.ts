@@ -1,4 +1,4 @@
-import { existingUser, newUser } from "../types/user";
+import { existingUser, job, newUser } from "../types/user";
 
 export const userActionTypes = {
   GET_USER_PROFILE: "GET_USER_PROFILE",
@@ -11,6 +11,9 @@ export const userActionTypes = {
   EDIT_PROFILE_BLURB: "EDIT_PROFILE_BLURB",
   EDIT_PROFILE_BLURB_SUCCESS: "EDIT_PROFILE_BLURB_SUCCESS",
   EDIT_PROFILE_BLURB_ERROR: "EDIT_PROFILE_BLURB_ERROR",
+  EDIT_EXPERIENCE: "EDIT_EXPERIENCE",
+  EDIT_EXPERIENCE_SUCCESS: "EDIT_EXPERIENCE_SUCCESS",
+  EDIT_EXPERIENCE_ERROR: "EDIT_EXPERIENCE_ERROR",
 };
 
 export const userActions = {
@@ -40,5 +43,15 @@ export const userActions = {
     email,
     accessToken,
     blurb,
+  }),
+  editExperience: (
+    email: string,
+    accessToken: string,
+    experience: job[] | undefined
+  ) => ({
+    type: userActionTypes.EDIT_EXPERIENCE,
+    email,
+    accessToken,
+    experience,
   }),
 };

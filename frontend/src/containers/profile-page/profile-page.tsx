@@ -7,7 +7,11 @@ import Text from "../../components/text";
 import BigText from "../../components/big-text";
 import { existingUser, job } from "../../types/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenToSquare,
+  faArrowUpLong,
+  faArrowDownLong,
+} from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import EditBlurbModal from "./edit-blurb-modal";
 import EditExperienceModal from "./edit-experience-modal";
@@ -18,6 +22,9 @@ function ProfilePage() {
   const { loading } = useSelector((state: any) => state.uiReducer);
   const [selectedExperience, setSelectedExperience] =
     React.useState<job | null>();
+  const [selectedJobIndex, setSelectedJobIndex] = React.useState<
+    number | null
+  >();
 
   const userProfile: existingUser = useSelector(
     (state: any) => state.userReducer.userProfile
@@ -50,8 +57,9 @@ function ProfilePage() {
     );
   }, [currentUser, loading]);
 
-  const openEditExperienceModal = (job: job) => {
+  const openEditExperienceModal = (job: job, jobIndex: number) => {
     setSelectedExperience(job);
+    setSelectedJobIndex(jobIndex);
     dispatch(userActions.openEditExperienceModal());
   };
 
@@ -84,10 +92,38 @@ function ProfilePage() {
     return answer;
   }
 
+  const handleReorderExperience = (oldIndex: number, direction: string) => {
+    const currentExperience = userProfile.experience;
+    let newExperience = [...userProfile.experience];
+
+    let otherIndex: number;
+    if (direction === "up") {
+      otherIndex = oldIndex - 1;
+      newExperience[oldIndex] = currentExperience[otherIndex];
+      newExperience[otherIndex] = currentExperience[oldIndex];
+    } else if (direction === "down") {
+      otherIndex = oldIndex + 1;
+      newExperience[oldIndex] = currentExperience[otherIndex];
+      newExperience[otherIndex] = currentExperience[oldIndex];
+    }
+    dispatch(
+      userActions.editExperience(
+        currentUser.email,
+        currentUser.accessToken,
+        newExperience
+      )
+    );
+  };
+
   return (
     <>
       <EditBlurbModal />
-      {selectedExperience && <EditExperienceModal job={selectedExperience} />}
+      {selectedExperience && selectedJobIndex != null && (
+        <EditExperienceModal
+          job={selectedExperience}
+          jobIndex={selectedJobIndex}
+        />
+      )}
       <Box
         bgcolor={colors.primaryNavy}
         width="60%"
@@ -334,10 +370,26 @@ function ProfilePage() {
                         words={`${job.role}`}
                       />
                     </Box>
-                    <Box>
-                      <Button onClick={() => openEditExperienceModal(job)}>
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                      </Button>
+                    <Box display="flex">
+                      <Box display="flex">
+                        <Button
+                          onClick={() => handleReorderExperience(i, "up")}
+                          disabled={i === 0}
+                        >
+                          <FontAwesomeIcon icon={faArrowUpLong} />
+                        </Button>
+                        <Button
+                          onClick={() => handleReorderExperience(i, "down")}
+                          disabled={i === experience.length - 1}
+                        >
+                          <FontAwesomeIcon icon={faArrowDownLong} />
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button onClick={() => openEditExperienceModal(job, i)}>
+                          <FontAwesomeIcon icon={faPenToSquare} />
+                        </Button>
+                      </Box>
                     </Box>
                   </Box>
                   <Box marginTop={"5px"}>

@@ -134,6 +134,21 @@ const uiReducer = (state = initialState, action: any) => {
         ...state,
         loading: false,
       };
+    case "EDIT_EXPERIENCE":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "EDIT_EXPERIENCE_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "EDIT_EXPERIENCE_ERROR":
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

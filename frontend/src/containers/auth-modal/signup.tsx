@@ -146,9 +146,9 @@ function Signup() {
             fullWidth
             onChange={(e) => setFirstSport(e.target.value)}
           >
-            {Object.values(coachableSports).map((sport, i) => (
-              <MenuItem value={Object.keys(coachableSports)[i]}>
-                {sport}
+            {Object.keys(coachableSports).map((sport, i) => (
+              <MenuItem value={Object.values(coachableSports)[i]}>
+                {Object.values(coachableSports)[i]}
               </MenuItem>
             ))}
           </Select>

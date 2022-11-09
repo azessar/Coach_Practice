@@ -3,20 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Modal from "@mui/material/Modal";
 import { userActions } from "../../actions/user-actions";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, MenuItem, Select, TextField } from "@mui/material";
 import Text from "../../components/text";
 import { colors } from "../../theme-styles";
 import { existingUser, job } from "../../types/user";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { coachableSports } from "../../constants/sports";
 
 interface EditExperienceModalProps {
   job: job;
+  jobIndex: number;
 }
 
 function EditExperienceModal(props: EditExperienceModalProps) {
-  const { job } = props;
+  const { job, jobIndex } = props;
   const dispatch = useDispatch();
   const { editExperienceModalOpen } = useSelector(
     (state: any) => state.uiReducer
@@ -38,6 +40,15 @@ function EditExperienceModal(props: EditExperienceModalProps) {
     dispatch(userActions.closeEditExperienceModal());
   };
 
+  const newJob = {
+    endDate: endDateSection,
+    organization: organizationSection,
+    role: roleSection,
+    sport: sportSection,
+    startDate: startDateSection,
+    summary: summarySection,
+  };
+
   useEffect(() => {
     setRoleSection(job.role);
     setOrganizationSection(job.organization);
@@ -46,6 +57,22 @@ function EditExperienceModal(props: EditExperienceModalProps) {
     setSummarySection(job.summary);
     setSportSection(job.sport);
   }, [job]);
+
+  const handleEditExperience = () => {
+    const currentExperience = userProfile.experience;
+    const newExperience = currentExperience.map((u, i) =>
+      i !== jobIndex ? u : newJob
+    );
+
+    dispatch(
+      userActions.editExperience(
+        currentUser.email,
+        currentUser.accessToken,
+        newExperience
+      )
+    );
+    handleClose();
+  };
 
   return (
     <Modal
@@ -65,6 +92,26 @@ function EditExperienceModal(props: EditExperienceModalProps) {
               value={roleSection}
               onChange={(e) => setRoleSection(e.target.value)}
             ></TextField>
+          </Box>
+        </Box>
+        <Box marginTop={"20px"}>
+          <Box>
+            <Text color={colors.primaryNavy} words={`Sport`} fontSize="0.8em" />
+          </Box>
+          <Box marginTop={"10px"}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={sportSection}
+              fullWidth
+              onChange={(e) => setSportSection(e.target.value)}
+            >
+              {Object.keys(coachableSports).map((sport, i) => (
+                <MenuItem value={Object.values(coachableSports)[i]}>
+                  {Object.values(coachableSports)[i]}
+                </MenuItem>
+              ))}
+            </Select>
           </Box>
         </Box>
         <Box marginTop={"20px"}>
@@ -155,6 +202,7 @@ function EditExperienceModal(props: EditExperienceModalProps) {
           </Box>
           <Box>
             <Button
+              onClick={() => handleEditExperience()}
               variant="contained"
               style={{
                 background: colors.primaryNavy,
