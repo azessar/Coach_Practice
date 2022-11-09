@@ -30,4 +30,9 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.editProfileBlurb
   );
+  app.put(
+    "/api/user-profile-experience",
+    [authJwt.verifyToken],
+    controller.editExperienceSection
+  );
 };

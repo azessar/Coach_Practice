@@ -18,7 +18,7 @@ export interface existingUser {
   instagram?: string;
   blurb?: string;
   sports?: string[];
-  experience?: job[];
+  experience: job[];
 }
 
 export interface job {

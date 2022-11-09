@@ -1,5 +1,5 @@
 import { userActionTypes } from "../actions/user-actions";
-import { existingUser, newUser } from "../types/user";
+import { existingUser, job, newUser } from "../types/user";
 import axios from "axios";
 import { put, call, takeLatest } from "redux-saga/effects";
 import { API_URL } from "../constants";
@@ -35,6 +35,25 @@ export const editProfileBlurbAPI = (
     {
       email,
       blurb,
+    },
+    {
+      headers: {
+        authorization: accessToken,
+      },
+    }
+  );
+};
+
+export const editExperienceAPI = (
+  email: string,
+  accessToken: string,
+  experience: job[]
+) => {
+  return axios.put(
+    `${API_URL}/api/user-profile-experience`,
+    {
+      email,
+      experience,
     },
     {
       headers: {
@@ -93,6 +112,31 @@ function* editProfileBlurb(action: any): any {
     });
   }
 }
+
+// function* editExperience(action: any): any {
+//   try {
+//     const response = yield call(
+//       editExperienceAPI,
+//       action.email,
+//       action.accessToken,
+//       action.experience
+//     );
+//     if (response) {
+//       yield put({
+//         type: EDIT_PROFILE_BLURB_SUCCESS,
+//         responseMessage: response.data.message,
+//       });
+//     }
+//   } catch (err: any) {
+//     console.log(err.response.data);
+//     console.log(err.response.status);
+//     console.log(err.response.headers);
+//     yield put({
+//       type: EDIT_PROFILE_BLURB_ERROR,
+//       responseMessage: err.response.data.message,
+//     });
+//   }
+// }
 
 export function* userSaga() {
   yield takeLatest(GET_USER_PROFILE, getUserProfile);

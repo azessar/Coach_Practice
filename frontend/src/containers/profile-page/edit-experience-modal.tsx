@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Modal from "@mui/material/Modal";
@@ -6,9 +6,17 @@ import { userActions } from "../../actions/user-actions";
 import { Box, Button, TextField } from "@mui/material";
 import Text from "../../components/text";
 import { colors } from "../../theme-styles";
-import { existingUser } from "../../types/user";
+import { existingUser, job } from "../../types/user";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-function EditExperienceModal() {
+interface EditExperienceModalProps {
+  job: job;
+}
+
+function EditExperienceModal(props: EditExperienceModalProps) {
+  const { job } = props;
   const dispatch = useDispatch();
   const { editExperienceModalOpen } = useSelector(
     (state: any) => state.uiReducer
@@ -17,22 +25,27 @@ function EditExperienceModal() {
   const userProfile: existingUser = useSelector(
     (state: any) => state.userReducer.userProfile
   );
-  const [aboutSection, setAboutSection] = React.useState(userProfile?.blurb);
+  const [roleSection, setRoleSection] = React.useState(job.role);
+  const [organizationSection, setOrganizationSection] = React.useState(
+    job.organization
+  );
+  const [startDateSection, setStartDateSection] = React.useState(job.startDate);
+  const [endDateSection, setEndDateSection] = React.useState(job.endDate);
+  const [summarySection, setSummarySection] = React.useState(job.summary);
+  const [sportSection, setSportSection] = React.useState(job.sport);
 
   const handleClose = () => {
     dispatch(userActions.closeEditExperienceModal());
   };
 
-  const handleEditBlurb = () => {
-    dispatch(
-      userActions.editProfileBlurb(
-        currentUser.email,
-        currentUser.accessToken,
-        aboutSection
-      )
-    );
-    handleClose();
-  };
+  useEffect(() => {
+    setRoleSection(job.role);
+    setOrganizationSection(job.organization);
+    setStartDateSection(job.startDate);
+    setEndDateSection(job.endDate);
+    setSummarySection(job.summary);
+    setSportSection(job.sport);
+  }, [job]);
 
   return (
     <Modal
@@ -43,11 +56,114 @@ function EditExperienceModal() {
     >
       <Box sx={boxStyle}>
         <Box>
-          <Text
-            color={colors.primaryNavy}
-            words={`Experience`}
-            fontSize="1.2em"
-          />
+          <Box>
+            <Text color={colors.primaryNavy} words={`Role`} fontSize="0.8em" />
+          </Box>
+          <Box marginTop={"10px"}>
+            <TextField
+              fullWidth
+              value={roleSection}
+              onChange={(e) => setRoleSection(e.target.value)}
+            ></TextField>
+          </Box>
+        </Box>
+        <Box marginTop={"20px"}>
+          <Box>
+            <Text
+              color={colors.primaryNavy}
+              words={`Organization`}
+              fontSize="0.8em"
+            />
+          </Box>
+          <Box marginTop={"10px"}>
+            <TextField
+              fullWidth
+              value={organizationSection}
+              onChange={(e) => setOrganizationSection(e.target.value)}
+            ></TextField>
+          </Box>
+        </Box>
+        <Box marginTop={"20px"} display="flex" justifyContent={"space-between"}>
+          <Box width="47%">
+            <Box>
+              <Text
+                color={colors.primaryNavy}
+                words={`Start date`}
+                fontSize="0.8em"
+              />
+            </Box>
+            <Box marginTop={"10px"}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  inputFormat="MM/DD/YYYY"
+                  value={startDateSection}
+                  onChange={(e: any) => setStartDateSection(e.$d)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </Box>
+          </Box>
+          <Box width="47%">
+            <Box>
+              <Text
+                color={colors.primaryNavy}
+                words={`End date`}
+                fontSize="0.8em"
+              />
+            </Box>
+            <Box marginTop={"10px"}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  inputFormat="MM/DD/YYYY"
+                  value={endDateSection}
+                  onChange={(e: any) => setEndDateSection(e?.$d)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </Box>
+          </Box>
+        </Box>
+        <Box marginTop={"20px"}>
+          <Box>
+            <Text
+              color={colors.primaryNavy}
+              words={`Summary`}
+              fontSize="0.8em"
+            />
+          </Box>
+          <Box marginTop={"10px"}>
+            <TextField
+              fullWidth
+              value={summarySection}
+              onChange={(e) => setSummarySection(e.target.value)}
+              multiline
+            ></TextField>
+          </Box>
+        </Box>
+        <Box display={"flex"} justifyContent="flex-end" marginTop={"10px"}>
+          <Box marginRight={"10px"}>
+            <Button
+              onClick={() => handleClose()}
+              variant="contained"
+              style={{
+                background: colors.white,
+                color: colors.primaryNavy,
+              }}
+            >
+              Cancel
+            </Button>
+          </Box>
+          <Box>
+            <Button
+              variant="contained"
+              style={{
+                background: colors.primaryNavy,
+                color: colors.white,
+              }}
+            >
+              Save
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Modal>

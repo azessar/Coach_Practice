@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import { userActions } from "../../actions/user-actions";
 import Text from "../../components/text";
 import BigText from "../../components/big-text";
-import { existingUser } from "../../types/user";
+import { existingUser, job } from "../../types/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
@@ -16,6 +16,8 @@ function ProfilePage() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
+  const [selectedExperience, setSelectedExperience] =
+    React.useState<job | null>();
 
   const userProfile: existingUser = useSelector(
     (state: any) => state.userReducer.userProfile
@@ -47,6 +49,11 @@ function ProfilePage() {
       userActions.getUserProfile(currentUser.email, currentUser.accessToken)
     );
   }, [currentUser, loading]);
+
+  const openEditExperienceModal = (job: job) => {
+    setSelectedExperience(job);
+    dispatch(userActions.openEditExperienceModal());
+  };
 
   function yearsAndMonths(startDate: Date, endDate: Date) {
     //returns array of years and then months
@@ -80,7 +87,7 @@ function ProfilePage() {
   return (
     <>
       <EditBlurbModal />
-      <EditExperienceModal />
+      {selectedExperience && <EditExperienceModal job={selectedExperience} />}
       <Box
         bgcolor={colors.primaryNavy}
         width="60%"
@@ -328,11 +335,7 @@ function ProfilePage() {
                       />
                     </Box>
                     <Box>
-                      <Button
-                        onClick={() =>
-                          dispatch(userActions.openEditExperienceModal())
-                        }
-                      >
+                      <Button onClick={() => openEditExperienceModal(job)}>
                         <FontAwesomeIcon icon={faPenToSquare} />
                       </Button>
                     </Box>

@@ -41,3 +41,18 @@ exports.editProfileBlurb = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.editExperienceSection = (req, res) => {
+  User.update(
+    { experience: req.body.experience },
+    { where: { email: req.body.email } }
+  )
+    .then(() => {
+      res.status(200).send({
+        message: "Experience section updated successfully.",
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+};

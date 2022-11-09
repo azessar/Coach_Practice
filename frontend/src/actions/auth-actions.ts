@@ -24,7 +24,7 @@ export const authActions = {
     type: authActionTypes.SIGNUP,
     user,
   }),
-  login: (user: existingUser) => ({
+  login: (user: any) => ({
     type: authActionTypes.LOGIN,
     user,
   }),
