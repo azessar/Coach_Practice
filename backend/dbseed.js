@@ -35,6 +35,7 @@ async function initial() {
       email: "jordan@blah.blah",
       twitter: "@coachcornerteam",
       instagram: "@coachcornerteam",
+      personalSite: "www.coachcorner.io",
       blurb:
         "asdf asdf asdf asdfsdklfhasdlhkj fasdkljh flkasdjhf lkasdjhf aklsdjfh lkasdjfhlk sdjfhlksdjhflkadjsfh klasdhklajdshf lksdflkasdjhf lkasdjhf laksdjhf laksdjfh lkasdjhf lkasdjhf lkasdfhlk dhslfkajhds fadsfjh aklsdjhf lkasjdhf lkjasdhfl kadhsflkadhslkasdhf lk adjshflk",
       sports: ["Basketball", "Tennis", "Pickleball"],

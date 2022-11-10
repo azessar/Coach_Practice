@@ -26,6 +26,9 @@ module.exports = (sequelize, Sequelize) => {
     instagram: {
       type: Sequelize.STRING,
     },
+    personalSite: {
+      type: Sequelize.STRING,
+    },
     blurb: {
       type: Sequelize.TEXT,
     },

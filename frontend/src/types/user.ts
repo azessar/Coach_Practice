@@ -16,6 +16,7 @@ export interface existingUser {
   zipCode?: string;
   twitter?: string;
   instagram?: string;
+  personalSite?: string;
   blurb?: string;
   sports?: string[];
   experience: job[];

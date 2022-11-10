@@ -23,8 +23,8 @@ function AddExperienceModal() {
   );
   const [roleSection, setRoleSection] = React.useState("");
   const [organizationSection, setOrganizationSection] = React.useState("");
-  const [startDateSection, setStartDateSection] = React.useState();
-  const [endDateSection, setEndDateSection] = React.useState();
+  const [startDateSection, setStartDateSection] = React.useState(new Date());
+  const [endDateSection, setEndDateSection] = React.useState(new Date());
   const [summarySection, setSummarySection] = React.useState("");
   const [sportSection, setSportSection] = React.useState("");
 
@@ -53,7 +53,19 @@ function AddExperienceModal() {
       )
     );
     handleClose();
+    setRoleSection("");
+    setOrganizationSection("");
+    setStartDateSection(new Date());
+    setEndDateSection(new Date());
+    setSummarySection("");
+    setSportSection("");
   };
+
+  const disabledButton =
+    !startDateSection ||
+    !endDateSection ||
+    !organizationSection ||
+    !sportSection;
 
   return (
     <Modal
@@ -193,9 +205,12 @@ function AddExperienceModal() {
               onClick={() => handleAddExperience()}
               variant="contained"
               style={{
-                background: colors.primaryNavy,
+                background: disabledButton
+                  ? colors.disabledGray
+                  : colors.primaryNavy,
                 color: colors.white,
               }}
+              disabled={disabledButton}
             >
               Save
             </Button>

@@ -72,7 +72,19 @@ function EditExperienceModal(props: EditExperienceModalProps) {
       )
     );
     handleClose();
+    setRoleSection("");
+    setOrganizationSection("");
+    setStartDateSection(new Date());
+    setEndDateSection(new Date());
+    setSummarySection("");
+    setSportSection("");
   };
+
+  const disabledButton =
+    !startDateSection ||
+    !endDateSection ||
+    !organizationSection ||
+    !sportSection;
 
   return (
     <Modal
@@ -205,9 +217,12 @@ function EditExperienceModal(props: EditExperienceModalProps) {
               onClick={() => handleEditExperience()}
               variant="contained"
               style={{
-                background: colors.primaryNavy,
+                background: disabledButton
+                  ? colors.disabledGray
+                  : colors.primaryNavy,
                 color: colors.white,
               }}
+              disabled={disabledButton}
             >
               Save
             </Button>

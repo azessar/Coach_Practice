@@ -13,6 +13,7 @@ import {
   faArrowDownLong,
   faTrash,
   faPlus,
+  faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import EditBlurbModal from "./edit-blurb-modal";
@@ -36,6 +37,7 @@ function ProfilePage() {
   const {
     twitter,
     instagram,
+    personalSite,
     firstName,
     lastName,
     email,
@@ -47,6 +49,7 @@ function ProfilePage() {
     : {
         twitter: "",
         instagram: "",
+        personalSite: "",
         firstName: "",
         lastName: "",
         email: "",
@@ -248,7 +251,7 @@ function ProfilePage() {
           display="flex"
           justifyContent={"space-evenly"}
         >
-          {twitter && (
+          {twitter && twitter.length > 0 && (
             <Box display="flex">
               <Box marginTop={"3px"}>
                 <img src="twitter-removebg-preview.png" width="20"></img>
@@ -267,7 +270,7 @@ function ProfilePage() {
               </Box>
             </Box>
           )}
-          {instagram && (
+          {instagram && instagram.length > 0 && (
             <Box display="flex">
               <Box marginTop={"1px"}>
                 <img src="instagram-removebg-preview.png" width="20"></img>
@@ -301,6 +304,22 @@ function ProfilePage() {
               </a>
             </Box>
           </Box>
+          {personalSite && personalSite.length > 0 && (
+            <Box display="flex">
+              <Box marginTop={"1px"}>
+                <FontAwesomeIcon icon={faGlobe} />
+              </Box>
+              <Box marginLeft={"5px"}>
+                <a href={`http://${personalSite}`} target="_blank">
+                  <Text
+                    fontSize="16px"
+                    color={colors.primaryNavy}
+                    words={`${personalSite}`}
+                  />
+                </a>
+              </Box>
+            </Box>
+          )}
         </Box>
       </Box>
 
