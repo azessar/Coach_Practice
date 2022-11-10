@@ -12,11 +12,13 @@ import {
   faArrowUpLong,
   faArrowDownLong,
   faTrash,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import EditBlurbModal from "./edit-blurb-modal";
 import EditExperienceModal from "./edit-experience-modal";
 import DeleteExperienceModal from "./delete-experience-modal";
+import AddExperienceModal from "./add-experience-modal";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -126,6 +128,7 @@ function ProfilePage() {
   return (
     <>
       <EditBlurbModal />
+      <AddExperienceModal />
       {selectedExperience && selectedJobIndex != null && (
         <>
           <EditExperienceModal
@@ -354,6 +357,13 @@ function ProfilePage() {
               words={`Experience`}
               fontWeight="700"
             />
+          </Box>
+          <Box>
+            <Button
+              onClick={() => dispatch(userActions.openAddExperienceModal())}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
           </Box>
         </Box>
         <Box marginTop={"20px"}>

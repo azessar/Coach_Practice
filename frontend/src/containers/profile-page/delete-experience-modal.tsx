@@ -84,7 +84,7 @@ function DeleteExperienceModal(props: DeleteExperienceModalProps) {
                 color: colors.white,
               }}
             >
-              Save
+              Yes
             </Button>
           </Box>
         </Box>
