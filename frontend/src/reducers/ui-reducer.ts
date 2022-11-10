@@ -5,6 +5,7 @@ const initialState = {
   authModalOpen: false,
   editProfileModalOpen: false,
   editExperienceModalOpen: false,
+  deleteExperienceModalOpen: false,
   helloMenuOpen: false,
   helloMenuAnchor: null,
   loginMode: true,
@@ -117,6 +118,16 @@ const uiReducer = (state = initialState, action: any) => {
       return {
         ...state,
         editExperienceModalOpen: false,
+      };
+    case "OPEN_DELETE_EXPERIENCE_MODAL":
+      return {
+        ...state,
+        deleteExperienceModalOpen: true,
+      };
+    case "CLOSE_DELETE_EXPERIENCE_MODAL":
+      return {
+        ...state,
+        deleteExperienceModalOpen: false,
       };
 
     case "EDIT_PROFILE_BLURB":

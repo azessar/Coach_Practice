@@ -8,6 +8,8 @@ export const userActionTypes = {
   CLOSE_EDIT_PROFILE_MODAL: "CLOSE_EDIT_PROFILE_MODAL",
   OPEN_EDIT_EXPERIENCE_MODAL: "OPEN_EDIT_EXPERIENCE_MODAL",
   CLOSE_EDIT_EXPERIENCE_MODAL: "CLOSE_EDIT_EXPERIENCE_MODAL",
+  OPEN_DELETE_EXPERIENCE_MODAL: "OPEN_DELETE_EXPERIENCE_MODAL",
+  CLOSE_DELETE_EXPERIENCE_MODAL: "CLOSE_DELETE_EXPERIENCE_MODAL",
   EDIT_PROFILE_BLURB: "EDIT_PROFILE_BLURB",
   EDIT_PROFILE_BLURB_SUCCESS: "EDIT_PROFILE_BLURB_SUCCESS",
   EDIT_PROFILE_BLURB_ERROR: "EDIT_PROFILE_BLURB_ERROR",
@@ -33,6 +35,12 @@ export const userActions = {
   }),
   closeEditExperienceModal: () => ({
     type: userActionTypes.CLOSE_EDIT_EXPERIENCE_MODAL,
+  }),
+  openDeleteExperienceModal: () => ({
+    type: userActionTypes.OPEN_DELETE_EXPERIENCE_MODAL,
+  }),
+  closeDeleteExperienceModal: () => ({
+    type: userActionTypes.CLOSE_DELETE_EXPERIENCE_MODAL,
   }),
   editProfileBlurb: (
     email: string,

@@ -11,10 +11,12 @@ import {
   faPenToSquare,
   faArrowUpLong,
   faArrowDownLong,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import EditBlurbModal from "./edit-blurb-modal";
 import EditExperienceModal from "./edit-experience-modal";
+import DeleteExperienceModal from "./delete-experience-modal";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -61,6 +63,12 @@ function ProfilePage() {
     setSelectedExperience(job);
     setSelectedJobIndex(jobIndex);
     dispatch(userActions.openEditExperienceModal());
+  };
+
+  const openDeleteExperienceModal = (job: job, jobIndex: number) => {
+    setSelectedExperience(job);
+    setSelectedJobIndex(jobIndex);
+    dispatch(userActions.openDeleteExperienceModal());
   };
 
   function yearsAndMonths(startDate: Date, endDate: Date) {
@@ -119,11 +127,18 @@ function ProfilePage() {
     <>
       <EditBlurbModal />
       {selectedExperience && selectedJobIndex != null && (
-        <EditExperienceModal
-          job={selectedExperience}
-          jobIndex={selectedJobIndex}
-        />
+        <>
+          <EditExperienceModal
+            job={selectedExperience}
+            jobIndex={selectedJobIndex}
+          />
+          <DeleteExperienceModal
+            job={selectedExperience}
+            jobIndex={selectedJobIndex}
+          />
+        </>
       )}
+
       <Box
         bgcolor={colors.primaryNavy}
         width="60%"
@@ -388,6 +403,13 @@ function ProfilePage() {
                       <Box>
                         <Button onClick={() => openEditExperienceModal(job, i)}>
                           <FontAwesomeIcon icon={faPenToSquare} />
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button
+                          onClick={() => openDeleteExperienceModal(job, i)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
                         </Button>
                       </Box>
                     </Box>
