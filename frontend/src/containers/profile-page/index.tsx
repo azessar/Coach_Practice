@@ -20,6 +20,7 @@ import EditBlurbModal from "./edit-blurb-modal";
 import EditExperienceModal from "./edit-experience-modal";
 import DeleteExperienceModal from "./delete-experience-modal";
 import AddExperienceModal from "./add-experience-modal";
+import EditContactModal from "./edit-contact-modal";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -131,6 +132,7 @@ function ProfilePage() {
   return (
     <>
       <EditBlurbModal />
+      <EditContactModal />
       <AddExperienceModal />
       {selectedExperience && selectedJobIndex != null && (
         <>
@@ -239,7 +241,7 @@ function ProfilePage() {
 
           <Box>
             <Button
-              onClick={() => dispatch(userActions.openEditProfileModal())}
+              onClick={() => dispatch(userActions.openEditContactModal())}
             >
               <FontAwesomeIcon icon={faPenToSquare} />
             </Button>
@@ -258,7 +260,7 @@ function ProfilePage() {
               </Box>
               <Box marginLeft={"5px"}>
                 <a
-                  href={`http://www.twitter.com/${twitter.slice(1)}`}
+                  href={`https://www.twitter.com/${twitter.slice(1)}`}
                   target="_blank"
                 >
                   <Text
@@ -277,13 +279,29 @@ function ProfilePage() {
               </Box>
               <Box marginLeft={"5px"}>
                 <a
-                  href={`http://www.instagram.com/${twitter?.slice(1)}`}
+                  href={`https://www.instagram.com/${twitter?.slice(1)}`}
                   target="_blank"
                 >
                   <Text
                     fontSize="16px"
                     color={colors.primaryNavy}
                     words={`${instagram}`}
+                  />
+                </a>
+              </Box>
+            </Box>
+          )}
+          {personalSite && personalSite.length > 0 && (
+            <Box display="flex">
+              <Box marginTop={"1px"}>
+                <FontAwesomeIcon icon={faGlobe} />
+              </Box>
+              <Box marginLeft={"5px"}>
+                <a href={`https://${personalSite}`} target="_blank">
+                  <Text
+                    fontSize="16px"
+                    color={colors.primaryNavy}
+                    words={`${personalSite}`}
                   />
                 </a>
               </Box>
@@ -304,22 +322,6 @@ function ProfilePage() {
               </a>
             </Box>
           </Box>
-          {personalSite && personalSite.length > 0 && (
-            <Box display="flex">
-              <Box marginTop={"1px"}>
-                <FontAwesomeIcon icon={faGlobe} />
-              </Box>
-              <Box marginLeft={"5px"}>
-                <a href={`http://${personalSite}`} target="_blank">
-                  <Text
-                    fontSize="16px"
-                    color={colors.primaryNavy}
-                    words={`${personalSite}`}
-                  />
-                </a>
-              </Box>
-            </Box>
-          )}
         </Box>
       </Box>
 

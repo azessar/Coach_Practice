@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { Box, Modal } from "@mui/material";
 import HelloMenu from "./containers/hello-menu";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import ProfilePage from "./containers/profile-page/profile-page";
+import ProfilePage from "./containers/profile-page";
 
 function App() {
   const { loading } = useSelector((state: any) => state.uiReducer);

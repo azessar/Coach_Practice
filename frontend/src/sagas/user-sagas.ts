@@ -13,6 +13,10 @@ const EDIT_PROFILE_BLURB_ERROR = userActionTypes.EDIT_PROFILE_BLURB_ERROR;
 const EDIT_EXPERIENCE = userActionTypes.EDIT_EXPERIENCE;
 const EDIT_EXPERIENCE_SUCCESS = userActionTypes.EDIT_EXPERIENCE_SUCCESS;
 const EDIT_EXPERIENCE_ERROR = userActionTypes.EDIT_EXPERIENCE_ERROR;
+const EDIT_PROFILE_CONTACT = userActionTypes.EDIT_PROFILE_CONTACT;
+const EDIT_PROFILE_CONTACT_SUCCESS =
+  userActionTypes.EDIT_PROFILE_CONTACT_SUCCESS;
+const EDIT_PROFILE_CONTACT_ERROR = userActionTypes.EDIT_PROFILE_CONTACT_ERROR;
 
 export const getUserProfileAPI = (email: string, accessToken: string) => {
   return axios.post(
@@ -57,6 +61,25 @@ export const editExperienceAPI = (
     {
       email,
       experience,
+    },
+    {
+      headers: {
+        authorization: accessToken,
+      },
+    }
+  );
+};
+
+export const editContactsAPI = (
+  email: string,
+  accessToken: string,
+  newContacts: { personalSite: string; twitter: string; instagram: string }
+) => {
+  return axios.put(
+    `${API_URL}/api/user-profile-contacts`,
+    {
+      email,
+      newContacts,
     },
     {
       headers: {
@@ -141,8 +164,34 @@ function* editExperience(action: any): any {
   }
 }
 
+function* editContacts(action: any): any {
+  try {
+    const response = yield call(
+      editContactsAPI,
+      action.email,
+      action.accessToken,
+      action.newContacts
+    );
+    if (response) {
+      yield put({
+        type: EDIT_PROFILE_CONTACT_SUCCESS,
+        responseMessage: response.data.message,
+      });
+    }
+  } catch (err: any) {
+    console.log(err.response.data);
+    console.log(err.response.status);
+    console.log(err.response.headers);
+    yield put({
+      type: EDIT_PROFILE_CONTACT_ERROR,
+      responseMessage: err.response.data.message,
+    });
+  }
+}
+
 export function* userSaga() {
   yield takeLatest(GET_USER_PROFILE, getUserProfile);
   yield takeLatest(EDIT_PROFILE_BLURB, editProfileBlurb);
   yield takeLatest(EDIT_EXPERIENCE, editExperience);
+  yield takeLatest(EDIT_PROFILE_CONTACT, editContacts);
 }

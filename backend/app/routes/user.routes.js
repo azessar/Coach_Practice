@@ -35,4 +35,9 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.editExperienceSection
   );
+  app.put(
+    "/api/user-profile-contacts",
+    [authJwt.verifyToken],
+    controller.editContactsSection
+  );
 };

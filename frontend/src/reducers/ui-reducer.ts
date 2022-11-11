@@ -4,6 +4,7 @@ const initialState = {
   authMessage: "",
   authModalOpen: false,
   editProfileModalOpen: false,
+  editContactModalOpen: false,
   editExperienceModalOpen: false,
   deleteExperienceModalOpen: false,
   addExperienceModalOpen: false,
@@ -110,6 +111,16 @@ const uiReducer = (state = initialState, action: any) => {
         ...state,
         editProfileModalOpen: false,
       };
+    case "OPEN_EDIT_CONTACT_MODAL":
+      return {
+        ...state,
+        editContactModalOpen: true,
+      };
+    case "CLOSE_EDIT_CONTACT_MODAL":
+      return {
+        ...state,
+        editContactModalOpen: false,
+      };
     case "OPEN_EDIT_EXPERIENCE_MODAL":
       return {
         ...state,
@@ -146,12 +157,27 @@ const uiReducer = (state = initialState, action: any) => {
         ...state,
         loading: true,
       };
+    case "EDIT_PROFILE_CONTACT":
+      return {
+        ...state,
+        loading: true,
+      };
     case "EDIT_PROFILE_BLURB_SUCCESS":
       return {
         ...state,
         loading: false,
       };
     case "EDIT_PROFILE_BLURB_ERROR":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "EDIT_PROFILE_CONTACT_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "EDIT_PROFILE_CONTACT_ERROR":
       return {
         ...state,
         loading: false,
