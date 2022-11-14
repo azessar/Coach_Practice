@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../actions/auth-actions";
 import { Link } from "react-router-dom";
 import Text from "../components/text";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquareCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -66,17 +68,25 @@ function NavBar() {
                   fontSize="1.2em"
                 />
               ) : (
-                <Box>
-                  <Text
-                    words="HELLO,"
-                    color={colors.secondaryLightBlue}
-                    fontSize="1.2em"
-                  />
-                  <Text
-                    words={`COACH ${currentUser.firstName}`}
-                    color={colors.secondaryLightBlue}
-                    fontSize="0.9em"
-                  />
+                <Box display={"flex"}>
+                  <Box>
+                    <Text
+                      words="HELLO,"
+                      color={colors.secondaryLightBlue}
+                      fontSize="1.2em"
+                    />
+                    <Text
+                      words={`COACH ${currentUser.firstName}`}
+                      color={colors.secondaryLightBlue}
+                      fontSize="0.9em"
+                    />
+                  </Box>
+                  <Box marginLeft={"8px"} marginTop="8px">
+                    <FontAwesomeIcon
+                      icon={faSquareCaretDown}
+                      style={{ color: colors.secondaryLightBlue }}
+                    />
+                  </Box>
                 </Box>
               )}
             </Button>
