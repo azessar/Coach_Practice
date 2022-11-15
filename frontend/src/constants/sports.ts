@@ -5,10 +5,11 @@ export const coachableSports = {
   football: "Football",
   golf: "Golf",
   gymnastics: "Gymnastics",
+  pickleball: "Pickleball",
   soccer: "Soccer",
   softball: "Softball",
-  tennis: "Tennis",
   swimming: "Swimming",
+  tennis: "Tennis",
   track: "Track",
   volleyball: "Volleyball",
 };

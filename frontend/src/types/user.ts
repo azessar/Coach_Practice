@@ -13,6 +13,7 @@ export interface existingUser {
   password: string;
   firstName?: string;
   lastName?: string;
+  gender?: string;
   zipCode?: string;
   twitter?: string;
   instagram?: string;

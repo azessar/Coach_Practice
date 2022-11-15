@@ -20,6 +20,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    gender: {
+      type: Sequelize.STRING,
+    },
     twitter: {
       type: Sequelize.STRING,
     },

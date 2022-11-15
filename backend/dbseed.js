@@ -33,6 +33,7 @@ async function initial() {
       password: bcrypt.hashSync("aaaaaaaa", 8),
       zipCode: "60610",
       email: "jordan@blah.blah",
+      gender: "Male",
       twitter: "@coachcornerteam",
       instagram: "@coachcornerteam",
       personalSite: "www.coachcorner.io",
