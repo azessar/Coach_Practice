@@ -4,11 +4,11 @@ const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
   host: config.HOST,
   dialect: config.dialect,
   operatorsAliases: 0,
-  dialectOptions: {
-    // e.g. socketPath: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'
-    // same as host string above
-    socketPath: `/cloudsql/coachcorner-networking-site:us-central1:quickstart-instance`,
-  },
+  // dialectOptions: {
+  //   // e.g. socketPath: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'
+  //   // same as host string above
+  //   socketPath: `/cloudsql/coachcorner-networking-site:us-central1:quickstart-instance`,
+  // },
   pool: {
     max: config.pool.max,
     min: config.pool.min,

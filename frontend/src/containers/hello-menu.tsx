@@ -36,7 +36,7 @@ function HelloMenu() {
       <MenuItem onClick={() => handleClick("/profile")}>
         <Text words="PROFILE" fontSize="16px" />
       </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={() => handleClick("/account")}>
         <Text words="MY ACCOUNT" fontSize="16px" />
       </MenuItem>
       <MenuItem onClick={handleLogout}>

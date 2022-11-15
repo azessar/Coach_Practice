@@ -24,7 +24,7 @@ function EditContactModal() {
   const userProfile: existingUser = useSelector(
     (state: any) => state.userReducer.userProfile
   );
-  const { twitter, instagram, personalSite, email } = userProfile;
+  const { email } = userProfile || "";
   const [twitterSection, setTwitterSection] = React.useState(
     userProfile?.twitter
   );

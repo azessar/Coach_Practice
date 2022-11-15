@@ -1,6 +1,0 @@
-runtime: nodejs
-env: flex
-
-# make sure to include code below
-beta_settings:
-  cloud_sql_instances: coachcorner-networking-site:us-central1:quickstart-instance

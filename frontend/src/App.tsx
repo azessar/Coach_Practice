@@ -8,6 +8,7 @@ import { Box, Modal } from "@mui/material";
 import HelloMenu from "./containers/hello-menu";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ProfilePage from "./containers/profile-page";
+import AccountPage from "./containers/account-page";
 
 function App() {
   const { loading } = useSelector((state: any) => state.uiReducer);
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route path="" element={<div>HOME</div>}></Route>
           <Route path="/profile" element={<ProfilePage />}></Route>
+          <Route path="/account" element={<AccountPage />}></Route>
         </Routes>
       </Router>
     </div>
