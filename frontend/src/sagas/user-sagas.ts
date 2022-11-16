@@ -17,6 +17,9 @@ const EDIT_PROFILE_CONTACT = userActionTypes.EDIT_PROFILE_CONTACT;
 const EDIT_PROFILE_CONTACT_SUCCESS =
   userActionTypes.EDIT_PROFILE_CONTACT_SUCCESS;
 const EDIT_PROFILE_CONTACT_ERROR = userActionTypes.EDIT_PROFILE_CONTACT_ERROR;
+const EDIT_ACCOUNT = userActionTypes.EDIT_ACCOUNT;
+const EDIT_ACCOUNT_SUCCESS = userActionTypes.EDIT_ACCOUNT_SUCCESS;
+const EDIT_ACCOUNT_ERROR = userActionTypes.EDIT_ACCOUNT_ERROR;
 
 export const getUserProfileAPI = (email: string, accessToken: string) => {
   return axios.post(
@@ -80,6 +83,33 @@ export const editContactsAPI = (
     {
       email,
       newContacts,
+    },
+    {
+      headers: {
+        authorization: accessToken,
+      },
+    }
+  );
+};
+
+export const editAccountAPI = (
+  email: string,
+  accessToken: string,
+  firstName: string,
+  lastName: string,
+  gender: string,
+  zipCode: string,
+  sports: string[]
+) => {
+  return axios.put(
+    `${API_URL}/api/user-account`,
+    {
+      email,
+      firstName,
+      lastName,
+      gender,
+      zipCode,
+      sports,
     },
     {
       headers: {
@@ -189,9 +219,39 @@ function* editContacts(action: any): any {
   }
 }
 
+function* editAccount(action: any): any {
+  try {
+    const response = yield call(
+      editAccountAPI,
+      action.email,
+      action.accessToken,
+      action.firstName,
+      action.lastName,
+      action.gender,
+      action.zipCode,
+      action.sports
+    );
+    if (response) {
+      yield put({
+        type: EDIT_ACCOUNT_SUCCESS,
+        responseMessage: response.data.message,
+      });
+    }
+  } catch (err: any) {
+    console.log(err.response.data);
+    console.log(err.response.status);
+    console.log(err.response.headers);
+    yield put({
+      type: EDIT_ACCOUNT_ERROR,
+      responseMessage: err.response.data.message,
+    });
+  }
+}
+
 export function* userSaga() {
   yield takeLatest(GET_USER_PROFILE, getUserProfile);
   yield takeLatest(EDIT_PROFILE_BLURB, editProfileBlurb);
   yield takeLatest(EDIT_EXPERIENCE, editExperience);
   yield takeLatest(EDIT_PROFILE_CONTACT, editContacts);
+  yield takeLatest(EDIT_ACCOUNT, editAccount);
 }

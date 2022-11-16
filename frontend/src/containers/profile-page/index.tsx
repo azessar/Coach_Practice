@@ -353,6 +353,7 @@ function ProfilePage() {
         </Box>
         <Box marginTop={"20px"}>
           <BigText
+            fontWeight="400"
             fontSize="14px"
             color={colors.primaryNavy}
             words={`${blurb}`}
@@ -465,7 +466,11 @@ function ProfilePage() {
                     />
                   </Box>
                   <Box marginTop={"20px"}>
-                    <BigText fontSize="14px" words={`${job.summary}`} />
+                    <BigText
+                      fontWeight="400"
+                      fontSize="14px"
+                      words={`${job.summary}`}
+                    />
                   </Box>
                 </Box>
               </Box>

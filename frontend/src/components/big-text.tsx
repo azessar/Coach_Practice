@@ -15,7 +15,7 @@ function BigText(props: BigTextProps) {
   return (
     <Typography
       style={{
-        fontWeight: fontWeight || "400",
+        fontWeight: fontWeight || "700",
         color: color || colors.primaryNavy,
         fontSize: fontSize || "1.5em",
         transform: transform || "scale(1, 1.5)",

@@ -8,6 +8,7 @@ import { existingUser } from "../../types/user";
 import BigText from "../../components/big-text";
 import { coachableSports } from "../../constants/sports";
 import { genderOptions } from "../../constants/genders";
+import { authActions } from "../../actions/auth-actions";
 
 function AccountPage() {
   const dispatch = useDispatch();
@@ -15,15 +16,13 @@ function AccountPage() {
   const { userProfile } = useSelector((state: any) => state.userReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
   const [firstNameSection, setFirstNameSection] = useState(
-    currentUser?.firstName
+    userProfile?.firstName
   );
-  const [lastNameSection, setLastNameSection] = useState(currentUser?.lastName);
+  const [lastNameSection, setLastNameSection] = useState(userProfile?.lastName);
   const [genderSection, setGenderSection] = useState(userProfile?.gender);
 
-  console.log(11111, userProfile);
-
-  const [emailSection, setEmailSection] = useState(currentUser?.email);
-  const [zipSection, setZipSection] = useState(currentUser?.zipCode);
+  const [emailSection, setEmailSection] = useState(userProfile?.email);
+  const [zipSection, setZipSection] = useState(userProfile?.zipCode);
   const [firstSportSection, setFirstSportSection] = useState(
     userProfile?.sports[0] || ""
   );
@@ -47,6 +46,22 @@ function AccountPage() {
     zipSection.length === 0 ||
     firstSportSection.length === 0;
 
+  const { authMessage, isError } = useSelector((state: any) => state.uiReducer);
+
+  const handleUpdateAccount = () => {
+    dispatch(
+      userActions.editAccount(
+        emailSection,
+        currentUser?.accessToken,
+        firstNameSection,
+        lastNameSection,
+        genderSection,
+        zipSection,
+        [firstSportSection, secondSportSection, thirdSportSection]
+      )
+    );
+  };
+
   return (
     <>
       <Box
@@ -64,6 +79,9 @@ function AccountPage() {
           fontSize="20px"
         />
         <Box>
+          {isError && (
+            <Text color={colors.red} words={authMessage} fontSize=".8em" />
+          )}
           <Box display="flex" justifyContent={"space-between"} marginTop="20px">
             <Box width="32%">
               <Box>
@@ -237,7 +255,7 @@ function AccountPage() {
         </Box>
         <Box marginTop={"20px"}>
           <Button
-            // onClick={() => handleSignup()}
+            onClick={() => handleUpdateAccount()}
             disabled={disabledSubmit}
             variant="contained"
             style={{

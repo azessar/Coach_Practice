@@ -40,4 +40,9 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.editContactsSection
   );
+  app.put(
+    "/api/user-account",
+    [authJwt.verifyToken],
+    controller.editAccountInfo
+  );
 };

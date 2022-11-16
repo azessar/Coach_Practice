@@ -75,3 +75,25 @@ exports.editContactsSection = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.editAccountInfo = (req, res) => {
+  User.update(
+    {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      gender: req.body.gender,
+      email: req.body.email,
+      zipCode: req.body.zipCode,
+      sports: req.body.sports,
+    },
+    { where: { email: req.body.email } }
+  )
+    .then(() => {
+      res.status(200).send({
+        message: "Account updated successfully.",
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+};

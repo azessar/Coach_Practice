@@ -23,6 +23,9 @@ export const userActionTypes = {
   EDIT_EXPERIENCE: "EDIT_EXPERIENCE",
   EDIT_EXPERIENCE_SUCCESS: "EDIT_EXPERIENCE_SUCCESS",
   EDIT_EXPERIENCE_ERROR: "EDIT_EXPERIENCE_ERROR",
+  EDIT_ACCOUNT: "EDIT_ACCOUNT",
+  EDIT_ACCOUNT_SUCCESS: "EDIT_ACCOUNT_SUCCESS",
+  EDIT_ACCOUNT_ERROR: "EDIT_ACCOUNT_ERROR",
 };
 
 export const userActions = {
@@ -90,5 +93,23 @@ export const userActions = {
     email,
     accessToken,
     experience,
+  }),
+  editAccount: (
+    email: string,
+    accessToken: string,
+    firstName: string,
+    lastName: string,
+    gender: string,
+    zipCode: string,
+    sports: string[]
+  ) => ({
+    type: userActionTypes.EDIT_ACCOUNT,
+    email,
+    firstName,
+    lastName,
+    gender,
+    zipCode,
+    sports,
+    accessToken,
   }),
 };
