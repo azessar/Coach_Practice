@@ -14,6 +14,8 @@ export const userActionTypes = {
   CLOSE_DELETE_EXPERIENCE_MODAL: "CLOSE_DELETE_EXPERIENCE_MODAL",
   OPEN_ADD_EXPERIENCE_MODAL: "OPEN_ADD_EXPERIENCE_MODAL",
   CLOSE_ADD_EXPERIENCE_MODAL: "CLOSE_ADD_EXPERIENCE_MODAL",
+  OPEN_EDIT_ACCOUNT_MODAL: "OPEN_EDIT_ACCOUNT_MODAL",
+  CLOSE_EDIT_ACCOUNT_MODAL: "CLOSE_EDIT_ACCOUNT_MODAL",
   EDIT_PROFILE_BLURB: "EDIT_PROFILE_BLURB",
   EDIT_PROFILE_CONTACT: "EDIT_PROFILE_CONTACT",
   EDIT_PROFILE_BLURB_SUCCESS: "EDIT_PROFILE_BLURB_SUCCESS",
@@ -64,6 +66,12 @@ export const userActions = {
   closeAddExperienceModal: () => ({
     type: userActionTypes.CLOSE_ADD_EXPERIENCE_MODAL,
   }),
+  openEditAccountModal: () => ({
+    type: userActionTypes.OPEN_EDIT_ACCOUNT_MODAL,
+  }),
+  closeEditAccountModal: () => ({
+    type: userActionTypes.CLOSE_EDIT_ACCOUNT_MODAL,
+  }),
   editProfileBlurb: (
     email: string,
     accessToken: string,
@@ -101,7 +109,9 @@ export const userActions = {
     lastName: string,
     gender: string,
     zipCode: string,
-    sports: string[]
+    sports: string[],
+    password: string,
+    previousEmail: string
   ) => ({
     type: userActionTypes.EDIT_ACCOUNT,
     email,
@@ -111,5 +121,7 @@ export const userActions = {
     zipCode,
     sports,
     accessToken,
+    password,
+    previousEmail,
   }),
 };

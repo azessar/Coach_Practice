@@ -9,6 +9,7 @@ import BigText from "../../components/big-text";
 import { coachableSports } from "../../constants/sports";
 import { genderOptions } from "../../constants/genders";
 import { authActions } from "../../actions/auth-actions";
+import EditAccountModal from "./edit-account-modal";
 
 function AccountPage() {
   const dispatch = useDispatch();
@@ -44,26 +45,23 @@ function AccountPage() {
     lastNameSection.length === 0 ||
     emailSection.length === 0 ||
     zipSection.length === 0 ||
-    firstSportSection.length === 0;
+    firstSportSection.length === 0 ||
+    firstSportSection.toLowerCase() === "none";
 
   const { authMessage, isError } = useSelector((state: any) => state.uiReducer);
 
-  const handleUpdateAccount = () => {
-    dispatch(
-      userActions.editAccount(
-        emailSection,
-        currentUser?.accessToken,
-        firstNameSection,
-        lastNameSection,
-        genderSection,
-        zipSection,
-        [firstSportSection, secondSportSection, thirdSportSection]
-      )
-    );
-  };
-
   return (
     <>
+      <EditAccountModal
+        emailSection={emailSection}
+        firstNameSection={firstNameSection}
+        lastNameSection={lastNameSection}
+        genderSection={genderSection}
+        zipSection={zipSection}
+        firstSportSection={firstSportSection}
+        secondSportSection={secondSportSection}
+        thirdSportSection={thirdSportSection}
+      />
       <Box
         bgcolor={colors.white}
         width="60%"
@@ -255,7 +253,7 @@ function AccountPage() {
         </Box>
         <Box marginTop={"20px"}>
           <Button
-            onClick={() => handleUpdateAccount()}
+            onClick={() => dispatch(userActions.openEditAccountModal())}
             disabled={disabledSubmit}
             variant="contained"
             style={{
@@ -265,8 +263,72 @@ function AccountPage() {
               color: disabledSubmit ? colors.black : colors.white,
             }}
           >
-            Save Changes
+            Save Account Changes
           </Button>
+        </Box>
+      </Box>
+      <Box
+        bgcolor={colors.white}
+        width="60%"
+        margin="auto"
+        padding="20px"
+        marginTop={"20px"}
+        marginBottom="20px"
+        borderRadius="10px"
+      >
+        <Text
+          color={colors.primaryNavy}
+          words={`CHANGE PASSWORD`}
+          fontWeight="700"
+          fontSize="20px"
+        />
+        <Box marginTop="20px">
+          <Box>
+            <BigText
+              color={colors.primaryNavy}
+              words={`Current password`}
+              fontSize="0.8em"
+            />
+          </Box>
+          <Box marginTop={"10px"}>
+            <TextField
+              fullWidth
+              // value={emailSection}
+              // onChange={(e) => setEmailSection(e.target.value)}
+            ></TextField>
+          </Box>
+        </Box>
+        <Box marginTop="20px">
+          <Box>
+            <BigText
+              color={colors.primaryNavy}
+              words={`New password`}
+              fontSize="0.8em"
+            />
+          </Box>
+          <Box marginTop={"10px"}>
+            <TextField
+              fullWidth
+              // value={emailSection}
+              // onChange={(e) => setEmailSection(e.target.value)}
+            ></TextField>
+          </Box>
+        </Box>
+        <Box marginTop="20px">
+          <Box>
+            <BigText
+              color={colors.primaryNavy}
+              words={`Confirm new password`}
+              fontSize="0.8em"
+            />
+          </Box>
+          <Box marginTop={"10px"}>
+            <TextField
+              fullWidth
+              // value={emailSection}
+              // onChange={(e) => setEmailSection(e.target.value)}
+            ></TextField>
+          </Box>
         </Box>
       </Box>
     </>

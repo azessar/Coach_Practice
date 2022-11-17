@@ -165,7 +165,7 @@ function ProfilePage() {
           border={`5px solid ${colors.secondaryLightBlue}`}
         ></Box>
         <Box display="flex" justifyContent={"space-evenly"}>
-          <Box width="33%">
+          <Box width="25%">
             <Box marginLeft={"auto"} marginRight="auto" marginTop="20px">
               <Text
                 fontSize="14px"
@@ -174,7 +174,7 @@ function ProfilePage() {
               />
             </Box>
           </Box>
-          <Box width="33%">
+          <Box width="50%">
             <Box marginLeft={"auto"} marginRight="auto" marginTop="20px">
               <Text
                 fontSize="14px"
@@ -190,7 +190,7 @@ function ProfilePage() {
               />
             </Box>
           </Box>
-          <Box width="33%" display="flex" justifyContent={"space-around"}>
+          <Box width="25%" display="flex" justifyContent={"space-around"}>
             <Box marginTop="10px">
               {sports &&
                 sports.length > 0 &&

@@ -3,6 +3,7 @@ import { existingUser, job, newUser } from "../types/user";
 import axios from "axios";
 import { put, call, takeLatest } from "redux-saga/effects";
 import { API_URL } from "../constants";
+import { authActionTypes } from "../actions/auth-actions";
 
 const GET_USER_PROFILE = userActionTypes.GET_USER_PROFILE;
 const GET_USER_PROFILE_SUCCESS = userActionTypes.GET_USER_PROFILE_SUCCESS;
@@ -20,6 +21,8 @@ const EDIT_PROFILE_CONTACT_ERROR = userActionTypes.EDIT_PROFILE_CONTACT_ERROR;
 const EDIT_ACCOUNT = userActionTypes.EDIT_ACCOUNT;
 const EDIT_ACCOUNT_SUCCESS = userActionTypes.EDIT_ACCOUNT_SUCCESS;
 const EDIT_ACCOUNT_ERROR = userActionTypes.EDIT_ACCOUNT_ERROR;
+
+const LOGIN_SUCCESS = authActionTypes.LOGIN_SUCCESS;
 
 export const getUserProfileAPI = (email: string, accessToken: string) => {
   return axios.post(
@@ -93,23 +96,27 @@ export const editContactsAPI = (
 };
 
 export const editAccountAPI = (
-  email: string,
+  newEmail: string,
   accessToken: string,
   firstName: string,
   lastName: string,
   gender: string,
   zipCode: string,
-  sports: string[]
+  sports: string[],
+  password: string,
+  previousEmail: string
 ) => {
   return axios.put(
     `${API_URL}/api/user-account`,
     {
-      email,
+      newEmail,
       firstName,
       lastName,
       gender,
       zipCode,
       sports,
+      password,
+      previousEmail,
     },
     {
       headers: {
@@ -229,9 +236,15 @@ function* editAccount(action: any): any {
       action.lastName,
       action.gender,
       action.zipCode,
-      action.sports
+      action.sports,
+      action.password,
+      action.previousEmail
     );
     if (response) {
+      yield put({
+        type: LOGIN_SUCCESS,
+        currentUser: response.data,
+      });
       yield put({
         type: EDIT_ACCOUNT_SUCCESS,
         responseMessage: response.data.message,

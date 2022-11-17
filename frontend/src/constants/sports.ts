@@ -1,4 +1,5 @@
 export const coachableSports = {
+  none: "None",
   baseball: "Baseball",
   basketball: "Basketball",
   crossCountry: "Cross Country",

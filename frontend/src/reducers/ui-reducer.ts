@@ -8,6 +8,7 @@ const initialState = {
   editExperienceModalOpen: false,
   deleteExperienceModalOpen: false,
   addExperienceModalOpen: false,
+  editAccountModalOpen: false,
   helloMenuOpen: false,
   helloMenuAnchor: null,
   loginMode: true,
@@ -151,6 +152,16 @@ const uiReducer = (state = initialState, action: any) => {
         ...state,
         addExperienceModalOpen: false,
       };
+    case "OPEN_EDIT_ACCOUNT_MODAL":
+      return {
+        ...state,
+        editAccountModalOpen: true,
+      };
+    case "CLOSE_EDIT_ACCOUNT_MODAL":
+      return {
+        ...state,
+        editAccountModalOpen: false,
+      };
 
     case "EDIT_PROFILE_BLURB":
       return {
@@ -206,11 +217,16 @@ const uiReducer = (state = initialState, action: any) => {
       return {
         ...state,
         loading: false,
+        isError: false,
+        editAccountModalOpen: false,
       };
     case "EDIT_ACCOUNT_ERROR":
       return {
         ...state,
         loading: false,
+        authMessage: action.responseMessage,
+        isError: true,
+        editAccountModalOpen: true,
       };
     default:
       return state;

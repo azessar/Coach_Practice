@@ -77,21 +77,48 @@ exports.editContactsSection = (req, res) => {
 };
 
 exports.editAccountInfo = (req, res) => {
-  User.update(
-    {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      gender: req.body.gender,
-      email: req.body.email,
-      zipCode: req.body.zipCode,
-      sports: req.body.sports,
+  User.findOne({
+    where: {
+      email: req.body.previousEmail,
     },
-    { where: { email: req.body.email } }
-  )
-    .then(() => {
-      res.status(200).send({
-        message: "Account updated successfully.",
-      });
+  })
+    .then((user) => {
+      var passwordIsValid = bcrypt.compareSync(
+        req.body.password,
+        user.password
+      );
+      if (!passwordIsValid) {
+        return res.status(401).send({
+          message: "Invalid password!",
+        });
+      }
+      User.update(
+        {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          gender: req.body.gender,
+          email: req.body.newEmail,
+          zipCode: req.body.zipCode,
+          sports: req.body.sports,
+        },
+        { where: { email: req.body.previousEmail } }
+      )
+        .then(() => {
+          var token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 8640000, // 2400 hours
+          });
+          res.status(200).send({
+            id: user.id,
+            email: req.body.newEmail,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            zipCode: req.body.zipCode,
+            accessToken: token,
+          });
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });

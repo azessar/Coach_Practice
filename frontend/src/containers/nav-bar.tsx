@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../App.css";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,15 +14,26 @@ import { Link } from "react-router-dom";
 import Text from "../components/text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { userActions } from "../actions/user-actions";
 
 function NavBar() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
+  const { userProfile } = useSelector((state: any) => state.userReducer);
+  const { loading } = useSelector((state: any) => state.uiReducer);
+
   const handleOpen = (e: any) => {
     currentUser
       ? dispatch(authActions.openHelloMenu(e))
       : dispatch(authActions.openAuthModal());
   };
+
+  useEffect(() => {
+    currentUser?.email &&
+      dispatch(
+        userActions.getUserProfile(currentUser.email, currentUser.accessToken)
+      );
+  }, [currentUser, loading]);
 
   return (
     <Box>
@@ -76,7 +87,7 @@ function NavBar() {
                       fontSize="1.2em"
                     />
                     <Text
-                      words={`COACH ${currentUser.firstName}`}
+                      words={`COACH ${userProfile?.firstName}`}
                       color={colors.secondaryLightBlue}
                       fontSize="0.9em"
                     />
