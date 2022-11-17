@@ -34,13 +34,17 @@ function AccountPage() {
     userProfile?.sports[2] || ""
   );
 
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   useEffect(() => {
     dispatch(
       userActions.getUserProfile(currentUser.email, currentUser.accessToken)
     );
   }, [currentUser, loading]);
 
-  const disabledSubmit =
+  const disabledChangeAccount =
     firstNameSection.length === 0 ||
     lastNameSection.length === 0 ||
     emailSection.length === 0 ||
@@ -48,7 +52,29 @@ function AccountPage() {
     firstSportSection.length === 0 ||
     firstSportSection.toLowerCase() === "none";
 
-  const { authMessage, isError } = useSelector((state: any) => state.uiReducer);
+  const disabledSubmitPassword =
+    currentPassword.length === 0 ||
+    newPassword.length === 0 ||
+    confirmPassword.length === 0;
+
+  const { changePasswordMessage, isError } = useSelector(
+    (state: any) => state.uiReducer
+  );
+
+  const handleChangePassword = () => {
+    dispatch(
+      authActions.changePassword(
+        currentUser?.email,
+        currentUser?.accessToken,
+        currentPassword,
+        newPassword,
+        confirmPassword
+      )
+    );
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+  };
 
   return (
     <>
@@ -77,9 +103,6 @@ function AccountPage() {
           fontSize="20px"
         />
         <Box>
-          {isError && (
-            <Text color={colors.red} words={authMessage} fontSize=".8em" />
-          )}
           <Box display="flex" justifyContent={"space-between"} marginTop="20px">
             <Box width="32%">
               <Box>
@@ -254,13 +277,13 @@ function AccountPage() {
         <Box marginTop={"20px"}>
           <Button
             onClick={() => dispatch(userActions.openEditAccountModal())}
-            disabled={disabledSubmit}
+            disabled={disabledChangeAccount}
             variant="contained"
             style={{
-              background: disabledSubmit
+              background: disabledChangeAccount
                 ? colors.disabledGray
                 : colors.primaryNavy,
-              color: disabledSubmit ? colors.black : colors.white,
+              color: disabledChangeAccount ? colors.black : colors.white,
             }}
           >
             Save Account Changes
@@ -282,6 +305,15 @@ function AccountPage() {
           fontWeight="700"
           fontSize="20px"
         />
+        {changePasswordMessage.length > 0 && (
+          <Box marginTop={"10px"}>
+            <Text
+              color={isError ? colors.red : colors.green}
+              words={changePasswordMessage}
+              fontSize=".8em"
+            />
+          </Box>
+        )}
         <Box marginTop="20px">
           <Box>
             <BigText
@@ -293,8 +325,9 @@ function AccountPage() {
           <Box marginTop={"10px"}>
             <TextField
               fullWidth
-              // value={emailSection}
-              // onChange={(e) => setEmailSection(e.target.value)}
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              type="password"
             ></TextField>
           </Box>
         </Box>
@@ -309,8 +342,9 @@ function AccountPage() {
           <Box marginTop={"10px"}>
             <TextField
               fullWidth
-              // value={emailSection}
-              // onChange={(e) => setEmailSection(e.target.value)}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              type="password"
             ></TextField>
           </Box>
         </Box>
@@ -325,9 +359,25 @@ function AccountPage() {
           <Box marginTop={"10px"}>
             <TextField
               fullWidth
-              // value={emailSection}
-              // onChange={(e) => setEmailSection(e.target.value)}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              type="password"
             ></TextField>
+          </Box>
+          <Box marginTop={"20px"}>
+            <Button
+              onClick={() => handleChangePassword()}
+              disabled={disabledSubmitPassword}
+              variant="contained"
+              style={{
+                background: disabledSubmitPassword
+                  ? colors.disabledGray
+                  : colors.primaryNavy,
+                color: disabledSubmitPassword ? colors.black : colors.white,
+              }}
+            >
+              CHANGE PASSWORD
+            </Button>
           </Box>
         </Box>
       </Box>

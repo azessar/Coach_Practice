@@ -12,6 +12,10 @@ const authReducer = (state = initialState, action: any) => {
       return {
         currentUser: action.currentUser,
       };
+    case "CHANGE_PASSWORD_SUCCESS":
+      return {
+        currentUser: action.currentUser,
+      };
     case "LOGOUT":
       return initialState;
     default:

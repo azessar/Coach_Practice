@@ -17,6 +17,9 @@ export const authActionTypes = {
   LOGOUT: "LOGOUT",
   SWITCH_TO_SIGNUP: "SWITCH_TO_SIGNUP",
   SWITCH_TO_LOGIN: "SWITCH_TO_LOGIN",
+  CHANGE_PASSWORD: "CHANGE_PASSWORD",
+  CHANGE_PASSWORD_ERROR: "CHANGE_PASSWORD_ERROR",
+  CHANGE_PASSWORD_SUCCESS: "CHANGE_PASSWORD_SUCCESS",
 };
 
 export const authActions = {
@@ -27,6 +30,20 @@ export const authActions = {
   login: (user: any) => ({
     type: authActionTypes.LOGIN,
     user,
+  }),
+  changePassword: (
+    email: string,
+    accessToken: string,
+    previousPassword: string,
+    newPassword: string,
+    confirmPassword: string
+  ) => ({
+    type: authActionTypes.CHANGE_PASSWORD,
+    email,
+    accessToken,
+    previousPassword,
+    newPassword,
+    confirmPassword,
   }),
   leaveSignup: () => ({
     type: authActionTypes.LEAVE_SIGNUP,

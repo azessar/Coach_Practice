@@ -12,6 +12,7 @@ const initialState = {
   helloMenuOpen: false,
   helloMenuAnchor: null,
   loginMode: true,
+  changePasswordMessage: "",
 };
 
 const uiReducer = (state = initialState, action: any) => {
@@ -227,6 +228,25 @@ const uiReducer = (state = initialState, action: any) => {
         authMessage: action.responseMessage,
         isError: true,
         editAccountModalOpen: true,
+      };
+    case "CHANGE_PASSWORD":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "CHANGE_PASSWORD_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        isError: false,
+        changePasswordMessage: "Password successfully changed!",
+      };
+    case "CHANGE_PASSWORD_ERROR":
+      return {
+        ...state,
+        loading: false,
+        changePasswordMessage: action.responseMessage,
+        isError: true,
       };
     default:
       return state;

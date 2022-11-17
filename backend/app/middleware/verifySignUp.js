@@ -48,7 +48,9 @@ const checkValidEmail = (req, res, next) => {
 };
 
 const checkPasswordLength = (req, res, next) => {
-  const { password } = req.body;
+  // const { password } = req.body;
+  const password = req.body.password || req.body.newPassword;
+
   if (password.length < 7) {
     res.status(400).send({
       message: "Password must be at least 7 characters!",
@@ -61,6 +63,17 @@ const checkPasswordLength = (req, res, next) => {
 const checkConfirmPassword = (req, res, next) => {
   const { password, confirmPassword } = req.body;
   if (password != confirmPassword) {
+    res.status(400).send({
+      message: "Password and Confirm Password must match!",
+    });
+    return;
+  }
+  next();
+};
+
+const checkConfirmPasswordForNewPassword = (req, res, next) => {
+  const { newPassword, confirmPassword } = req.body;
+  if (newPassword != confirmPassword) {
     res.status(400).send({
       message: "Password and Confirm Password must match!",
     });
@@ -91,5 +104,6 @@ const verifySignUp = {
   checkPasswordLength: checkPasswordLength,
   checkConfirmPassword: checkConfirmPassword,
   checkRolesExisted: checkRolesExisted,
+  checkConfirmPasswordForNewPassword: checkConfirmPasswordForNewPassword,
 };
 module.exports = verifySignUp;
