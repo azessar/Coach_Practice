@@ -356,7 +356,7 @@ function ProfilePage() {
             fontWeight="400"
             fontSize="14px"
             color={colors.primaryNavy}
-            words={`${blurb}`}
+            words={blurb && blurb.length > 0 ? `${blurb}` : ""}
           />
         </Box>
       </Box>

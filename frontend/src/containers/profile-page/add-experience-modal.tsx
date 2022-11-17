@@ -42,7 +42,7 @@ function AddExperienceModal() {
   };
 
   const handleAddExperience = () => {
-    const currentExperience = userProfile.experience;
+    const currentExperience = userProfile.experience || [];
     const newExperience = [newJob, ...currentExperience];
 
     dispatch(
