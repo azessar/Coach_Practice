@@ -45,17 +45,16 @@ function AccountPage() {
   }, [currentUser, loading]);
 
   const disabledChangeAccount =
-    firstNameSection.length === 0 ||
-    lastNameSection.length === 0 ||
-    emailSection.length === 0 ||
-    zipSection.length === 0 ||
-    firstSportSection.length === 0 ||
-    firstSportSection.toLowerCase() === "none";
+    firstNameSection?.length === 0 ||
+    lastNameSection?.length === 0 ||
+    emailSection?.length === 0 ||
+    zipSection?.length === 0 ||
+    firstSportSection?.length === 0;
 
   const disabledSubmitPassword =
-    currentPassword.length === 0 ||
-    newPassword.length === 0 ||
-    confirmPassword.length === 0;
+    currentPassword?.length === 0 ||
+    newPassword?.length === 0 ||
+    confirmPassword?.length === 0;
 
   const { changePasswordMessage, isError } = useSelector(
     (state: any) => state.uiReducer
