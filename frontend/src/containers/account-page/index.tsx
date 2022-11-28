@@ -20,7 +20,7 @@ function AccountPage() {
     userProfile?.firstName
   );
   const [lastNameSection, setLastNameSection] = useState(userProfile?.lastName);
-  const [genderSection, setGenderSection] = useState(userProfile?.gender);
+  const [genderSection, setGenderSection] = useState(userProfile?.gender || "");
 
   const [emailSection, setEmailSection] = useState(userProfile?.email);
   const [zipSection, setZipSection] = useState(userProfile?.zipCode);

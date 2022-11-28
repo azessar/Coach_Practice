@@ -9,6 +9,7 @@ import HelloMenu from "./containers/hello-menu";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ProfilePage from "./containers/profile-page";
 import AccountPage from "./containers/account-page";
+import HomePage from "./containers/home-page";
 
 function App() {
   const { loading } = useSelector((state: any) => state.uiReducer);
@@ -35,7 +36,7 @@ function App() {
         <AuthModal />
         <HelloMenu />
         <Routes>
-          <Route path="" element={<div>HOME</div>}></Route>
+          <Route path="" element={<HomePage />}></Route>
           <Route path="/profile" element={<ProfilePage />}></Route>
           <Route path="/account" element={<AccountPage />}></Route>
         </Routes>

@@ -40,14 +40,14 @@ function NavBar() {
       <AppBar position="fixed" style={{ background: colors.primaryNavy }}>
         <Toolbar>
           <Box display="flex" justifyContent="space-between" width="100%">
-            <IconButton
-              size="large"
-              edge="start"
-              aria-label="menu"
-              style={{ color: colors.secondaryLightBlue }}
-            >
-              <MenuIcon />
-            </IconButton>
+            <Button color="inherit">
+              <Text
+                color={colors.secondaryLightBlue}
+                words="JOBS"
+                fontSize="1.2em"
+              />
+            </Button>
+
             <Box
               style={{
                 position: "absolute",

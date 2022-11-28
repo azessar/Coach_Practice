@@ -51,6 +51,8 @@ function EditAccountModal(props: EditAccountModalProps) {
     setPassword("");
   }, [editAccountModalOpen]);
 
+  console.log(11111, firstSportSection, secondSportSection, thirdSportSection);
+
   const handleEditAccount = () => {
     dispatch(
       userActions.editAccount(
@@ -62,7 +64,7 @@ function EditAccountModal(props: EditAccountModalProps) {
         zipSection,
         Array.from(
           new Set([firstSportSection, secondSportSection, thirdSportSection])
-        ).filter((s: string) => s.toLowerCase() !== "none" && s.length > 0),
+        ).filter((s: string) => s?.toLowerCase() !== "none" && s.length > 0),
         password,
         currentUser?.email
       )

@@ -7,4 +7,5 @@ export const colors = {
   red: "red",
   green: "green",
   tertiarySilver: "#e7e6e6",
+  goRed: "#bb4646",
 };
