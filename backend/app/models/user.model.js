@@ -26,16 +26,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    zipCode: {
+    city: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate: {
-        customValidator(value) {
-          if (value.length > 5) {
-            throw new Error("Please enter a valid 5 digit US zip code.");
-          }
-        },
-      },
     },
     email: {
       type: Sequelize.STRING,
@@ -48,6 +41,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     instagram: {
+      type: Sequelize.STRING,
+    },
+    linkedIn: {
       type: Sequelize.STRING,
     },
     personalSite: {

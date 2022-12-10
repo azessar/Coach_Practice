@@ -63,6 +63,7 @@ exports.editContactsSection = (req, res) => {
       twitter: req.body.newContacts.twitter,
       instagram: req.body.newContacts.instagram,
       personalSite: req.body.newContacts.personalSite,
+      linkedIn: req.body.newContacts.linkedIn,
     },
     { where: { email: req.body.email } }
   )
@@ -98,7 +99,7 @@ exports.editAccountInfo = (req, res) => {
           lastName: req.body.lastName,
           gender: req.body.gender,
           email: req.body.newEmail,
-          zipCode: req.body.zipCode,
+          city: req.body.city,
           sports: req.body.sports,
         },
         { where: { email: req.body.previousEmail } }
@@ -112,7 +113,7 @@ exports.editAccountInfo = (req, res) => {
             email: req.body.newEmail,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            zipCode: req.body.zipCode,
+            city: req.body.city,
             accessToken: token,
           });
         })

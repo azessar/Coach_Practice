@@ -2,7 +2,7 @@ export interface newUser {
   firstName: string;
   lastName: string;
   email: string;
-  zipCode: string;
+  city: string;
   password: string;
   confirmPassword: string;
   sports: string[];
@@ -14,8 +14,9 @@ export interface existingUser {
   firstName?: string;
   lastName?: string;
   gender?: string;
-  zipCode?: string;
+  city?: string;
   twitter?: string;
+  linkedIn?: string;
   instagram?: string;
   personalSite?: string;
   blurb?: string;

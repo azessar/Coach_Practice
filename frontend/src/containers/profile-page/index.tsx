@@ -21,6 +21,7 @@ import EditExperienceModal from "./edit-experience-modal";
 import DeleteExperienceModal from "./delete-experience-modal";
 import AddExperienceModal from "./add-experience-modal";
 import EditContactModal from "./edit-contact-modal";
+import { truncate } from "fs";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function ProfilePage() {
   const {
     twitter,
     instagram,
+    linkedIn,
     personalSite,
     firstName,
     lastName,
@@ -49,6 +51,7 @@ function ProfilePage() {
     ? userProfile
     : {
         twitter: "",
+        linkedIn: "",
         instagram: "",
         personalSite: "",
         firstName: "",
@@ -105,6 +108,14 @@ function ProfilePage() {
 
     return answer;
   }
+
+  const truncateString = (string: string) => {
+    let answer = string;
+    if (answer.length > 25) {
+      answer = string.substring(0, 24) + "...";
+    }
+    return answer;
+  };
 
   const handleReorderExperience = (oldIndex: number, direction: string) => {
     const currentExperience = userProfile.experience;
@@ -170,7 +181,7 @@ function ProfilePage() {
               <Text
                 fontSize="14px"
                 color={colors.secondaryLightBlue}
-                words={`${userProfile?.zipCode}`}
+                words={`${userProfile?.city}`}
               />
             </Box>
           </Box>
@@ -264,9 +275,25 @@ function ProfilePage() {
                   target="_blank"
                 >
                   <Text
-                    fontSize="16px"
+                    fontSize="14px"
                     color={colors.primaryNavy}
-                    words={`${twitter}`}
+                    words={`${truncateString(twitter)}`}
+                  />
+                </a>
+              </Box>
+            </Box>
+          )}
+          {linkedIn && linkedIn.length > 0 && (
+            <Box display="flex">
+              <Box marginTop={"3px"}>
+                <img src="linkedIn-removebg-preview.png" width="20"></img>
+              </Box>
+              <Box marginLeft={"5px"}>
+                <a href={`${linkedIn}`} target="_blank">
+                  <Text
+                    fontSize="14px"
+                    color={colors.primaryNavy}
+                    words={`${truncateString(linkedIn)}`}
                   />
                 </a>
               </Box>
@@ -279,13 +306,13 @@ function ProfilePage() {
               </Box>
               <Box marginLeft={"5px"}>
                 <a
-                  href={`https://www.instagram.com/${twitter?.slice(1)}`}
+                  href={`https://www.instagram.com/${instagram?.slice(1)}`}
                   target="_blank"
                 >
                   <Text
-                    fontSize="16px"
+                    fontSize="14px"
                     color={colors.primaryNavy}
-                    words={`${instagram}`}
+                    words={`${truncateString(instagram)}`}
                   />
                 </a>
               </Box>
@@ -299,9 +326,9 @@ function ProfilePage() {
               <Box marginLeft={"5px"}>
                 <a href={`https://${personalSite}`} target="_blank">
                   <Text
-                    fontSize="16px"
+                    fontSize="14px"
                     color={colors.primaryNavy}
-                    words={`${personalSite}`}
+                    words={`${truncateString(personalSite)}`}
                   />
                 </a>
               </Box>
@@ -315,9 +342,9 @@ function ProfilePage() {
             <Box marginLeft={"5px"}>
               <a href={`mailto: ${email}`}>
                 <Text
-                  fontSize="16px"
+                  fontSize="14px"
                   color={colors.primaryNavy}
-                  words={`${email}`}
+                  words={`${truncateString(email)}`}
                 />
               </a>
             </Box>

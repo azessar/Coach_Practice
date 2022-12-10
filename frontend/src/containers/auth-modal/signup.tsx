@@ -7,12 +7,13 @@ import { authActions } from "../../actions/auth-actions";
 import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { coachableSports } from "../../constants/sports";
 import Text from "../../components/text";
+import { locations } from "../../constants/locations";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [city, setCity] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [firstSport, setFirstSport] = useState("");
@@ -24,7 +25,7 @@ function Signup() {
       authActions.signup({
         firstName,
         lastName,
-        zipCode,
+        city,
         email,
         password,
         confirmPassword,
@@ -53,10 +54,20 @@ function Signup() {
     firstName.length === 0 ||
     lastName.length === 0 ||
     email.length === 0 ||
-    zipCode.length === 0 ||
+    city.length === 0 ||
     password.length === 0 ||
     confirmPassword.length === 0 ||
     firstSport.length === 0;
+
+  const sportKeys = Object.keys(coachableSports).filter(
+    (sport) => sport !== "none"
+  );
+  const sportValues = Object.values(coachableSports).filter(
+    (sport) => sport !== "None"
+  );
+
+  const cityKeys = Object.keys(locations);
+  const cityValues = Object.values(locations);
 
   return (
     <Box sx={boxStyle}>
@@ -100,17 +111,6 @@ function Signup() {
             onKeyDown={(e) => handleEnter(e)}
           ></TextField>
         </Box>
-        <Box marginTop={"10px"}>
-          <TextField
-            label="Zip code"
-            required
-            fullWidth
-            value={zipCode}
-            type="number"
-            onChange={(e) => setZipCode(String(e.target.value))}
-            onKeyDown={(e) => handleEnter(e)}
-          ></TextField>
-        </Box>
 
         <Box marginTop={"10px"}>
           <TextField
@@ -134,6 +134,20 @@ function Signup() {
             onKeyDown={(e) => handleEnter(e)}
           ></TextField>
         </Box>
+        <Box marginTop={"10px"}>
+          <InputLabel id="demo-simple-select-label">Location</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={city}
+            fullWidth
+            onChange={(e) => setCity(String(e.target.value))}
+          >
+            {cityKeys.map((city, i) => (
+              <MenuItem value={cityValues[i]}>{cityValues[i]}</MenuItem>
+            ))}
+          </Select>
+        </Box>
 
         <Box marginTop={"10px"}>
           <InputLabel id="demo-simple-select-label">
@@ -146,10 +160,8 @@ function Signup() {
             fullWidth
             onChange={(e) => setFirstSport(e.target.value)}
           >
-            {Object.keys(coachableSports).map((sport, i) => (
-              <MenuItem value={Object.values(coachableSports)[i]}>
-                {Object.values(coachableSports)[i]}
-              </MenuItem>
+            {sportKeys.map((sport, i) => (
+              <MenuItem value={sportValues[i]}>{sportValues[i]}</MenuItem>
             ))}
           </Select>
         </Box>

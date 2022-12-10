@@ -28,6 +28,9 @@ function EditContactModal() {
   const [twitterSection, setTwitterSection] = React.useState(
     userProfile?.twitter
   );
+  const [linkedInSection, setLinkedInSection] = React.useState(
+    userProfile?.linkedIn
+  );
   const [instagramSection, setInstagramSection] = React.useState(
     userProfile?.instagram
   );
@@ -48,6 +51,7 @@ function EditContactModal() {
           twitter: twitterSection || "",
           instagram: instagramSection || "",
           personalSite: personalSiteSection || "",
+          linkedIn: linkedInSection || "",
         }
       )
     );
@@ -80,6 +84,18 @@ function EditContactModal() {
                 fullWidth
                 value={twitterSection}
                 onChange={(e) => setTwitterSection(e.target.value)}
+              ></TextField>
+            </Box>
+          </Box>
+          <Box display="flex">
+            <Box margin="auto" width="25px" height="25px">
+              <img src="linkedin-removebg-preview.png" width="20"></img>
+            </Box>
+            <Box marginLeft={"10px"}>
+              <TextField
+                fullWidth
+                value={linkedInSection}
+                onChange={(e) => setLinkedInSection(e.target.value)}
               ></TextField>
             </Box>
           </Box>

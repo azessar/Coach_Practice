@@ -85,7 +85,12 @@ export const userActions = {
   editProfileContact: (
     email: string,
     accessToken: string,
-    newContacts: { instagram: string; twitter: string; personalSite: string }
+    newContacts: {
+      instagram: string;
+      twitter: string;
+      personalSite: string;
+      linkedIn: string;
+    }
   ) => ({
     type: userActionTypes.EDIT_PROFILE_CONTACT,
     email,
@@ -108,7 +113,7 @@ export const userActions = {
     firstName: string,
     lastName: string,
     gender: string,
-    zipCode: string,
+    city: string,
     sports: string[],
     password: string,
     previousEmail: string
@@ -118,7 +123,7 @@ export const userActions = {
     firstName,
     lastName,
     gender,
-    zipCode,
+    city,
     sports,
     accessToken,
     password,

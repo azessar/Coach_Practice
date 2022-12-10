@@ -10,7 +10,7 @@ exports.signup = (req, res) => {
   User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    zipCode: req.body.zipCode,
+    city: req.body.city,
     email: req.body.email,
     sports: req.body.sports,
     password: bcrypt.hashSync(req.body.password, 8),
@@ -23,7 +23,7 @@ exports.signup = (req, res) => {
       res.status(200).send({
         firstName: user.firstName,
         lastName: user.lastName,
-        zipCode: user.zipCode,
+        city: user.city,
         email: user.email,
         sports: user.sports,
         accessToken: token,
@@ -61,7 +61,7 @@ exports.login = (req, res) => {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        zipCode: user.zipCode,
+        city: user.city,
         accessToken: token,
       });
     })
@@ -115,7 +115,7 @@ exports.changePassword = (req, res) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            zipCode: user.zipCode,
+            city: user.city,
             accessToken: token,
           });
         })

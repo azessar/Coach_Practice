@@ -7,10 +7,10 @@ import { Button, MenuItem, Select, TextField } from "@mui/material";
 import BigText from "../../components/big-text";
 import { coachableSports } from "../../constants/sports";
 import { locations } from "../../constants/locations";
-import { Navigate, useNavigate } from "react-router";
-import { makeQueryParams } from "../search-page/utils";
+import { Navigate, useLocation, useNavigate } from "react-router";
+import { makeQueryParams } from "./utils";
 
-function HomePage() {
+function SearchPage() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
@@ -29,32 +29,27 @@ function HomePage() {
   const cityKeys = Object.keys(locations);
   const cityValues = Object.values(locations);
 
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+  let query = useQuery();
+
+  useEffect(() => {
+    setSport(query.get("sport") || "");
+    setMetro(query.get("city") || "");
+    setCoachName(query.get("name") || "");
+  }, [currentUser, loading]);
+
   return (
     <>
       <Box
         bgcolor={colors.primaryNavy}
         width="80%"
-        height="250px"
         margin="auto"
         padding="40px"
         marginTop={"80px"}
         borderRadius="10px"
       >
-        <Box>
-          <Text
-            fontSize="14px"
-            color={colors.secondaryLightBlue}
-            words={`YOUR HUB FOR PREMIER COACHING TALENT`}
-          />
-        </Box>
-        <Box marginTop={"20px"}>
-          <Text
-            fontSize="44px"
-            fontWeight="700"
-            color={colors.secondaryLightBlue}
-            words={`FIND ME A COACH`}
-          />
-        </Box>
         <Box marginTop={"20px"} display="flex" justifyContent={"space-between"}>
           <Box width="30%">
             <Box>
@@ -135,4 +130,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default SearchPage;

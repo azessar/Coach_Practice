@@ -20,9 +20,9 @@ const checkDuplicateUsernameOrEmail = (req, res, next) => {
 };
 
 const checkNoBlanks = (req, res, next) => {
-  const { firstName, lastName, email, password, confirmPassword, zipCode } =
+  const { firstName, lastName, email, password, confirmPassword, city } =
     req.body;
-  const data = [firstName, lastName, email, password, confirmPassword, zipCode];
+  const data = [firstName, lastName, email, password, confirmPassword, city];
   for (let i = 0; i < data.length; i++) {
     if (data[i].length === 0) {
       res.status(400).send({

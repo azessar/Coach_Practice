@@ -10,6 +10,7 @@ import { coachableSports } from "../../constants/sports";
 import { genderOptions } from "../../constants/genders";
 import { authActions } from "../../actions/auth-actions";
 import EditAccountModal from "./edit-account-modal";
+import { locations } from "../../constants/locations";
 
 function AccountPage() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ function AccountPage() {
   const [genderSection, setGenderSection] = useState(userProfile?.gender || "");
 
   const [emailSection, setEmailSection] = useState(userProfile?.email);
-  const [zipSection, setZipSection] = useState(userProfile?.zipCode);
+  const [citySection, setCitySection] = useState(userProfile?.city);
   const [firstSportSection, setFirstSportSection] = useState(
     userProfile?.sports[0] || ""
   );
@@ -38,6 +39,9 @@ function AccountPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const cityKeys = Object.keys(locations);
+  const cityValues = Object.values(locations);
+
   useEffect(() => {
     dispatch(
       userActions.getUserProfile(currentUser.email, currentUser.accessToken)
@@ -48,7 +52,7 @@ function AccountPage() {
     firstNameSection?.length === 0 ||
     lastNameSection?.length === 0 ||
     emailSection?.length === 0 ||
-    zipSection?.length === 0 ||
+    citySection?.length === 0 ||
     firstSportSection?.length === 0;
 
   const disabledSubmitPassword =
@@ -82,7 +86,7 @@ function AccountPage() {
         firstNameSection={firstNameSection}
         lastNameSection={lastNameSection}
         genderSection={genderSection}
-        zipSection={zipSection}
+        citySection={citySection}
         firstSportSection={firstSportSection}
         secondSportSection={secondSportSection}
         thirdSportSection={thirdSportSection}
@@ -161,8 +165,8 @@ function AccountPage() {
             </Box>
           </Box>
         </Box>
-        <Box>
-          <Box marginTop="20px">
+        <Box display="flex" justifyContent="space-between" marginTop="20px">
+          <Box width="49%">
             <Box>
               <BigText
                 color={colors.primaryNavy}
@@ -178,25 +182,35 @@ function AccountPage() {
               ></TextField>
             </Box>
           </Box>
-        </Box>
-        <Box>
-          <Box marginTop="20px">
+          <Box width="48%">
             <Box>
               <BigText
                 color={colors.primaryNavy}
-                words={`Zip code`}
+                words={`Metro area`}
                 fontSize="0.8em"
               />
             </Box>
             <Box marginTop={"10px"}>
-              <TextField
+              {/* <TextField
                 fullWidth
-                value={zipSection}
-                onChange={(e) => setZipSection(e.target.value)}
-              ></TextField>
+                value={citySection}
+                onChange={(e) => setCitySection(e.target.value)}
+              ></TextField> */}
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={citySection}
+                fullWidth
+                onChange={(e) => setCitySection(String(e.target.value))}
+              >
+                {cityKeys.map((city, i) => (
+                  <MenuItem value={cityValues[i]}>{cityValues[i]}</MenuItem>
+                ))}
+              </Select>
             </Box>
           </Box>
         </Box>
+
         <Box marginTop={"20px"}>
           <Box display="flex" justifyContent={"space-between"}>
             <Box width="32%">

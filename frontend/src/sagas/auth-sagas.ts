@@ -21,7 +21,7 @@ export const signupAPI = (user: newUser) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    zipCode: user.zipCode,
+    city: user.city,
     password: user.password,
     confirmPassword: user.confirmPassword,
     sports: user.sports,

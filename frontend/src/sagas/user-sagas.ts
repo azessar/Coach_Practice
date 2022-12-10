@@ -79,7 +79,12 @@ export const editExperienceAPI = (
 export const editContactsAPI = (
   email: string,
   accessToken: string,
-  newContacts: { personalSite: string; twitter: string; instagram: string }
+  newContacts: {
+    personalSite: string;
+    twitter: string;
+    instagram: string;
+    linkedIn: string;
+  }
 ) => {
   return axios.put(
     `${API_URL}/api/user-profile-contacts`,
@@ -101,7 +106,7 @@ export const editAccountAPI = (
   firstName: string,
   lastName: string,
   gender: string,
-  zipCode: string,
+  city: string,
   sports: string[],
   password: string,
   previousEmail: string
@@ -113,7 +118,7 @@ export const editAccountAPI = (
       firstName,
       lastName,
       gender,
-      zipCode,
+      city,
       sports,
       password,
       previousEmail,
@@ -235,7 +240,7 @@ function* editAccount(action: any): any {
       action.firstName,
       action.lastName,
       action.gender,
-      action.zipCode,
+      action.city,
       action.sports,
       action.password,
       action.previousEmail
