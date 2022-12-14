@@ -8,6 +8,9 @@ import { authActionTypes } from "../actions/auth-actions";
 const GET_USER_PROFILE = userActionTypes.GET_USER_PROFILE;
 const GET_USER_PROFILE_SUCCESS = userActionTypes.GET_USER_PROFILE_SUCCESS;
 const GET_USER_PROFILE_ERROR = userActionTypes.GET_USER_PROFILE_ERROR;
+const GET_COACHES = userActionTypes.GET_COACHES;
+const GET_COACHES_SUCCESS = userActionTypes.GET_COACHES_SUCCESS;
+const GET_COACHES_ERROR = userActionTypes.GET_COACHES_ERROR;
 const EDIT_PROFILE_BLURB = userActionTypes.EDIT_PROFILE_BLURB;
 const EDIT_PROFILE_BLURB_SUCCESS = userActionTypes.EDIT_PROFILE_BLURB_SUCCESS;
 const EDIT_PROFILE_BLURB_ERROR = userActionTypes.EDIT_PROFILE_BLURB_ERROR;
@@ -36,6 +39,15 @@ export const getUserProfileAPI = (email: string, accessToken: string) => {
       },
     }
   );
+};
+
+export const getCoachesAPI = (name: string, city: string, sport: string) => {
+  console.log(33333, name, city, sport);
+  return axios.post(`${API_URL}/api/search-coaches`, {
+    name,
+    city,
+    sport,
+  });
 };
 
 export const editProfileBlurbAPI = (
@@ -151,6 +163,33 @@ function* getUserProfile(action: any): any {
     console.log(err.response.headers);
     yield put({
       type: GET_USER_PROFILE_ERROR,
+      responseMessage: err.response.data.message,
+    });
+  }
+}
+
+function* getCoaches(action: any): any {
+  try {
+    const response = yield call(
+      getCoachesAPI,
+      action.name,
+      action.city,
+      action.sport
+    );
+    console.log(1111, response);
+    if (response) {
+      yield put({
+        type: GET_COACHES_SUCCESS,
+        responseMessage: response.data.message,
+        coaches: response.data,
+      });
+    }
+  } catch (err: any) {
+    console.log(err.response.data);
+    console.log(err.response.status);
+    console.log(err.response.headers);
+    yield put({
+      type: GET_COACHES_ERROR,
       responseMessage: err.response.data.message,
     });
   }
@@ -272,4 +311,5 @@ export function* userSaga() {
   yield takeLatest(EDIT_EXPERIENCE, editExperience);
   yield takeLatest(EDIT_PROFILE_CONTACT, editContacts);
   yield takeLatest(EDIT_ACCOUNT, editAccount);
+  yield takeLatest(GET_COACHES, getCoaches);
 }

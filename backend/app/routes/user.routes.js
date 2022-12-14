@@ -45,4 +45,5 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.editAccountInfo
   );
+  app.post("/api/search-coaches", controller.getCoaches);
 };

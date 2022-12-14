@@ -4,6 +4,7 @@ const User = db.user;
 const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const sequelize = require("sequelize");
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -120,6 +121,40 @@ exports.editAccountInfo = (req, res) => {
         .catch((err) => {
           res.status(500).send({ message: err.message });
         });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+exports.getCoaches = (req, res) => {
+  console.log(22222, req.body);
+  User.findAll({
+    where: {
+      [Op.or]: [
+        // {
+        //   firstName: {
+        //     [Op.substring]: req.body.name,
+        //   },
+        // },
+        // {
+        //   lastName: {
+        //     [Op.substring]: req.body.name,
+        //   },
+        // },
+        {
+          city: req.body.city,
+        },
+        // {
+        //   sports: {
+        //     $contains: req.body.sport,
+        //   },
+        // },
+      ],
+    },
+  })
+    .then((coaches) => {
+      res.status(200).send(coaches);
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });

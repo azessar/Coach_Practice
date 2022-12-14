@@ -9,6 +9,7 @@ import { coachableSports } from "../../constants/sports";
 import { locations } from "../../constants/locations";
 import { Navigate, useLocation, useNavigate } from "react-router";
 import { makeQueryParams } from "./utils";
+import { userActions } from "../../actions/user-actions";
 
 function SearchPage() {
   const dispatch = useDispatch();
@@ -38,7 +39,18 @@ function SearchPage() {
     setSport(query.get("sport") || "");
     setMetro(query.get("city") || "");
     setCoachName(query.get("name") || "");
-  }, [currentUser, loading]);
+    console.log(4444, coachName, metro, sport);
+  }, [currentUser]);
+
+  useEffect(() => {
+    dispatch(
+      userActions.getCoaches(
+        query.get("name") || "",
+        query.get("city") || "",
+        query.get("sport") || ""
+      )
+    );
+  }, [navigate]);
 
   return (
     <>

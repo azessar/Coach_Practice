@@ -4,6 +4,9 @@ export const userActionTypes = {
   GET_USER_PROFILE: "GET_USER_PROFILE",
   GET_USER_PROFILE_SUCCESS: "GET_USER_PROFILE_SUCCESS",
   GET_USER_PROFILE_ERROR: "GET_USER_PROFILE_ERROR",
+  GET_COACHES: "GET_COACHES",
+  GET_COACHES_SUCCESS: "GET_COACHES_SUCCESS",
+  GET_COACHES_ERROR: "GET_USER_PROFILE_ERROR",
   OPEN_EDIT_PROFILE_MODAL: "OPEN_EDIT_PROFILE_MODAL",
   CLOSE_EDIT_PROFILE_MODAL: "CLOSE_EDIT_PROFILE_MODAL",
   OPEN_EDIT_CONTACT_MODAL: "OPEN_EDIT_CONTACT_MODAL",
@@ -35,6 +38,12 @@ export const userActions = {
     type: userActionTypes.GET_USER_PROFILE,
     email,
     accessToken,
+  }),
+  getCoaches: (name: string, city: string, sport: string) => ({
+    type: userActionTypes.GET_COACHES,
+    name,
+    city,
+    sport,
   }),
   openEditProfileModal: () => ({
     type: userActionTypes.OPEN_EDIT_PROFILE_MODAL,

@@ -13,6 +13,7 @@ const initialState = {
   helloMenuAnchor: null,
   loginMode: true,
   changePasswordMessage: "",
+  coaches: [],
 };
 
 const uiReducer = (state = initialState, action: any) => {
@@ -205,6 +206,22 @@ const uiReducer = (state = initialState, action: any) => {
         loading: false,
       };
     case "EDIT_EXPERIENCE_ERROR":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "GET_COACHES":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "GET_COACHES_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        coaches: action.coaches,
+      };
+    case "GET_COACHES_ERROR":
       return {
         ...state,
         loading: false,

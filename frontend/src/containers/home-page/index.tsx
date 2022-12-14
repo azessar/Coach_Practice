@@ -15,8 +15,8 @@ function HomePage() {
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
   const navigate = useNavigate();
-  const [sport, setSport] = React.useState("");
-  const [metro, setMetro] = React.useState("");
+  const [sport, setSport] = React.useState("Basketball");
+  const [metro, setMetro] = React.useState("Chicago, IL");
   const [coachName, setCoachName] = React.useState("");
 
   const sportKeys = Object.keys(coachableSports).filter(
