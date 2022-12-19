@@ -12,7 +12,7 @@ exports.signup = (req, res) => {
     lastName: req.body.lastName,
     city: req.body.city,
     email: req.body.email,
-    sports: req.body.sports,
+    firstSport: req.body.sports[0],
     password: bcrypt.hashSync(req.body.password, 8),
   })
     .then((user) => {
@@ -25,7 +25,7 @@ exports.signup = (req, res) => {
         lastName: user.lastName,
         city: user.city,
         email: user.email,
-        sports: user.sports,
+        sports: [user.firstSport],
         accessToken: token,
       });
     })

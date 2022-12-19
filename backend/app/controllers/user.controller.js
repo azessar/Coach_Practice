@@ -24,7 +24,9 @@ exports.getUserProfile = (req, res) => {
     where: { email: req.body.email },
   })
     .then((user) => {
-      res.status(200).send(user);
+      res.status(200).send(
+        user
+      );
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
@@ -101,7 +103,9 @@ exports.editAccountInfo = (req, res) => {
           gender: req.body.gender,
           email: req.body.newEmail,
           city: req.body.city,
-          sports: req.body.sports,
+          firstSport: req.body.sports[0],
+          secondSport: req.body.sports[1],
+          thirdSport: req.body.sports[2],
         },
         { where: { email: req.body.previousEmail } }
       )
@@ -128,35 +132,66 @@ exports.editAccountInfo = (req, res) => {
 };
 
 exports.getCoaches = (req, res) => {
-  console.log(22222, req.body);
-  User.findAll({
-    where: {
-      [Op.or]: [
-        // {
-        //   firstName: {
-        //     [Op.substring]: req.body.name,
-        //   },
-        // },
-        // {
-        //   lastName: {
-        //     [Op.substring]: req.body.name,
-        //   },
-        // },
-        {
-          city: req.body.city,
-        },
-        // {
-        //   sports: {
-        //     $contains: req.body.sport,
-        //   },
-        // },
-      ],
-    },
-  })
-    .then((coaches) => {
-      res.status(200).send(coaches);
+  if (req.body.name === '') {
+    User.findAll({
+      where: {
+        [Op.or]: [
+          {
+            city: req.body.city,
+          },
+          {
+            firstSport: req.body.sport,
+          },
+          {
+            secondSport: req.body.sport,
+          },
+          {
+            thirdSport: req.body.sport,
+          },
+        ],
+      },
     })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
+      .then((coaches) => {
+        res.status(200).send(coaches);
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+  } else {
+    User.findAll({
+      where: {
+        [Op.or]: [
+          {
+            firstName: {
+              [Op.substring]: req.body.name,
+            },
+          },
+          {
+            lastName: {
+              [Op.substring]: req.body.name,
+            },
+          },
+          {
+            city: req.body.city,
+          },
+          {
+            firstSport: req.body.sport,
+          },
+          {
+            secondSport: req.body.sport,
+          },
+          {
+            thirdSport: req.body.sport,
+          },
+        ],
+      },
+    })
+      .then((coaches) => {
+        res.status(200).send(coaches);
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+  }
+  
 };

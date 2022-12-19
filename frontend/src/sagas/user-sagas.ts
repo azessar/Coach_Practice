@@ -42,7 +42,6 @@ export const getUserProfileAPI = (email: string, accessToken: string) => {
 };
 
 export const getCoachesAPI = (name: string, city: string, sport: string) => {
-  console.log(33333, name, city, sport);
   return axios.post(`${API_URL}/api/search-coaches`, {
     name,
     city,
@@ -150,11 +149,14 @@ function* getUserProfile(action: any): any {
       action.email,
       action.accessToken
     );
+
     if (response) {
+      let tempUser = response.data;
+      tempUser.sports = [response.data.firstSport, response.data.secondSport, response.data.thirdSport].filter(sport => sport != null)
       yield put({
         type: GET_USER_PROFILE_SUCCESS,
         responseMessage: response.data.message,
-        userProfile: response.data,
+        userProfile: tempUser,
       });
     }
   } catch (err: any) {
@@ -176,7 +178,6 @@ function* getCoaches(action: any): any {
       action.city,
       action.sport
     );
-    console.log(1111, response);
     if (response) {
       yield put({
         type: GET_COACHES_SUCCESS,

@@ -39,7 +39,10 @@ async function initial() {
       personalSite: "www.coachcorner.io",
       blurb:
         "asdf asdf asdf asdfsdklfhasdlhkj fasdkljh flkasdjhf lkasdjhf aklsdjfh lkasdjfhlk sdjfhlksdjhflkadjsfh klasdhklajdshf lksdflkasdjhf lkasdjhf laksdjhf laksdjfh lkasdjhf lkasdjhf lkasdfhlk dhslfkajhds fadsfjh aklsdjhf lkasjdhf lkjasdhfl kadhsflkadhslkasdhf lk adjshflk",
-      sports: ["Basketball", "Tennis", "Pickleball"],
+      // sports: ["Basketball", "Tennis", "Pickleball"],
+      firstSport: 'Basketball',
+      secondSport: 'Tennis',
+      thirdSport: 'Pickleball',
       experience: [
         {
           startDate: "2011-02-01",
@@ -82,7 +85,7 @@ async function initial() {
       personalSite: "www.coachcorner.io",
       blurb:
         "df sadf2345 2345 2345234lk5h234lk 5h23lk45 h2l3k4 h52lk34 h5jk234h5 l2k34hk",
-      sports: ["Basketball"],
+      firstSport: "Baseball",
       experience: [
         {
           startDate: "2011-02-01",
@@ -117,8 +120,8 @@ async function initial() {
       personalSite: "www.coachcorner.io",
       blurb:
         "df sadf2345 2345 2345234lk5h234lk 5h23lk45 h2l3k4 h52lk34 h5jk234h5 l2k34hk",
-      sports: ["Basketball"],
-      experience: [
+        firstSport: "Basketball",
+        experience: [
         {
           startDate: "2011-02-01",
           endDate: "2012-02-01",

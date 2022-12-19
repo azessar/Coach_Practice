@@ -9,6 +9,7 @@ import { coachableSports } from "../../constants/sports";
 import { locations } from "../../constants/locations";
 import { Navigate, useNavigate } from "react-router";
 import { makeQueryParams } from "../search-page/utils";
+import { userActions } from "../../actions/user-actions";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -28,6 +29,11 @@ function HomePage() {
 
   const cityKeys = Object.keys(locations);
   const cityValues = Object.values(locations);
+
+  const searchCoaches = () => {
+    navigate(`/search?${makeQueryParams(sport, metro, coachName)}`);
+    dispatch(userActions.getCoaches(coachName || "", metro || "", sport || ""));
+  };
 
   return (
     <>
@@ -123,9 +129,10 @@ function HomePage() {
               background: colors.goRed,
               color: colors.white,
             }}
-            onClick={() =>
-              navigate(`/search?${makeQueryParams(sport, metro, coachName)}`)
-            }
+            // onClick={() =>
+            //   navigate(`/search?${makeQueryParams(sport, metro, coachName)}`)
+            // }
+            onClick={() => searchCoaches()}
           >
             Go!
           </Button>

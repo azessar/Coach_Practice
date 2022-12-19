@@ -10,11 +10,13 @@ import { locations } from "../../constants/locations";
 import { Navigate, useLocation, useNavigate } from "react-router";
 import { makeQueryParams } from "./utils";
 import { userActions } from "../../actions/user-actions";
+import { getCoachesAPI } from "../../sagas/user-sagas";
 
 function SearchPage() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
+  const coaches = useSelector((state: any) => state?.uiReducer.coaches);
   const navigate = useNavigate();
   const [sport, setSport] = React.useState("");
   const [metro, setMetro] = React.useState("");
@@ -39,18 +41,14 @@ function SearchPage() {
     setSport(query.get("sport") || "");
     setMetro(query.get("city") || "");
     setCoachName(query.get("name") || "");
-    console.log(4444, coachName, metro, sport);
   }, [currentUser]);
 
-  useEffect(() => {
-    dispatch(
-      userActions.getCoaches(
-        query.get("name") || "",
-        query.get("city") || "",
-        query.get("sport") || ""
-      )
-    );
-  }, [navigate]);
+  const searchCoaches = () => {
+    navigate(`/search?${makeQueryParams(sport, metro, coachName)}`);
+    dispatch(userActions.getCoaches(coachName || "", metro || "", sport || ""));
+  };
+
+  console.log(11111, coaches);
 
   return (
     <>
@@ -130,9 +128,7 @@ function SearchPage() {
               background: colors.goRed,
               color: colors.white,
             }}
-            onClick={() =>
-              navigate(`/search?${makeQueryParams(sport, metro, coachName)}`)
-            }
+            onClick={() => searchCoaches()}
           >
             Go!
           </Button>

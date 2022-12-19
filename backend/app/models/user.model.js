@@ -52,8 +52,15 @@ module.exports = (sequelize, Sequelize) => {
     blurb: {
       type: Sequelize.TEXT,
     },
-    sports: {
-      type: Sequelize.JSON, //array of strings
+    firstSport: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    secondSport: {
+      type: Sequelize.STRING,
+    },
+    thirdSport: {
+      type: Sequelize.STRING,
     },
     experience: {
       type: Sequelize.JSON, //array of objects consisting of sport, startDate, endDate, organization, role, optional summary
