@@ -35,6 +35,12 @@ function HomePage() {
     dispatch(userActions.getCoaches(coachName || "", metro || "", sport || ""));
   };
 
+  const handleEnter = (e: any) => {
+    if (e.keyCode == 13) {
+      searchCoaches();
+    }
+  };
+
   return (
     <>
       <Box
@@ -75,6 +81,7 @@ function HomePage() {
                 fullWidth
                 value={sport}
                 onChange={(e) => setSport(e.target.value)}
+                onKeyDown={(e) => handleEnter(e)}
               >
                 {sportKeys.map((sport, i) => (
                   <MenuItem value={sportValues[i]}>{sportValues[i]}</MenuItem>
@@ -96,6 +103,7 @@ function HomePage() {
                 fullWidth
                 value={metro}
                 onChange={(e) => setMetro(e.target.value)}
+                onKeyDown={(e) => handleEnter(e)}
               >
                 {cityKeys.map((sport, i) => (
                   <MenuItem value={cityValues[i]}>{cityValues[i]}</MenuItem>
@@ -118,6 +126,7 @@ function HomePage() {
                 placeholder="Know a coach? Search by name..."
                 value={coachName}
                 onChange={(e) => setCoachName(e.target.value)}
+                onKeyDown={(e) => handleEnter(e)}
               ></TextField>
             </Box>
           </Box>

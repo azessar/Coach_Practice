@@ -10,6 +10,7 @@ import Text from "../components/text";
 function HelloMenu() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const { currentUser } = useSelector((state: any) => state.authReducer);
 
   const handleClose = () => {
     dispatch(authActions.closeHelloMenu());
@@ -33,7 +34,7 @@ function HelloMenu() {
       <MenuItem onClick={() => handleClick("/")}>
         <Text words="HOME" fontSize="16px" />
       </MenuItem>
-      <MenuItem onClick={() => handleClick("/profile")}>
+      <MenuItem onClick={() => handleClick(`/profile/${currentUser.id}`)}>
         <Text words="PROFILE" fontSize="16px" />
       </MenuItem>
       <MenuItem onClick={() => handleClick("/account")}>

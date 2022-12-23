@@ -18,7 +18,7 @@ function SearchPage() {
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
   const coaches = useSelector((state: any) => state?.uiReducer.coaches);
-  const navigate = useNavigate();
+  let navigate = useNavigate();
   const [sport, setSport] = React.useState("");
   const [metro, setMetro] = React.useState("");
   const [coachName, setCoachName] = React.useState("");
@@ -47,6 +47,12 @@ function SearchPage() {
   const searchCoaches = () => {
     navigate(`/search?${makeQueryParams(sport, metro, coachName)}`);
     dispatch(userActions.getCoaches(coachName || "", metro || "", sport || ""));
+  };
+
+  const handleEnter = (e: any) => {
+    if (e.keyCode == 13) {
+      searchCoaches();
+    }
   };
 
   const experienceBlurb = (coach: existingUser) => {
@@ -85,6 +91,7 @@ function SearchPage() {
             marginTop={"20px"}
             borderRadius="10px"
             display={"flex"}
+            onClick={() => navigate(`/profile/${coach.id}`)}
           >
             <Box width="20%">
               <Box
@@ -132,6 +139,7 @@ function SearchPage() {
         padding="40px"
         marginTop={"80px"}
         borderRadius="10px"
+        onKeyDown={(e) => handleEnter(e)}
       >
         <Box marginTop={"20px"} display="flex" justifyContent={"space-between"}>
           <Box width="30%">
@@ -147,6 +155,7 @@ function SearchPage() {
                 fullWidth
                 value={sport}
                 onChange={(e) => setSport(e.target.value)}
+                onKeyDown={(e) => handleEnter(e)}
               >
                 {sportKeys.map((sport, i) => (
                   <MenuItem value={sportValues[i]}>{sportValues[i]}</MenuItem>
@@ -190,6 +199,7 @@ function SearchPage() {
                 placeholder="Know a coach? Search by name..."
                 value={coachName}
                 onChange={(e) => setCoachName(e.target.value)}
+                onKeyDown={(e) => handleEnter(e)}
               ></TextField>
             </Box>
           </Box>

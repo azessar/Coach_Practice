@@ -6,7 +6,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector } from "react-redux";
 import { Box, Modal } from "@mui/material";
 import HelloMenu from "./containers/hello-menu";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import ProfilePage from "./containers/profile-page";
 import AccountPage from "./containers/account-page";
 import HomePage from "./containers/home-page";
@@ -18,6 +23,8 @@ import SearchPage from "./containers/search-page";
 
 function App() {
   const { loading } = useSelector((state: any) => state.uiReducer);
+  const { currentUser } = useSelector((state: any) => state.authReducer);
+  console.log(22222, currentUser);
   function ErrorHandler({ error }: any) {
     return (
       <div role="alert">
@@ -81,7 +88,10 @@ function App() {
           <HelloMenu />
           <Routes>
             <Route path="" element={<HomePage />}></Route>
-            <Route path="/profile" element={<ProfilePage />}></Route>
+            <Route
+              path={`/profile/:id`}
+              element={<ProfilePage id={currentUser.id} />}
+            ></Route>
             <Route path="/account" element={<AccountPage />}></Route>
             <Route path="/search" element={<SearchPage />}></Route>
           </Routes>

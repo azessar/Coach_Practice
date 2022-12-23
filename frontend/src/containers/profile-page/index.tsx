@@ -23,7 +23,11 @@ import AddExperienceModal from "./add-experience-modal";
 import EditContactModal from "./edit-contact-modal";
 import { truncate } from "fs";
 
-function ProfilePage() {
+interface ProfilePageProps {
+  id: number;
+}
+
+function ProfilePage(props: ProfilePageProps) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);

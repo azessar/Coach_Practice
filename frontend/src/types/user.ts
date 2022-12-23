@@ -9,6 +9,7 @@ export interface newUser {
 }
 
 export interface existingUser {
+  id?: number;
   email: string;
   password: string;
   firstName?: string;
