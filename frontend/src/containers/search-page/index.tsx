@@ -64,43 +64,61 @@ function SearchPage() {
   };
 
   const coachBoxes = () => {
-    return coaches.map((coach: existingUser, i: number) => (
-      <Box
-        bgcolor={colors.white}
-        width="80%"
-        margin="auto"
-        padding="40px"
-        marginTop={"20px"}
-        borderRadius="10px"
-        display={"flex"}
-      >
-        <Box width="20%">
+    if (coaches.length === 0) {
+      return (
+        <Box width="80%" margin="auto">
+          <BigText words="This search returned no results." />
+        </Box>
+      );
+    }
+    return (
+      <>
+        <Box width="80%" margin="auto">
+          <BigText words={`${coaches.length} results`} />
+        </Box>
+        {coaches.map((coach: existingUser, i: number) => (
           <Box
-            borderRadius={"50%"}
-            border={`5px solid ${colors.secondaryLightBlue}`}
-            height="100px"
-            width="100px"
-          ></Box>
-        </Box>
-        <Box width="80%">
-          <Box>
-            <BigText words={`${`${coach.firstName} ${coach.lastName}`}`} />
-          </Box>
+            bgcolor={colors.white}
+            width="80%"
+            margin="auto"
+            padding="40px"
+            marginTop={"20px"}
+            borderRadius="10px"
+            display={"flex"}
+          >
+            <Box width="20%">
+              <Box
+                borderRadius={"50%"}
+                border={`5px solid ${colors.secondaryLightBlue}`}
+                height="100px"
+                width="100px"
+              ></Box>
+            </Box>
+            <Box width="80%">
+              <Box>
+                <BigText words={`${`${coach.firstName} ${coach.lastName}`}`} />
+              </Box>
 
-          <Box marginTop={"10px"}>
-            <BigText
-              words={experienceBlurb(coach)}
-              fontSize="16px"
-              fontWeight="400"
-            />
-          </Box>
+              <Box marginTop={"10px"}>
+                <BigText
+                  words={experienceBlurb(coach)}
+                  fontSize="16px"
+                  fontWeight="400"
+                />
+              </Box>
 
-          <Box marginTop={"10px"}>
-            <BigText words={`${coach.city}`} fontSize="16px" fontWeight="400" />
+              <Box marginTop={"10px"}>
+                <BigText
+                  words={`${coach.city}`}
+                  fontSize="16px"
+                  fontWeight="400"
+                />
+              </Box>
+            </Box>
           </Box>
-        </Box>
-      </Box>
-    ));
+        ))}
+      </>
+    );
   };
 
   console.log(11111, coaches);
