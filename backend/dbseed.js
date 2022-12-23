@@ -47,7 +47,7 @@ async function initial() {
         {
           startDate: "2011-02-01",
           endDate: "2012-02-01",
-          organization: "Deerfield High School",
+          organization: "HPHS High School",
           role: "Point Guard",
           sport: "Basketball",
           summary: "Got buckets and put the team on my back",
@@ -86,25 +86,7 @@ async function initial() {
       blurb:
         "df sadf2345 2345 2345234lk5h234lk 5h23lk45 h2l3k4 h52lk34 h5jk234h5 l2k34hk",
       firstSport: "Baseball",
-      experience: [
-        {
-          startDate: "2011-02-01",
-          endDate: "2012-02-01",
-          organization: "Deerfield High School",
-          role: "Point Guard",
-          sport: "Basketball",
-          summary: "Got buckets and put the team on my back",
-        },
-        {
-          startDate: "2019-12-01",
-          endDate: "2022-02-01",
-          organization: "Something High School",
-          role: "Head Coach",
-          sport: "Basketball",
-          summary:
-            "Dominated asdf asdf asdf adlkfjhasd lkjfh adslkfh adklsfhladksj flaksdjhf laksdjhf lkjadshf lasdkhf laskdjhf aklsdhf",
-        },
-      ],
+      
     },
 
     {

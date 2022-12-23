@@ -11,6 +11,7 @@ import { Navigate, useLocation, useNavigate } from "react-router";
 import { makeQueryParams } from "./utils";
 import { userActions } from "../../actions/user-actions";
 import { getCoachesAPI } from "../../sagas/user-sagas";
+import { existingUser } from "../../types/user";
 
 function SearchPage() {
   const dispatch = useDispatch();
@@ -48,10 +49,64 @@ function SearchPage() {
     dispatch(userActions.getCoaches(coachName || "", metro || "", sport || ""));
   };
 
+  const experienceBlurb = (coach: existingUser) => {
+    let answer = "";
+    if (coach.experience) {
+      answer =
+        answer +
+        coach.experience[0].sport +
+        " coach at " +
+        coach.experience[0].organization;
+      return answer;
+    }
+    answer = answer + coach.firstSport + " coach";
+    return answer;
+  };
+
+  const coachBoxes = () => {
+    return coaches.map((coach: existingUser, i: number) => (
+      <Box
+        bgcolor={colors.white}
+        width="80%"
+        margin="auto"
+        padding="40px"
+        marginTop={"20px"}
+        borderRadius="10px"
+        display={"flex"}
+      >
+        <Box width="20%">
+          <Box
+            borderRadius={"50%"}
+            border={`5px solid ${colors.secondaryLightBlue}`}
+            height="100px"
+            width="100px"
+          ></Box>
+        </Box>
+        <Box width="80%">
+          <Box>
+            <BigText words={`${`${coach.firstName} ${coach.lastName}`}`} />
+          </Box>
+
+          <Box marginTop={"10px"}>
+            <BigText
+              words={experienceBlurb(coach)}
+              fontSize="16px"
+              fontWeight="400"
+            />
+          </Box>
+
+          <Box marginTop={"10px"}>
+            <BigText words={`${coach.city}`} fontSize="16px" fontWeight="400" />
+          </Box>
+        </Box>
+      </Box>
+    ));
+  };
+
   console.log(11111, coaches);
 
   return (
-    <>
+    <Box marginBottom={"20px"}>
       <Box
         bgcolor={colors.primaryNavy}
         width="80%"
@@ -134,7 +189,8 @@ function SearchPage() {
           </Button>
         </Box>
       </Box>
-    </>
+      <Box marginTop={"20px"}>{coachBoxes()}</Box>
+    </Box>
   );
 }
 

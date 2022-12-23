@@ -21,6 +21,9 @@ export interface existingUser {
   personalSite?: string;
   blurb?: string;
   sports?: string[];
+  firstSport?: string;
+  secondSport?: string;
+  thirdSport?: string;
   experience: job[];
 }
 
