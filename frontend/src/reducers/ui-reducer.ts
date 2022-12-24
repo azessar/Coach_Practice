@@ -13,7 +13,6 @@ const initialState = {
   helloMenuAnchor: null,
   loginMode: true,
   changePasswordMessage: "",
-  coaches: [],
 };
 
 const uiReducer = (state = initialState, action: any) => {
@@ -219,7 +218,6 @@ const uiReducer = (state = initialState, action: any) => {
       return {
         ...state,
         loading: false,
-        coaches: action.coaches,
       };
     case "GET_COACHES_ERROR":
       return {

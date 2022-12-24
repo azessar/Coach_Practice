@@ -17,7 +17,7 @@ function SearchPage() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
-  const coaches = useSelector((state: any) => state?.uiReducer.coaches);
+  const coaches = useSelector((state: any) => state?.userReducer.coaches);
   let navigate = useNavigate();
   const [sport, setSport] = React.useState("");
   const [metro, setMetro] = React.useState("");
@@ -42,6 +42,14 @@ function SearchPage() {
     setSport(query.get("sport") || "");
     setMetro(query.get("city") || "");
     setCoachName(query.get("name") || "");
+
+    dispatch(
+      userActions.getCoaches(
+        query.get("name") || "",
+        query.get("city") || "",
+        query.get("sport") || ""
+      )
+    );
   }, [currentUser]);
 
   const searchCoaches = () => {
@@ -92,6 +100,11 @@ function SearchPage() {
             borderRadius="10px"
             display={"flex"}
             onClick={() => navigate(`/profile/${coach.id}`)}
+            sx={{
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
           >
             <Box width="20%">
               <Box

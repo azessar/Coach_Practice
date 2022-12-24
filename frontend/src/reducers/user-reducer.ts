@@ -1,6 +1,7 @@
 const initialState = {
   userProfile: null,
   responseMessage: null,
+  coaches: [],
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -15,6 +16,11 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         responseMessage: action.responseMessage,
       };
+      case "GET_COACHES_SUCCESS":
+        return {
+          ...state,
+          coaches: action.coaches,
+        };
 
     case "LOGOUT":
       return initialState;
