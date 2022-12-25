@@ -27,17 +27,13 @@ const EDIT_ACCOUNT_ERROR = userActionTypes.EDIT_ACCOUNT_ERROR;
 
 const LOGIN_SUCCESS = authActionTypes.LOGIN_SUCCESS;
 
-export const getUserProfileAPI = (email: string, accessToken: string) => {
+export const getUserProfileAPI = (id: number) => {
   return axios.post(
     `${API_URL}/api/user-profile`,
     {
-      email: email,
+      id: id,
     },
-    {
-      headers: {
-        authorization: accessToken,
-      },
-    }
+    
   );
 };
 
@@ -146,10 +142,8 @@ function* getUserProfile(action: any): any {
   try {
     const response = yield call(
       getUserProfileAPI,
-      action.email,
-      action.accessToken
+      action.id
     );
-
     if (response) {
       let tempUser = response.data;
       tempUser.sports = [response.data.firstSport, response.data.secondSport, response.data.thirdSport].filter(sport => sport != null)

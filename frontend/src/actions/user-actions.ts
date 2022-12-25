@@ -31,13 +31,13 @@ export const userActionTypes = {
   EDIT_ACCOUNT: "EDIT_ACCOUNT",
   EDIT_ACCOUNT_SUCCESS: "EDIT_ACCOUNT_SUCCESS",
   EDIT_ACCOUNT_ERROR: "EDIT_ACCOUNT_ERROR",
+  COACH_SELECTED: 'COACH_SELECTED',
 };
 
 export const userActions = {
-  getUserProfile: (email: string, accessToken: string) => ({
+  getUserProfile: (id: number) => ({
     type: userActionTypes.GET_USER_PROFILE,
-    email,
-    accessToken,
+    id,
   }),
   getCoaches: (name: string, city: string, sport: string) => ({
     type: userActionTypes.GET_COACHES,
@@ -137,5 +137,11 @@ export const userActions = {
     accessToken,
     password,
     previousEmail,
+  }),
+  selectCoach: (
+    id: number,
+  ) => ({
+    type: userActionTypes.COACH_SELECTED,
+    id
   }),
 };

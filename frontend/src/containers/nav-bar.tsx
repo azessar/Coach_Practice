@@ -29,10 +29,7 @@ function NavBar() {
   };
 
   useEffect(() => {
-    currentUser?.email &&
-      dispatch(
-        userActions.getUserProfile(currentUser.email, currentUser.accessToken)
-      );
+    currentUser?.email && dispatch(userActions.getUserProfile(currentUser.id));
   }, [currentUser, loading]);
 
   return (
@@ -87,7 +84,7 @@ function NavBar() {
                       fontSize="1.2em"
                     />
                     <Text
-                      words={`COACH ${userProfile?.firstName}`}
+                      words={`COACH ${currentUser?.firstName}`}
                       color={colors.secondaryLightBlue}
                       fontSize="0.9em"
                     />

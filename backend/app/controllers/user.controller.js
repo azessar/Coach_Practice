@@ -21,7 +21,7 @@ exports.moderatorBoard = (req, res) => {
 
 exports.getUserProfile = (req, res) => {
   User.findOne({
-    where: { email: req.body.email },
+    where: { id: req.body.id },
   })
     .then((user) => {
       res.status(200).send(

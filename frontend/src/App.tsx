@@ -24,7 +24,7 @@ import SearchPage from "./containers/search-page";
 function App() {
   const { loading } = useSelector((state: any) => state.uiReducer);
   const { currentUser } = useSelector((state: any) => state.authReducer);
-  console.log(22222, currentUser);
+  const { selectedCoachId } = useSelector((state: any) => state.userReducer);
   function ErrorHandler({ error }: any) {
     return (
       <div role="alert">
@@ -90,7 +90,7 @@ function App() {
             <Route path="" element={<HomePage />}></Route>
             <Route
               path={`/profile/:id`}
-              element={<ProfilePage id={currentUser.id} />}
+              element={<ProfilePage id={selectedCoachId || 0} />}
             ></Route>
             <Route path="/account" element={<AccountPage />}></Route>
             <Route path="/search" element={<SearchPage />}></Route>

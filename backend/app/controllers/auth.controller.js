@@ -56,14 +56,9 @@ exports.login = (req, res) => {
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 8640000, // 2400 hours
       });
-      res.status(200).send({
-        id: user.id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        city: user.city,
-        accessToken: token,
-      });
+      let tempUser = user;
+      tempUser.accessToken = token
+      res.status(200).send(user);
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });

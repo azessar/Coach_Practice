@@ -22,7 +22,6 @@ module.exports = function (app) {
   );
   app.post(
     "/api/user-profile",
-    [authJwt.verifyToken],
     controller.getUserProfile
   );
   app.put(

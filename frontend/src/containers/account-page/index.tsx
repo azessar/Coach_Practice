@@ -16,24 +16,25 @@ function AccountPage() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { userProfile } = useSelector((state: any) => state.userReducer);
+  const { selectedCoachId } = useSelector((state: any) => state.userReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
   const [firstNameSection, setFirstNameSection] = useState(
-    userProfile?.firstName
+    currentUser?.firstName
   );
 
-  const [lastNameSection, setLastNameSection] = useState(userProfile?.lastName);
-  const [genderSection, setGenderSection] = useState(userProfile?.gender || "");
+  const [lastNameSection, setLastNameSection] = useState(currentUser?.lastName);
+  const [genderSection, setGenderSection] = useState(currentUser?.gender || "");
 
-  const [emailSection, setEmailSection] = useState(userProfile?.email);
-  const [citySection, setCitySection] = useState(userProfile?.city);
+  const [emailSection, setEmailSection] = useState(currentUser?.email);
+  const [citySection, setCitySection] = useState(currentUser?.city);
   const [firstSportSection, setFirstSportSection] = useState(
-    userProfile?.sports[0] || ""
+    currentUser?.sports[0] || ""
   );
   const [secondSportSection, setSecondSportSection] = useState(
-    userProfile?.sports[1] || ""
+    currentUser?.sports[1] || ""
   );
   const [thirdSportSection, setThirdSportSection] = useState(
-    userProfile?.sports[2] || ""
+    currentUser?.sports[2] || ""
   );
 
   const [currentPassword, setCurrentPassword] = useState("");
@@ -44,10 +45,8 @@ function AccountPage() {
   const cityValues = Object.values(locations);
 
   useEffect(() => {
-    dispatch(
-      userActions.getUserProfile(currentUser.email, currentUser.accessToken)
-    );
-  }, [currentUser, loading]);
+    dispatch(userActions.getUserProfile(currentUser.id));
+  }, [currentUser, loading, selectedCoachId]);
 
   const disabledChangeAccount =
     firstNameSection?.length === 0 ||

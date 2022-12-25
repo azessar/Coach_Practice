@@ -77,6 +77,11 @@ function SearchPage() {
     return answer;
   };
 
+  const goToCoachPage = (id: number) => {
+    dispatch(userActions.selectCoach(id));
+    navigate(`/profile/${id}`);
+  };
+
   const coachBoxes = () => {
     if (coaches.length === 0) {
       return (
@@ -90,7 +95,7 @@ function SearchPage() {
         <Box width="80%" margin="auto">
           <BigText words={`${coaches.length} results`} />
         </Box>
-        {coaches.map((coach: existingUser, i: number) => (
+        {coaches.map((coach: existingUser) => (
           <Box
             bgcolor={colors.white}
             width="80%"
@@ -99,7 +104,7 @@ function SearchPage() {
             marginTop={"20px"}
             borderRadius="10px"
             display={"flex"}
-            onClick={() => navigate(`/profile/${coach.id}`)}
+            onClick={() => goToCoachPage(coach?.id || 0)}
             sx={{
               "&:hover": {
                 cursor: "pointer",
@@ -140,8 +145,6 @@ function SearchPage() {
       </>
     );
   };
-
-  console.log(11111, coaches);
 
   return (
     <Box marginBottom={"20px"}>

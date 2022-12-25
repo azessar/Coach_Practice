@@ -2,6 +2,7 @@ const initialState = {
   userProfile: null,
   responseMessage: null,
   coaches: [],
+  selectedCoachId: null,
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -21,6 +22,11 @@ const userReducer = (state = initialState, action: any) => {
           ...state,
           coaches: action.coaches,
         };
+        case "COACH_SELECTED":
+          return {
+            ...state,
+            selectedCoachId: action.id,
+          };
 
     case "LOGOUT":
       return initialState;

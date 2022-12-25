@@ -31,6 +31,7 @@ function ProfilePage(props: ProfilePageProps) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
+  const { selectedCoachId } = useSelector((state: any) => state.userReducer);
   const [selectedExperience, setSelectedExperience] =
     React.useState<job | null>();
   const [selectedJobIndex, setSelectedJobIndex] = React.useState<
@@ -67,10 +68,8 @@ function ProfilePage(props: ProfilePageProps) {
       };
 
   useEffect(() => {
-    dispatch(
-      userActions.getUserProfile(currentUser.email, currentUser.accessToken)
-    );
-  }, [currentUser, loading]);
+    dispatch(userActions.getUserProfile(selectedCoachId || currentUser.id));
+  }, [currentUser, loading, selectedCoachId]);
 
   const openEditExperienceModal = (job: job, jobIndex: number) => {
     setSelectedExperience(job);
