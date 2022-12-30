@@ -50,7 +50,7 @@ function SearchPage() {
         query.get("sport") || ""
       )
     );
-  }, [currentUser]);
+  }, [currentUser, dispatch]);
 
   const searchCoaches = () => {
     navigate(`/search?${makeQueryParams(sport, metro, coachName)}`);

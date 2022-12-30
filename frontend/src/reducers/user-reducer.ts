@@ -3,6 +3,7 @@ const initialState = {
   responseMessage: null,
   coaches: [],
   selectedCoachId: null,
+  selectedCoachProfile: null,
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -13,6 +14,16 @@ const userReducer = (state = initialState, action: any) => {
         userProfile: action.userProfile,
       };
     case "GET_USER_PROFILE_ERROR":
+      return {
+        ...state,
+        responseMessage: action.responseMessage,
+      };
+      case "GET_COACH_PROFILE_SUCCESS":
+      return {
+        ...state,
+        selectedCoachProfile: action.selectedCoachProfile,
+      };
+      case "GET_COACH_PROFILE_ERROR":
       return {
         ...state,
         responseMessage: action.responseMessage,

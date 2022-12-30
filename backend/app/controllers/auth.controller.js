@@ -21,6 +21,7 @@ exports.signup = (req, res) => {
         expiresIn: 8640000, // 2400 hours
       });
       res.status(200).send({
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         city: user.city,
@@ -58,7 +59,7 @@ exports.login = (req, res) => {
       });
       let tempUser = user;
       tempUser.accessToken = token
-      res.status(200).send(user);
+      res.status(200).send({...user, accessToken: token});
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });

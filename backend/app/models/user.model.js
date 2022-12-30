@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("users", {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      unique: true
+  },
     firstName: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -33,6 +39,13 @@ module.exports = (sequelize, Sequelize) => {
     email: {
       type: Sequelize.STRING,
       allowNull: false,
+      validate: {
+        isEmail:true
+      },
+      unique: {
+          args: true,
+          msg: 'Email address already in use!'
+      }
     },
     gender: {
       type: Sequelize.STRING,

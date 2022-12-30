@@ -24,9 +24,15 @@ exports.getUserProfile = (req, res) => {
     where: { id: req.body.id },
   })
     .then((user) => {
-      res.status(200).send(
-        user
-      );
+      var token = jwt.sign({ id: user.id }, config.secret, {
+        expiresIn: 8640000, // 2400 hours
+      });
+      let tempUser = user;
+      tempUser.accessToken = token
+      // res.status(200).send(
+      //   user
+      // );
+      res.status(200).send({...user, accessToken: token});
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
@@ -81,12 +87,16 @@ exports.editContactsSection = (req, res) => {
 };
 
 exports.editAccountInfo = (req, res) => {
+  console.log(77777, req.body)
   User.findOne({
     where: {
       email: req.body.previousEmail,
     },
   })
     .then((user) => {
+      console.log(66666, user)
+
+      console.log(55555, user.password)
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
@@ -96,6 +106,9 @@ exports.editAccountInfo = (req, res) => {
           message: "Invalid password!",
         });
       }
+
+      console.log(44444, req.body)
+
       User.update(
         {
           firstName: req.body.firstName,
@@ -104,8 +117,8 @@ exports.editAccountInfo = (req, res) => {
           email: req.body.newEmail,
           city: req.body.city,
           firstSport: req.body.sports[0],
-          secondSport: req.body.sports[1],
-          thirdSport: req.body.sports[2],
+          secondSport: req.body.sports[1] || null,
+          thirdSport: req.body.sports[2] || null,
         },
         { where: { email: req.body.previousEmail } }
       )
@@ -113,22 +126,25 @@ exports.editAccountInfo = (req, res) => {
           var token = jwt.sign({ id: user.id }, config.secret, {
             expiresIn: 8640000, // 2400 hours
           });
-          res.status(200).send({
-            id: user.id,
-            email: req.body.newEmail,
+          let tempUser = user;
+          tempUser.accessToken = token
+          res.status(200).send({...user, accessToken: token,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            gender: req.body.gender,
+            email: req.body.newEmail,
             city: req.body.city,
-            accessToken: token,
+            sports: req.body.sports
           });
         })
         .catch((err) => {
           res.status(500).send({ message: err.message });
         });
+      
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
-    });
+    })
 };
 
 exports.getCoaches = (req, res) => {

@@ -22,6 +22,7 @@ import DeleteExperienceModal from "./delete-experience-modal";
 import AddExperienceModal from "./add-experience-modal";
 import EditContactModal from "./edit-contact-modal";
 import { truncate } from "fs";
+import { useParams } from "react-router-dom";
 
 interface ProfilePageProps {
   id: number;
@@ -31,16 +32,14 @@ function ProfilePage(props: ProfilePageProps) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
-  const { selectedCoachId } = useSelector((state: any) => state.userReducer);
+  const { selectedCoachId, selectedCoachProfile } = useSelector(
+    (state: any) => state.userReducer
+  );
   const [selectedExperience, setSelectedExperience] =
     React.useState<job | null>();
   const [selectedJobIndex, setSelectedJobIndex] = React.useState<
     number | null
   >();
-
-  const userProfile: existingUser = useSelector(
-    (state: any) => state.userReducer.userProfile
-  );
   const {
     twitter,
     instagram,
@@ -52,8 +51,8 @@ function ProfilePage(props: ProfilePageProps) {
     blurb,
     experience,
     sports,
-  } = userProfile
-    ? userProfile
+  } = selectedCoachProfile
+    ? selectedCoachProfile
     : {
         twitter: "",
         linkedIn: "",
@@ -67,9 +66,15 @@ function ProfilePage(props: ProfilePageProps) {
         sports: [],
       };
 
+  const urlId = useParams().id || "";
+
   useEffect(() => {
-    dispatch(userActions.getUserProfile(selectedCoachId || currentUser.id));
-  }, [currentUser, loading, selectedCoachId]);
+    dispatch(
+      userActions.getCoachProfile(
+        parseInt(urlId) || props.id || selectedCoachId
+      )
+    );
+  }, [loading, selectedCoachId]);
 
   const openEditExperienceModal = (job: job, jobIndex: number) => {
     setSelectedExperience(job);
@@ -121,8 +126,8 @@ function ProfilePage(props: ProfilePageProps) {
   };
 
   const handleReorderExperience = (oldIndex: number, direction: string) => {
-    const currentExperience = userProfile.experience;
-    let newExperience = [...userProfile.experience];
+    const currentExperience = selectedCoachProfile.experience;
+    let newExperience = [...selectedCoachProfile.experience];
 
     let otherIndex: number;
     if (direction === "up") {
@@ -163,7 +168,7 @@ function ProfilePage(props: ProfilePageProps) {
 
       <Box
         bgcolor={colors.primaryNavy}
-        width="60%"
+        width="80%"
         margin="auto"
         padding="20px"
         marginTop={"80px"}
@@ -184,7 +189,7 @@ function ProfilePage(props: ProfilePageProps) {
               <Text
                 fontSize="14px"
                 color={colors.secondaryLightBlue}
-                words={`${userProfile?.city}`}
+                words={`${selectedCoachProfile?.city}`}
               />
             </Box>
           </Box>
@@ -208,7 +213,7 @@ function ProfilePage(props: ProfilePageProps) {
             <Box marginTop="10px">
               {sports &&
                 sports.length > 0 &&
-                sports?.map((sport, i) => (
+                sports?.map((sport: any) => (
                   <Box display="flex" marginTop={"5px"}>
                     <Box>
                       <img
@@ -237,7 +242,7 @@ function ProfilePage(props: ProfilePageProps) {
 
       <Box
         bgcolor={colors.white}
-        width="60%"
+        width="80%"
         margin="auto"
         padding="20px"
         marginTop={"20px"}
@@ -357,7 +362,7 @@ function ProfilePage(props: ProfilePageProps) {
 
       <Box
         bgcolor={colors.white}
-        width="60%"
+        width="80%"
         margin="auto"
         padding="20px"
         marginTop={"20px"}
@@ -393,7 +398,7 @@ function ProfilePage(props: ProfilePageProps) {
 
       <Box
         bgcolor={colors.white}
-        width="60%"
+        width="80%"
         margin="auto"
         padding="20px"
         marginTop={"20px"}
@@ -421,7 +426,7 @@ function ProfilePage(props: ProfilePageProps) {
         <Box marginTop={"20px"}>
           {experience &&
             experience.length > 0 &&
-            experience.map((job, i) => (
+            experience.map((job: any, i: number) => (
               <Box
                 padding="20px"
                 borderTop={

@@ -38,9 +38,6 @@ function EditAccountModal(props: EditAccountModalProps) {
 
   const { editAccountModalOpen } = useSelector((state: any) => state.uiReducer);
   const { currentUser } = useSelector((state: any) => state.authReducer);
-  const userProfile: existingUser = useSelector(
-    (state: any) => state.userReducer.userProfile
-  );
 
   const handleClose = () => {
     dispatch(userActions.closeEditAccountModal());
@@ -54,6 +51,7 @@ function EditAccountModal(props: EditAccountModalProps) {
   const handleEditAccount = () => {
     dispatch(
       userActions.editAccount(
+        currentUser.id,
         emailSection,
         currentUser?.accessToken,
         firstNameSection,

@@ -98,8 +98,9 @@ function* login(action: any): any {
   try {
     const response = yield call(loginAPI, action.user);
     if (response) {
-      let tempUser = response.data;
-      tempUser.sports = [response.data.firstSport, response.data.secondSport, response.data.thirdSport].filter(sport => sport != null)
+      let tempUser = response.data.dataValues;
+      tempUser.sports = [response.data.dataValues.firstSport, response.data.dataValues.secondSport, response.data.dataValues.thirdSport].filter(sport => sport != null)
+      tempUser.accessToken = response.data.accessToken
       yield put({
         type: LOGIN_SUCCESS,
         currentUser: tempUser,

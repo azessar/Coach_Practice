@@ -19,7 +19,6 @@ import { userActions } from "../actions/user-actions";
 function NavBar() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.authReducer);
-  const { userProfile } = useSelector((state: any) => state.userReducer);
   const { loading } = useSelector((state: any) => state.uiReducer);
 
   const handleOpen = (e: any) => {
@@ -28,9 +27,9 @@ function NavBar() {
       : dispatch(authActions.openAuthModal());
   };
 
-  useEffect(() => {
-    currentUser?.email && dispatch(userActions.getUserProfile(currentUser.id));
-  }, [currentUser, loading]);
+  // useEffect(() => {
+  //   currentUser?.email && dispatch(userActions.getUserProfile(currentUser.id));
+  // }, [loading, dispatch]);
 
   return (
     <Box>

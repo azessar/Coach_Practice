@@ -7,10 +7,14 @@ import { authActionTypes } from "../actions/auth-actions";
 
 const GET_USER_PROFILE = userActionTypes.GET_USER_PROFILE;
 const GET_USER_PROFILE_SUCCESS = userActionTypes.GET_USER_PROFILE_SUCCESS;
+const GET_CURRENT_USER_SUCCESS = authActionTypes.GET_CURRENT_USER_SUCCESS;
 const GET_USER_PROFILE_ERROR = userActionTypes.GET_USER_PROFILE_ERROR;
 const GET_COACHES = userActionTypes.GET_COACHES;
+const GET_COACH_PROFILE = userActionTypes.GET_COACH_PROFILE;
 const GET_COACHES_SUCCESS = userActionTypes.GET_COACHES_SUCCESS;
 const GET_COACHES_ERROR = userActionTypes.GET_COACHES_ERROR;
+const GET_COACH_PROFILE_SUCCESS = userActionTypes.GET_COACH_PROFILE_SUCCESS;
+const GET_COACH_PROFILE_ERROR = userActionTypes.GET_COACH_PROFILE_ERROR;
 const EDIT_PROFILE_BLURB = userActionTypes.EDIT_PROFILE_BLURB;
 const EDIT_PROFILE_BLURB_SUCCESS = userActionTypes.EDIT_PROFILE_BLURB_SUCCESS;
 const EDIT_PROFILE_BLURB_ERROR = userActionTypes.EDIT_PROFILE_BLURB_ERROR;
@@ -108,6 +112,7 @@ export const editContactsAPI = (
 };
 
 export const editAccountAPI = (
+  id: number,
   newEmail: string,
   accessToken: string,
   firstName: string,
@@ -121,6 +126,7 @@ export const editAccountAPI = (
   return axios.put(
     `${API_URL}/api/user-account`,
     {
+      id,
       newEmail,
       firstName,
       lastName,
@@ -145,24 +151,65 @@ function* getUserProfile(action: any): any {
       action.id
     );
     if (response) {
-      let tempUser = response.data;
-      tempUser.sports = [response.data.firstSport, response.data.secondSport, response.data.thirdSport].filter(sport => sport != null)
+      // let tempUser = response.data;
+      // tempUser.sports = [response.data.firstSport, response.data.secondSport, response.data.thirdSport].filter(sport => sport != null)
+      let tempUser = response.data.dataValues;
+      tempUser.sports = [response.data.dataValues.firstSport, response.data.dataValues.secondSport, response.data.dataValues.thirdSport].filter(sport => sport != null)
+      tempUser.accessToken = response.data.accessToken
+      // yield put({
+      //   type: GET_USER_PROFILE_SUCCESS,
+      //   responseMessage: response.data.message,
+      //   userProfile: tempUser,
+      // });
       yield put({
-        type: GET_USER_PROFILE_SUCCESS,
-        responseMessage: response.data.message,
-        userProfile: tempUser,
+        type: GET_CURRENT_USER_SUCCESS,
+        currentUser: tempUser,
       });
     }
   } catch (err: any) {
-    console.log(err.response.data);
-    console.log(err.response.status);
-    console.log(err.response.headers);
+    console.log(err.response?.data);
+    console.log(err.response?.status);
+    console.log(err.response?.headers);
     yield put({
       type: GET_USER_PROFILE_ERROR,
-      responseMessage: err.response.data.message,
+      responseMessage: err.response?.data?.message,
     });
   }
 }
+
+function* getCoachProfile(action: any): any {
+  try {
+    const response = yield call(
+      getUserProfileAPI,
+      action.id
+    );
+    if (response) {
+      // let tempUser = response.data;
+      // tempUser.sports = [response.data.firstSport, response.data.secondSport, response.data.thirdSport].filter(sport => sport != null)
+      let tempUser = response.data.dataValues;
+      tempUser.sports = [response.data.dataValues.firstSport, response.data.dataValues.secondSport, response.data.dataValues.thirdSport].filter(sport => sport != null)
+      tempUser.accessToken = response.data.accessToken
+      // yield put({
+      //   type: GET_USER_PROFILE_SUCCESS,
+      //   responseMessage: response.data.message,
+      //   userProfile: tempUser,
+      // });
+      yield put({
+        type: GET_COACH_PROFILE_SUCCESS,
+        selectedCoachProfile: tempUser,
+      });
+    }
+  } catch (err: any) {
+    console.log(err.response?.data);
+    console.log(err.response?.status);
+    console.log(err.response?.headers);
+    yield put({
+      type: GET_COACH_PROFILE_ERROR,
+      responseMessage: err.response?.data?.message,
+    });
+  }
+}
+
 
 function* getCoaches(action: any): any {
   try {
@@ -269,6 +316,7 @@ function* editAccount(action: any): any {
   try {
     const response = yield call(
       editAccountAPI,
+      action.id,
       action.email,
       action.accessToken,
       action.firstName,
@@ -280,9 +328,19 @@ function* editAccount(action: any): any {
       action.previousEmail
     );
     if (response) {
+      let tempUser = response.data.dataValues;
+      tempUser.accessToken = response.data.accessToken
+      tempUser.firstName = response.data.firstName
+      tempUser.lastName = response.data.lastName
+      tempUser.gender = response.data.gender
+      tempUser.email = response.data.email
+      tempUser.city = response.data.city
+      tempUser.sports = response.data.sports
+
+      console.log(33333, tempUser, response)
       yield put({
         type: LOGIN_SUCCESS,
-        currentUser: response.data,
+        currentUser: tempUser,
       });
       yield put({
         type: EDIT_ACCOUNT_SUCCESS,
@@ -302,6 +360,7 @@ function* editAccount(action: any): any {
 
 export function* userSaga() {
   yield takeLatest(GET_USER_PROFILE, getUserProfile);
+  yield takeLatest(GET_COACH_PROFILE, getCoachProfile);
   yield takeLatest(EDIT_PROFILE_BLURB, editProfileBlurb);
   yield takeLatest(EDIT_EXPERIENCE, editExperience);
   yield takeLatest(EDIT_PROFILE_CONTACT, editContacts);

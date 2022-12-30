@@ -12,10 +12,8 @@ function EditBlurbModal() {
   const dispatch = useDispatch();
   const { editProfileModalOpen } = useSelector((state: any) => state.uiReducer);
   const { currentUser } = useSelector((state: any) => state.authReducer);
-  const userProfile: existingUser = useSelector(
-    (state: any) => state.userReducer.userProfile
-  );
-  const [aboutSection, setAboutSection] = React.useState(userProfile?.blurb);
+
+  const [aboutSection, setAboutSection] = React.useState(currentUser?.blurb);
 
   const handleClose = () => {
     dispatch(userActions.closeEditProfileModal());

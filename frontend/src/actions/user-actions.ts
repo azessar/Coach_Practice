@@ -32,9 +32,17 @@ export const userActionTypes = {
   EDIT_ACCOUNT_SUCCESS: "EDIT_ACCOUNT_SUCCESS",
   EDIT_ACCOUNT_ERROR: "EDIT_ACCOUNT_ERROR",
   COACH_SELECTED: 'COACH_SELECTED',
+  GET_COACH_PROFILE: 'GET_COACH_PROFILE',
+  GET_COACH_PROFILE_SUCCESS: 'GET_COACH_PROFILE_SUCCESS',
+  GET_COACH_PROFILE_ERROR: 'GET_COACH_PROFILE_ERROR',
+
 };
 
 export const userActions = {
+  getCoachProfile: (id: number) => ({
+    type: userActionTypes.GET_COACH_PROFILE,
+    id,
+  }),
   getUserProfile: (id: number) => ({
     type: userActionTypes.GET_USER_PROFILE,
     id,
@@ -117,6 +125,7 @@ export const userActions = {
     experience,
   }),
   editAccount: (
+    id: number,
     email: string,
     accessToken: string,
     firstName: string,
@@ -128,6 +137,7 @@ export const userActions = {
     previousEmail: string
   ) => ({
     type: userActionTypes.EDIT_ACCOUNT,
+    id,
     email,
     firstName,
     lastName,

@@ -18,9 +18,7 @@ function AddExperienceModal() {
     (state: any) => state.uiReducer
   );
   const { currentUser } = useSelector((state: any) => state.authReducer);
-  const userProfile: existingUser = useSelector(
-    (state: any) => state.userReducer.userProfile
-  );
+
   const [roleSection, setRoleSection] = React.useState("");
   const [organizationSection, setOrganizationSection] = React.useState("");
   const [startDateSection, setStartDateSection] = React.useState(new Date());
@@ -42,7 +40,7 @@ function AddExperienceModal() {
   };
 
   const handleAddExperience = () => {
-    const currentExperience = userProfile.experience || [];
+    const currentExperience = currentUser.experience || [];
     const newExperience = [newJob, ...currentExperience];
 
     dispatch(

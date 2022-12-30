@@ -21,21 +21,19 @@ function EditContactModal() {
   const dispatch = useDispatch();
   const { editContactModalOpen } = useSelector((state: any) => state.uiReducer);
   const { currentUser } = useSelector((state: any) => state.authReducer);
-  const userProfile: existingUser = useSelector(
-    (state: any) => state.userReducer.userProfile
-  );
-  const { email } = userProfile || "";
+
+  const { email } = currentUser || "";
   const [twitterSection, setTwitterSection] = React.useState(
-    userProfile?.twitter
+    currentUser?.twitter
   );
   const [linkedInSection, setLinkedInSection] = React.useState(
-    userProfile?.linkedIn
+    currentUser?.linkedIn
   );
   const [instagramSection, setInstagramSection] = React.useState(
-    userProfile?.instagram
+    currentUser?.instagram
   );
   const [personalSiteSection, setPersonalSiteSection] = React.useState(
-    userProfile?.personalSite
+    currentUser?.personalSite
   );
 
   const handleClose = () => {
