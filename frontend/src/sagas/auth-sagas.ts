@@ -139,7 +139,7 @@ function* changePassword(action: any): any {
       console.log(response);
       yield put({
         type: CHANGE_PASSWORD_SUCCESS,
-        currentUser: response.data,
+        // currentUser: response.data,
       });
     }
   } catch (err: any) {

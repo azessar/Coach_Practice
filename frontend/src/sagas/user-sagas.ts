@@ -337,7 +337,6 @@ function* editAccount(action: any): any {
       tempUser.city = response.data.city
       tempUser.sports = response.data.sports
 
-      console.log(33333, tempUser, response)
       yield put({
         type: LOGIN_SUCCESS,
         currentUser: tempUser,

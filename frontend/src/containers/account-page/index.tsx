@@ -20,7 +20,6 @@ function AccountPage() {
   const [firstNameSection, setFirstNameSection] = useState(
     currentUser?.firstName
   );
-  console.log(11111, currentUser);
 
   const [lastNameSection, setLastNameSection] = useState(currentUser?.lastName);
   const [genderSection, setGenderSection] = useState(currentUser?.gender || "");
@@ -45,16 +44,8 @@ function AccountPage() {
   const cityValues = Object.values(locations);
 
   useEffect(() => {
-    console.log(22222, currentUser);
     dispatch(userActions.getUserProfile(currentUser.id));
   }, []);
-
-  // useEffect(() => {
-  //   console.log(44444, currentUser);
-  //   dispatch(userActions.getUserProfile(currentUser.id));
-  // }, [currentUser]);
-
-  //GET RIGHT VERSION OF CURRENTUSER TO LOAD HERE AFTER UPDATE
 
   const disabledChangeAccount =
     firstNameSection?.length === 0 ||

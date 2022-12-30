@@ -87,16 +87,13 @@ exports.editContactsSection = (req, res) => {
 };
 
 exports.editAccountInfo = (req, res) => {
-  console.log(77777, req.body)
   User.findOne({
     where: {
       email: req.body.previousEmail,
     },
   })
     .then((user) => {
-      console.log(66666, user)
 
-      console.log(55555, user.password)
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
@@ -107,7 +104,6 @@ exports.editAccountInfo = (req, res) => {
         });
       }
 
-      console.log(44444, req.body)
 
       User.update(
         {

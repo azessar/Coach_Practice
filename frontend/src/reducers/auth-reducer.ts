@@ -18,7 +18,7 @@ const authReducer = (state = initialState, action: any) => {
         };
     case "CHANGE_PASSWORD_SUCCESS":
       return {
-        currentUser: action.currentUser,
+        ...state
       };
     case "LOGOUT":
       return initialState;
