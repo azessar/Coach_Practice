@@ -78,6 +78,12 @@ function AccountPage() {
     setConfirmPassword("");
   };
 
+  const handlePressEnterPassword = (e: any) => {
+    if (e.keyCode == 13 && !disabledSubmitPassword) {
+      handleChangePassword();
+    }
+  };
+
   return (
     <>
       <EditAccountModal
@@ -339,6 +345,7 @@ function AccountPage() {
               fullWidth
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
+              onKeyDown={(e) => handlePressEnterPassword(e)}
               type="password"
             ></TextField>
           </Box>
@@ -356,6 +363,7 @@ function AccountPage() {
               fullWidth
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+              onKeyDown={(e) => handlePressEnterPassword(e)}
               type="password"
             ></TextField>
           </Box>
@@ -373,6 +381,7 @@ function AccountPage() {
               fullWidth
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              onKeyDown={(e) => handlePressEnterPassword(e)}
               type="password"
             ></TextField>
           </Box>
