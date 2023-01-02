@@ -25,6 +25,10 @@ function EditExperienceModal(props: EditExperienceModalProps) {
   );
   const { currentUser } = useSelector((state: any) => state.authReducer);
 
+  const { selectedCoachId, selectedCoachProfile } = useSelector(
+    (state: any) => state.userReducer
+  );
+
   const [roleSection, setRoleSection] = React.useState(job.role);
   const [organizationSection, setOrganizationSection] = React.useState(
     job.organization
@@ -57,7 +61,7 @@ function EditExperienceModal(props: EditExperienceModalProps) {
   }, [job]);
 
   const handleEditExperience = () => {
-    const currentExperience = currentUser.experience;
+    const currentExperience = selectedCoachProfile.experience;
     const newExperience = currentExperience.map((u: any, i: number) =>
       i !== jobIndex ? u : newJob
     );

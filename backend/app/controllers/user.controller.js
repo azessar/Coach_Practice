@@ -124,7 +124,9 @@ exports.editAccountInfo = (req, res) => {
           });
           let tempUser = user;
           tempUser.accessToken = token
-          res.status(200).send({...user, accessToken: token,
+          res.status(200).send({
+            ...user, 
+            accessToken: token,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             gender: req.body.gender,

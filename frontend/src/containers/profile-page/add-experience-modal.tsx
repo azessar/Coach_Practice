@@ -19,6 +19,10 @@ function AddExperienceModal() {
   );
   const { currentUser } = useSelector((state: any) => state.authReducer);
 
+  const { selectedCoachId, selectedCoachProfile } = useSelector(
+    (state: any) => state.userReducer
+  );
+
   const [roleSection, setRoleSection] = React.useState("");
   const [organizationSection, setOrganizationSection] = React.useState("");
   const [startDateSection, setStartDateSection] = React.useState(new Date());
@@ -40,7 +44,7 @@ function AddExperienceModal() {
   };
 
   const handleAddExperience = () => {
-    const currentExperience = currentUser.experience || [];
+    const currentExperience = selectedCoachProfile.experience || [];
     const newExperience = [newJob, ...currentExperience];
 
     dispatch(

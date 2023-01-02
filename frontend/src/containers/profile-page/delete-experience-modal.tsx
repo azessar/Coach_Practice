@@ -7,10 +7,6 @@ import { Box, Button, MenuItem, Select, TextField } from "@mui/material";
 import Text from "../../components/text";
 import { colors } from "../../theme-styles";
 import { existingUser, job } from "../../types/user";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { coachableSports } from "../../constants/sports";
 
 interface DeleteExperienceModalProps {
   job: job;
@@ -23,8 +19,9 @@ function DeleteExperienceModal(props: DeleteExperienceModalProps) {
   const { deleteExperienceModalOpen } = useSelector(
     (state: any) => state.uiReducer
   );
-  const userProfile: existingUser = useSelector(
-    (state: any) => state.userReducer.userProfile
+
+  const { selectedCoachId, selectedCoachProfile } = useSelector(
+    (state: any) => state.userReducer
   );
   const { currentUser } = useSelector((state: any) => state.authReducer);
 
@@ -33,8 +30,10 @@ function DeleteExperienceModal(props: DeleteExperienceModalProps) {
   };
 
   const handleEditExperience = () => {
-    const currentExperience = userProfile.experience;
-    const newExperience = currentExperience.filter((u, i) => i !== jobIndex);
+    const currentExperience = selectedCoachProfile.experience;
+    const newExperience = currentExperience.filter(
+      (u: any, i: number) => i !== jobIndex
+    );
 
     dispatch(
       userActions.editExperience(

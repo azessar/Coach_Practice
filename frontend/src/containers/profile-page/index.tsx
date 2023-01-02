@@ -35,6 +35,11 @@ function ProfilePage(props: ProfilePageProps) {
   const { selectedCoachId, selectedCoachProfile } = useSelector(
     (state: any) => state.userReducer
   );
+
+  const { addExperienceModalOpen, editExperienceModalOpen } = useSelector(
+    (state: any) => state.uiReducer
+  );
+
   const [selectedExperience, setSelectedExperience] =
     React.useState<job | null>();
   const [selectedJobIndex, setSelectedJobIndex] = React.useState<
@@ -74,7 +79,7 @@ function ProfilePage(props: ProfilePageProps) {
         parseInt(urlId) || props.id || selectedCoachId
       )
     );
-  }, [loading, selectedCoachId]);
+  }, [loading, selectedCoachId, urlId]);
 
   const openEditExperienceModal = (job: job, jobIndex: number) => {
     setSelectedExperience(job);
@@ -258,13 +263,15 @@ function ProfilePage(props: ProfilePageProps) {
             />
           </Box>
 
-          <Box>
-            <Button
-              onClick={() => dispatch(userActions.openEditContactModal())}
-            >
-              <FontAwesomeIcon icon={faPenToSquare} />
-            </Button>
-          </Box>
+          {currentUser.id === parseInt(urlId) && (
+            <Box>
+              <Button
+                onClick={() => dispatch(userActions.openEditContactModal())}
+              >
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </Button>
+            </Box>
+          )}
         </Box>
         <Box
           marginLeft={"auto"}
@@ -378,13 +385,15 @@ function ProfilePage(props: ProfilePageProps) {
             />
           </Box>
 
-          <Box>
-            <Button
-              onClick={() => dispatch(userActions.openEditProfileModal())}
-            >
-              <FontAwesomeIcon icon={faPenToSquare} />
-            </Button>{" "}
-          </Box>
+          {currentUser.id === parseInt(urlId) && (
+            <Box>
+              <Button
+                onClick={() => dispatch(userActions.openEditProfileModal())}
+              >
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </Button>{" "}
+            </Box>
+          )}
         </Box>
         <Box marginTop={"20px"}>
           <BigText
@@ -415,13 +424,16 @@ function ProfilePage(props: ProfilePageProps) {
               fontWeight="700"
             />
           </Box>
-          <Box>
-            <Button
-              onClick={() => dispatch(userActions.openAddExperienceModal())}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </Button>
-          </Box>
+
+          {currentUser.id === parseInt(urlId) && (
+            <Box>
+              <Button
+                onClick={() => dispatch(userActions.openAddExperienceModal())}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </Button>
+            </Box>
+          )}
         </Box>
         <Box marginTop={"20px"}>
           {experience &&
@@ -452,34 +464,39 @@ function ProfilePage(props: ProfilePageProps) {
                         words={`${job.role}`}
                       />
                     </Box>
-                    <Box display="flex">
+
+                    {currentUser.id === parseInt(urlId) && (
                       <Box display="flex">
-                        <Button
-                          onClick={() => handleReorderExperience(i, "up")}
-                          disabled={i === 0}
-                        >
-                          <FontAwesomeIcon icon={faArrowUpLong} />
-                        </Button>
-                        <Button
-                          onClick={() => handleReorderExperience(i, "down")}
-                          disabled={i === experience.length - 1}
-                        >
-                          <FontAwesomeIcon icon={faArrowDownLong} />
-                        </Button>
+                        <Box display="flex">
+                          <Button
+                            onClick={() => handleReorderExperience(i, "up")}
+                            disabled={i === 0}
+                          >
+                            <FontAwesomeIcon icon={faArrowUpLong} />
+                          </Button>
+                          <Button
+                            onClick={() => handleReorderExperience(i, "down")}
+                            disabled={i === experience.length - 1}
+                          >
+                            <FontAwesomeIcon icon={faArrowDownLong} />
+                          </Button>
+                        </Box>
+                        <Box>
+                          <Button
+                            onClick={() => openEditExperienceModal(job, i)}
+                          >
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                          </Button>
+                        </Box>
+                        <Box>
+                          <Button
+                            onClick={() => openDeleteExperienceModal(job, i)}
+                          >
+                            <FontAwesomeIcon icon={faTrash} />
+                          </Button>
+                        </Box>
                       </Box>
-                      <Box>
-                        <Button onClick={() => openEditExperienceModal(job, i)}>
-                          <FontAwesomeIcon icon={faPenToSquare} />
-                        </Button>
-                      </Box>
-                      <Box>
-                        <Button
-                          onClick={() => openDeleteExperienceModal(job, i)}
-                        >
-                          <FontAwesomeIcon icon={faTrash} />
-                        </Button>
-                      </Box>
-                    </Box>
+                    )}
                   </Box>
                   <Box marginTop={"5px"}>
                     <BigText words={`${job.organization}`} fontSize="14px" />

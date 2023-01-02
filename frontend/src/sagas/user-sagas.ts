@@ -271,6 +271,7 @@ function* editExperience(action: any): any {
       action.experience
     );
     if (response) {
+      console.log(response.data.message)
       yield put({
         type: EDIT_EXPERIENCE_SUCCESS,
         responseMessage: response.data.message,
