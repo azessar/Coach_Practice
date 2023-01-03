@@ -263,7 +263,7 @@ function ProfilePage(props: ProfilePageProps) {
             />
           </Box>
 
-          {currentUser.id === parseInt(urlId) && (
+          {!!currentUser && currentUser.id === parseInt(urlId) && (
             <Box>
               <Button
                 onClick={() => dispatch(userActions.openEditContactModal())}
@@ -385,7 +385,7 @@ function ProfilePage(props: ProfilePageProps) {
             />
           </Box>
 
-          {currentUser.id === parseInt(urlId) && (
+          {!!currentUser && currentUser.id === parseInt(urlId) && (
             <Box>
               <Button
                 onClick={() => dispatch(userActions.openEditProfileModal())}
@@ -425,7 +425,7 @@ function ProfilePage(props: ProfilePageProps) {
             />
           </Box>
 
-          {currentUser.id === parseInt(urlId) && (
+          {!!currentUser && currentUser.id === parseInt(urlId) && (
             <Box>
               <Button
                 onClick={() => dispatch(userActions.openAddExperienceModal())}
@@ -465,7 +465,7 @@ function ProfilePage(props: ProfilePageProps) {
                       />
                     </Box>
 
-                    {currentUser.id === parseInt(urlId) && (
+                    {!!currentUser && currentUser.id === parseInt(urlId) && (
                       <Box display="flex">
                         <Box display="flex">
                           <Button
