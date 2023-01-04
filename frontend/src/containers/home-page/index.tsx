@@ -147,6 +147,38 @@ function HomePage() {
           </Button>
         </Box>
       </Box>
+      <Box
+        bgcolor={colors.primaryNavy}
+        width="80%"
+        margin="auto"
+        padding="40px"
+        marginTop={"20px"}
+        borderRadius="10px"
+        display={"flex"}
+        justifyContent="space-between"
+      >
+        <Box width="45%">
+          <img className="jordan-pic" src={`jordancoaching.png`}></img>
+        </Box>
+        <Box width="50%">
+          <Box>
+            <Text
+              words="WHAT WE DO"
+              color={colors.secondaryLightBlue}
+              fontWeight="700"
+              fontSize="36px"
+            />
+          </Box>
+          <Box marginTop={"15%"}>
+            <BigText
+              color={colors.secondaryLightBlue}
+              fontWeight="600"
+              fontSize="16px"
+              words="We help schools, athletic departments, and teams of all kinds connect with the perfect coaches, athletic directors, and game operations talent for their programs. Simultaneously, we provide coaches of all levels resources for finding the perfect position."
+            />
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 }

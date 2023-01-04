@@ -8,10 +8,11 @@ interface BigTextProps {
   fontSize?: string;
   color?: string;
   transform?: string;
+  fontStyle?: string;
 }
 
 function BigText(props: BigTextProps) {
-  const { words, fontWeight, fontSize, color, transform } = props;
+  const { words, fontWeight, fontSize, color, transform, fontStyle } = props;
   return (
     <Typography
       style={{
@@ -20,6 +21,7 @@ function BigText(props: BigTextProps) {
         fontSize: fontSize || "1.5em",
         transform: transform || "scale(1, 1.5)",
         textAlign: "left",
+        fontStyle: fontStyle || "normal",
       }}
     >
       {words}

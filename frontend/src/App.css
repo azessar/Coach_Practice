@@ -9,3 +9,9 @@ a {
 html {
   background-color: #bbecff;
 }
+
+.jordan-pic {
+  max-width: 100%;
+  height: auto;
+  width: auto\9; /* ie8 */
+}
