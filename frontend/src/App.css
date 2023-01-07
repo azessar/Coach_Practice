@@ -7,7 +7,12 @@ a {
 }
 
 html {
-  background-color: #bbecff;
+  /* background-color: #bbecff; */
+  background-image: url("../public/grasshero.jpeg");
+  /* height: 500px; You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 .jordan-pic {
