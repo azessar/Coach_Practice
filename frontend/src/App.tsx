@@ -15,6 +15,7 @@ import {
 import ProfilePage from "./containers/profile-page";
 import AccountPage from "./containers/account-page";
 import HomePage from "./containers/home-page";
+import AboutPage from "./containers/about-page";
 import { ErrorBoundary } from "react-error-boundary";
 import Text from "./components/text";
 import { colors } from "./theme-styles";
@@ -94,9 +95,74 @@ function App() {
             ></Route>
             <Route path="/account" element={<AccountPage />}></Route>
             <Route path="/search" element={<SearchPage />}></Route>
+            <Route path="/about" element={<AboutPage />}></Route>
           </Routes>
         </ErrorBoundary>
       </Router>
+      <Box
+        bgcolor={colors.primaryNavy}
+        margin="auto"
+        padding="40px"
+        marginTop={"20px"}
+      >
+        <Box>
+          <Text
+            words="CONTACT US"
+            color={colors.secondaryLightBlue}
+            fontWeight="700"
+            fontSize="18px"
+          />
+        </Box>
+        <Box marginTop={"10px"}>
+          <a href="mailto: hello@coachcorner.io">
+            <Text
+              words="hello@coachcorner.io"
+              color={colors.secondaryLightBlue}
+              fontWeight="700"
+              fontSize="12px"
+            />
+          </a>
+        </Box>
+        <Box display={"flex"} justifyContent={"center"} marginTop="10px">
+          <Box marginRight={"10px"}>
+            <a target="_blank" href="https://twitter.com/CoachCornerTeam">
+              {" "}
+              <img src="twitter-removebg-preview.png" width="20"></img>
+            </a>
+          </Box>
+          <Box marginRight={"10px"}>
+            <a
+              target="_blank"
+              href="https://www.instagram.com/coachcornerteam/?hl=en"
+            >
+              {" "}
+              <img src="instagram-removebg-preview.png" width="20"></img>
+            </a>
+          </Box>
+          <Box borderRadius={"6px"}>
+            <a target="_blank" href="https://www.facebook.com/CoachCornerTeam">
+              {" "}
+              <img src="facebook.png" width="20"></img>
+            </a>
+          </Box>
+        </Box>
+        <Box marginTop={"10px"} display="flex" justifyContent={"left"}>
+          <Text
+            words="CoachCorner Team LLC"
+            color={colors.secondaryLightBlue}
+            fontWeight="700"
+            fontSize="12px"
+          />
+        </Box>
+        <Box marginTop={"10px"} display="flex" justifyContent={"left"}>
+          <Text
+            words="Chicago, IL"
+            color={colors.secondaryLightBlue}
+            fontWeight="700"
+            fontSize="12px"
+          />
+        </Box>
+      </Box>
     </div>
   );
 }

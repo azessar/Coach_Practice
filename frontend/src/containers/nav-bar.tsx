@@ -27,46 +27,78 @@ function NavBar() {
       : dispatch(authActions.openAuthModal());
   };
 
-  // useEffect(() => {
-  //   currentUser?.email && dispatch(userActions.getUserProfile(currentUser.id));
-  // }, [loading, dispatch]);
-
   return (
     <Box>
       <AppBar position="fixed" style={{ background: colors.primaryNavy }}>
         <Toolbar>
-          <Box display="flex" justifyContent="space-between" width="100%">
-            <Button color="inherit">
-              <Text
-                color={colors.secondaryLightBlue}
-                words="JOBS"
-                fontSize="1.2em"
-              />
-            </Button>
-
-            <Box
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              <Typography style={{ color: colors.secondaryLightBlue }}>
-                <Link
-                  to="/"
-                  style={{
-                    textDecoration: "none",
-                    color: colors.secondaryLightBlue,
-                  }}
-                >
-                  <Box marginTop={"8px"}>
-                    <img src={`coach_corner_head.png`} width="50"></img>
-                  </Box>
-                </Link>
-              </Typography>
+          <Box
+            display={"flex"}
+            style={{
+              position: "absolute",
+              top: "50%",
+              marginLeft: "175px",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <Typography style={{ color: colors.secondaryLightBlue }}>
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: colors.secondaryLightBlue,
+                }}
+              >
+                <Box>
+                  <img src={`coach_corner_head.png`} width="50"></img>
+                </Box>
+              </Link>
+            </Typography>
+            <Box display={"flex"} marginLeft="20px" marginTop={"12px"}>
+              <Box>
+                <Button color="inherit">
+                  <Link
+                    to="/about"
+                    style={{
+                      textDecoration: "none",
+                      color: colors.secondaryLightBlue,
+                    }}
+                  >
+                    <Text
+                      color={colors.secondaryLightBlue}
+                      words="ABOUT"
+                      fontSize="1.2em"
+                    />
+                  </Link>
+                </Button>
+              </Box>
+              <Box>
+                <Button color="inherit">
+                  <a
+                    href="https://us13.campaign-archive.com/?u=85e235c58fbb05e97f06f0e7b&id=d973da04f7"
+                    target="_blank"
+                  >
+                    <Text
+                      color={colors.secondaryLightBlue}
+                      words="NEWSLETTER"
+                      fontSize="1.2em"
+                    />
+                  </a>
+                </Button>
+              </Box>
+              <Box>
+                <Button color="inherit">
+                  <a href="#partner">
+                    <Text
+                      color={colors.secondaryLightBlue}
+                      words="PARTNER"
+                      fontSize="1.2em"
+                    />
+                  </a>
+                </Button>
+              </Box>
             </Box>
-
+          </Box>
+          <Box display="flex" justifyContent="flex-end" width="100%">
             <Button color="inherit" onClick={(e) => handleOpen(e)}>
               {!currentUser ? (
                 <Text

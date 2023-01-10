@@ -174,7 +174,7 @@ function HomePage() {
               color={colors.secondaryLightBlue}
               fontWeight="600"
               fontSize="16px"
-              words="We help schools, athletic departments, and teams of all kinds connect with the perfect coaches, athletic directors, and game operations talent for their programs. Simultaneously, we provide coaches of all levels resources for finding the perfect position."
+              words="CoachCorner helps schools, athletic departments, and teams of all kinds connect with the perfect coaches, athletic directors, and game operations talent for their programs. Simultaneously, we provide coaches of all levels resources for finding the perfect position."
             />
           </Box>
         </Box>
@@ -203,7 +203,7 @@ function HomePage() {
               color={colors.secondaryLightBlue}
               fontWeight="600"
               fontSize="16px"
-              words="We are a vast network of experienced and aspiring coaching and game operations talent with a passion for teaching, playing, and growing the game, whether it's basketball, volleyball, soccer, football, or any other popular American sport.
+              words="CoachCorner is a vast network of experienced and aspiring coaching and game operations talent with a passion for teaching, playing, and growing the game, whether it's basketball, volleyball, soccer, football, or any other popular American sport.
               "
             />
           </Box>
@@ -251,52 +251,40 @@ function HomePage() {
         padding="40px"
         marginTop={"20px"}
         borderRadius="10px"
-        display={"flex"}
         justifyContent="space-between"
       >
-        <Box width="50%">
-          <Box>
-            <Text
-              words="LOOKING FOR THE RIGHT COACH?"
-              color={colors.secondaryLightBlue}
-              fontWeight="700"
-              fontSize="24px"
-            />
-          </Box>
-          <Box marginTop={"40px"} display="flex" justifyContent="center">
+        <Box id="partner">
+          <Text
+            words="PARTNER WITH US"
+            color={colors.secondaryLightBlue}
+            fontWeight="700"
+            fontSize="36px"
+          />
+        </Box>
+        <Box display={"flex"} justifyContent="space-between" marginTop="40px">
+          <Box width="45%">
             <a
               target="_blank"
               href="https://docs.google.com/forms/d/e/1FAIpQLScHqK03FFN_NFOLaS474npgNPSFiVAQt66Uu2ZOabdOpmjFKw/viewform"
             >
-              <BigText
+              <Text
+                words="CLICK HERE IF YOU'RE LOOKING FOR THE RIGHT COACH"
                 color={colors.secondaryLightBlue}
-                fontWeight="600"
-                fontSize="12px"
-                words="FILL OUT THIS FORM"
-                fontStyle="underlined"
+                fontWeight="700"
+                fontSize="16px"
               />
             </a>
           </Box>
-        </Box>
-        <Box width="50%">
-          <Box>
-            <Text
-              words="DO YOU WANT TO COACH?"
-              color={colors.secondaryLightBlue}
-              fontWeight="700"
-              fontSize="24px"
-            />
-          </Box>
-          <Box marginTop={"40px"} display="flex" justifyContent="center">
+          <Box width="45%">
             <a
               target="_blank"
               href="https://docs.google.com/forms/d/e/1FAIpQLSe7OijdcgJGNfmG9WRWn-g3AX9JUQNAaQ1ESCCSFdwIHK9Ssg/viewform"
             >
-              <BigText
+              <Text
+                words="CLICK HERE IF YOU WANT TO COACH (and then signup on this site to create a profile!)"
                 color={colors.secondaryLightBlue}
-                fontWeight="600"
-                fontSize="12px"
-                words="FILL OUT THIS FORM (and then signup on this site to create a profile!)"
+                fontWeight="700"
+                fontSize="16px"
               />
             </a>
           </Box>
