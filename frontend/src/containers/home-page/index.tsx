@@ -169,7 +169,7 @@ function HomePage() {
               fontSize="36px"
             />
           </Box>
-          <Box marginTop={"15%"}>
+          <Box marginTop={"15%"} paddingBottom="20px">
             <BigText
               color={colors.secondaryLightBlue}
               fontWeight="600"
@@ -198,7 +198,7 @@ function HomePage() {
               fontSize="36px"
             />
           </Box>
-          <Box marginTop={"15%"}>
+          <Box marginTop={"15%"} paddingBottom="20px">
             <BigText
               color={colors.secondaryLightBlue}
               fontWeight="600"
@@ -234,7 +234,7 @@ function HomePage() {
               fontSize="36px"
             />
           </Box>
-          <Box marginTop={"10%"}>
+          <Box marginTop={"10%"} paddingBottom="20px">
             <BigText
               color={colors.secondaryLightBlue}
               fontWeight="600"
