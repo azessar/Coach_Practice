@@ -3,8 +3,9 @@ const path = require('path');
 const cors = require("cors");
 const app = express();
 var corsOptions = {
-  origin: "http://coachcornermain.uk.r.appspot.com:3000",
+  origin: "https://coachcornermain.uk.r.appspot.com:3000",
 };
+app.use(express.static(path.join(__dirname,"..", "build")));
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(express.json());
