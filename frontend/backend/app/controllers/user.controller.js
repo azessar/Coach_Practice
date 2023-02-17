@@ -149,7 +149,67 @@ exports.editAccountInfo = (req, res) => {
 };
 
 exports.getCoaches = (req, res) => {
-  res.status(418).send([]);
+  if (req.body.name === '') {
+    User.findAll({
+      where: {
+        [Op.or]: [
+          {
+            city: req.body.city,
+          },
+          {
+            firstSport: req.body.sport,
+          },
+          {
+            secondSport: req.body.sport,
+          },
+          {
+            thirdSport: req.body.sport,
+          },
+        ],
+      },
+    })
+      .then((coaches) => {
+        res.status(200).send(coaches);
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+  } else {
+    User.findAll({
+      where: {
+        [Op.or]: [
+          {
+            firstName: {
+              [Op.substring]: req.body.name,
+            },
+          },
+          {
+            lastName: {
+              [Op.substring]: req.body.name,
+            },
+          },
+          {
+            city: req.body.city,
+          },
+          {
+            firstSport: req.body.sport,
+          },
+          {
+            secondSport: req.body.sport,
+          },
+          {
+            thirdSport: req.body.sport,
+          },
+        ],
+      },
+    })
+      .then((coaches) => {
+        res.status(200).send(coaches);
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+  }
 };
 
 const storage = multer.diskStorage({

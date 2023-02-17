@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 var corsOptions = {
   origin: "https://coachcornermain.uk.r.appspot.com:3000",
+  // NICK_NOTE: Dev URL = "http://localhost:3000"
 };
 app.use(express.static(path.join(__dirname,"..", "build")));
 app.use(cors(corsOptions));
