@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://coachcornermain.uk.r.appspot.com:3000",
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
@@ -19,7 +19,7 @@ require("./app/routes/user.routes")(app);
 app.use('/images', express.static('./images'))
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
