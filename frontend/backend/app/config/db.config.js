@@ -1,3 +1,4 @@
+// NICK_NOTE=Prod DB
 module.exports = {
   HOST: "/cloudsql/coachcornermain:us-central1:coach-corner-sandbox",
   USER: "root",
@@ -15,16 +16,20 @@ module.exports = {
   },
 };
 
-// module.exports = {
-//   HOST: `/cloudsql/coachcorner-networking-site:us-central1:quickstart-instance`,
-//   USER: "quickstart-user",
-//   PASSWORD: "C@achC@rner!",
-//   DB: "quickstart_db",
-//   dialect: "mysql",
-//   pool: {
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle: 10000,
-//   },
-// };
+/*
+NICK_NOTE=Local DB
+module.exports = {
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "Akz-3908",
+  DB: "coach_corner_test",
+  dialect: "mysql",
+  dialectOptions: {},
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+};
+*/
