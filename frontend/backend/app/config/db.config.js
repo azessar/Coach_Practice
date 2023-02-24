@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "localhost",
+  HOST: "coachcornermain:us-central1:coach-corner-sandbox",
   USER: "root",
-  PASSWORD: "Akz-3908",
-  DB: "coach_corner_test",
+  PASSWORD: "C@achC@rner!",
+  DB: "coach-corner-database-1",
   dialect: "mysql",
   pool: {
     max: 5,
