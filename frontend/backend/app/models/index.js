@@ -3,6 +3,7 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
   host: config.HOST,
   dialect: config.dialect,
+  dialectOptions: config.dialectOptions,
   operatorsAliases: 0,
   // dialectOptions: {
   //   // e.g. socketPath: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'

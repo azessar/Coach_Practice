@@ -1,9 +1,12 @@
 module.exports = {
-  HOST: "coachcornermain:us-central1:coach-corner-sandbox",
+  HOST: "/cloudsql/coachcornermain:us-central1:coach-corner-sandbox",
   USER: "root",
   PASSWORD: "C@achC@rner!",
   DB: "coach-corner-database-1",
   dialect: "mysql",
+  dialectOptions: {
+    socketPath: `/cloudsql/coachcornermain:us-central1:coach-corner-sandbox`,
+  },
   pool: {
     max: 5,
     min: 0,
